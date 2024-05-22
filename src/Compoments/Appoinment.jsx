@@ -19,11 +19,13 @@ export default function Appoinment() {
   const [endDate, setEndDate] = useState("");
   const [loading, setLoading] = useState(false);
   const [load, setLoad] = useState(false);
+  const [load1, setLoad1] = useState(false);
   const navigate = useNavigate();
   const [ratings, setRatings] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages1, setSelectedImages_1] = useState([]);
   const [link, setLink] = useState("");
-  const [event_name,setEvent_name] = useState("");
+  const [event_name, setEvent_name] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("role")) {
@@ -33,6 +35,7 @@ export default function Appoinment() {
       fetchRatings();
       fetchVideos();
       fetchEvent();
+      fetchCarousel();
     }
   }, [navigate]);
 
@@ -123,7 +126,6 @@ export default function Appoinment() {
   };
 
   const fetchRatings = async () => {
-    setLoading(true);
     try {
       const response = await fetch(
         "https://teraheartz.000webhostapp.com/hospital_management/show_rating.php"
@@ -133,6 +135,7 @@ export default function Appoinment() {
       }
       const data = await response.json();
       setRatings(data);
+      setLoading(false);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -222,7 +225,7 @@ export default function Appoinment() {
       const data = await response.json();
       toast.success(data.message);
       setLink("");
-      fetchVideos()
+      fetchVideos();
     } catch (error) {
       console.error("Error inserting video:", error.message);
       toast.error(error.message);
@@ -275,30 +278,105 @@ export default function Appoinment() {
   };
 
   const handleSubmit1 = async (event) => {
-    setLoad(true)
+    setLoad(true);
     event.preventDefault();
-  
+
     const formData = new FormData();
-    formData.append('event_name',event_name ); // Assuming you have a state variable 'eventName' containing the event name
+    formData.append("event_name", event_name); // Assuming you have a state variable 'eventName' containing the event name
     selectedImages.forEach((image) => {
-      formData.append('images[]', image.file); // Assuming 'selectedImages' is an array of objects containing both URL and file
+      formData.append("images[]", image.file); // Assuming 'selectedImages' is an array of objects containing both URL and file
     });
     try {
-      const response = await fetch('https://teraheartz.000webhostapp.com/hospital_management/upload_event_image.php', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(
+        "https://teraheartz.000webhostapp.com/hospital_management/upload_event_image.php",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.json();
-      toast.success(data.message)
+      toast.success(data.message);
       setSelectedImages([]);
-      setEvent_name('');
-      event.target.reset(); 
+      setEvent_name("");
+      event.target.reset();
       fetchEvent();
-      setLoad(false)
+      setLoad(false);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       // Handle error
     }
+  };
+  const fetchCarousel = async () => {
+    try {
+      const response = await fetch(
+        "https://teraheartz.000webhostapp.com/hospital_management/show_carousel.php"
+      );
+      const data = await response.json();
+      setSelectedImages_1(data?.appointment?.photos);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
+
+  const handleSubmit2 = async (event) => {
+    setLoad1(true);
+    event.preventDefault();
+
+    const formDataObject = new FormData();
+    selectedImages1.forEach((image, index) => {
+      if (typeof image === "string") {
+        formDataObject.append("images[]", image);
+      } else {
+        formDataObject.append("images[]", image.file);
+      }
+    });
+    try {
+      const response = await fetch(
+        "https://teraheartz.000webhostapp.com/hospital_management/upload_carousel.php",
+        {
+          method: "POST",
+          body: formDataObject,
+        }
+      );
+      const data = await response.json();
+      toast.success(data.message);
+      setSelectedImages_1([]);
+      event.target.reset();
+      fetchCarousel();
+      setLoad1(false);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error
+    }
+  };
+
+
+
+  const handleFileChange_1 = (e) => {
+    if (!e.target.files) {
+      return; // Exit early if no files are selected
+    }
+  
+    const files = Array.from(e.target.files);
+  
+    const newImages = files.map((file) => ({
+      src: URL.createObjectURL(file),
+      file,
+    }));
+    setSelectedImages_1((prevImages) => [...prevImages, ...newImages]);
+  };
+  const handleRemoveImage_1 = (index) => {
+    console.log("prevImages before removal:", selectedImages1);
+    setSelectedImages_1((prevImages) => {
+      console.log("prevImages inside setter:", prevImages);
+      return [
+        ...prevImages.slice(0, index),
+        ...prevImages.slice(index + 1),
+      ];
+    });
+  };
+  const handleImageClick = (url) => {
+    window.open(url, "_blank").focus();
   };
   return (
     <>
@@ -370,7 +448,7 @@ export default function Appoinment() {
                   </tr>
                 </thead>
                 <tbody>
-                  {ratings.length > 0 ? (
+                  {ratings && ratings.length > 0 ? (
                     ratings.map((rating, index) => (
                       <tr
                         className="font-serif uppercase text-xs font-bold"
@@ -497,47 +575,56 @@ export default function Appoinment() {
         <div className="  md:col-span-2 lg:col-span-1 flex flex-col gap-2  bg-white p-2 rounded-md h-full w-full">
           <div className="border-2 border-dashed border-black p-2 rounded-md h-[32%] overflow-auto">
             <h1 className="font-serif text-cyan-900 ">EVENT ADD</h1>
-            {load?(<>
-              <div className="w-full h-full flex justify-center items-center">
-                  <img className="animate-spin h-16" src={logo} alt="" srcset="" />
-              </div>
-            </>):(<>
-            <form onSubmit={handleSubmit1} encType="multipart/form-data">
-            <div className="flex flex-row gap-2 w-full">
-              <div className="w-full">
-                <input
-                  className="bg-slate-200 px-2 rounded-md py-2 text-center h-10  font-mono text-md uppercase w-full text-cyan-950"
-                  type="text"
-                  name="event_name"
-                  id=""
-                  placeholder="ENTER EVENT NAME"
-                  value={event_name}
-                  onChange={(e) => setEvent_name(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="w-full">
-                <input
-                  className="w-full py-[5px] px-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                  name="images[]"
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  required
-                />
-              </div>
-              <div className="">
-                <button
-                  className="bg-cyan-950 text-white font-serif px-2 py-2 rounded-md"
-                  type="submit"
-                >
-                  UPLOAD
-                </button>
-              </div>
-            </div>
-              </form>
-              </>)}
+            {load ? (
+              <>
+                <div className="w-full h-full flex justify-center items-center">
+                  <img
+                    className="animate-spin h-16"
+                    src={logo}
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <form onSubmit={handleSubmit1} encType="multipart/form-data">
+                  <div className="flex flex-row gap-2 w-full">
+                    <div className="w-full">
+                      <input
+                        className="bg-slate-200 px-2 rounded-md py-2 text-center h-10  font-mono text-md uppercase w-full text-cyan-950"
+                        type="text"
+                        name="event_name"
+                        id=""
+                        placeholder="ENTER EVENT NAME"
+                        value={event_name}
+                        onChange={(e) => setEvent_name(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="w-full">
+                      <input
+                        className="w-full py-[5px] px-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                        name="images[]"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        required
+                      />
+                    </div>
+                    <div className="">
+                      <button
+                        className="bg-cyan-950 text-white font-serif px-2 py-2 rounded-md"
+                        type="submit"
+                      >
+                        UPLOAD
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </>
+            )}
             <div className="grid grid-flow-row grid-cols-10 pt-1">
               {selectedImages.map((image, index) => (
                 <div
@@ -613,6 +700,76 @@ export default function Appoinment() {
                 )}
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+      <div className="bg-slate-200 px-2 grid grid-flow-row grid-cols-2 gap-2 pt-2 w-full lg:h-[450px] md:[900px] overflow-auto">
+        <div className="col-span-2 flex flex-col gap-2 bg-white px-2 p-2 rounded-md h-full w-full">
+          <div className="p-2 border-2 border-dashed rounded-md border-black h-full">
+            <h1 className="text-center uppercase font-serif text-cyan-950">
+              manage carousel
+            </h1>
+            <div className=" flex flex-col gap-2 w-full">
+              <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
+                <p>IMAGE</p>
+              </div>
+              <div className="pt-1">
+                <form onSubmit={handleSubmit2} enctype="multipart/form-data">
+                  <div className="flex flex-row gap-4 w-full">
+                  <div>
+                    <input
+                      className="w-full py-[5px] px-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      name="images[]"
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleFileChange_1}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <button  className="bg-cyan-950 text-white font-serif px-2 py-2 rounded-md" type="submit">UPLOAD</button>
+                  </div>
+                  </div>
+                </form>
+              </div>
+              <div className="grid grid-flow-row grid-cols-8 w-full">
+                {selectedImages1 && selectedImages1.length > 0 &&selectedImages1.map((image, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        position: "relative",
+                        display: "inline-block",
+                        margin: "5px",
+                      }}
+                    >
+                      <img
+                       src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                        alt={`Image ${index + 1}`}
+                        style={{
+                          width: "100%",
+                          height: "100px",
+                          marginRight: "5px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleImageClick(typeof image === "string" ? `https://teraheartz.000webhostapp.com/hospital_management/${image}` : URL.createObjectURL(image.file))}
+                      />
+                      <MdClose
+                        style={{
+                          position: "absolute",
+                          top: "-5",
+                          right: "-5",
+                          cursor: "pointer",
+                          background: "gray",
+                          borderRadius: "50%",
+                          padding: "3px",
+                        }}
+                        onClick={() => handleRemoveImage_1(index)}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
