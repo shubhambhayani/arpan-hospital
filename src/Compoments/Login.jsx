@@ -27,7 +27,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://arpanhospital.online/admin_login.php",
+        "https://teraheartz.000webhostapp.com/hospital_management/admin_login.php",
         formData,
         {
           headers: {
