@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/arpan-hospital/static/css/main.0fea0c71.css",
-    "main.js": "/arpan-hospital/static/js/main.bfc57a97.js",
+    "main.js": "/arpan-hospital/static/js/main.5e8387a9.js",
     "static/js/453.1dc6cd3a.chunk.js": "/arpan-hospital/static/js/453.1dc6cd3a.chunk.js",
     "static/media/fotor.jpg": "/arpan-hospital/static/media/fotor.31f94a63c28f2b9aa1b4.jpg",
     "static/media/logo3.jpg": "/arpan-hospital/static/media/logo3.bc2b542ae3c0b9fdd229.jpg",
@@ -12,11 +12,11 @@
     "static/media/fitness.jpeg": "/arpan-hospital/static/media/fitness.afa1ba514acca1cb9971.jpeg",
     "index.html": "/arpan-hospital/index.html",
     "main.0fea0c71.css.map": "/arpan-hospital/static/css/main.0fea0c71.css.map",
-    "main.bfc57a97.js.map": "/arpan-hospital/static/js/main.bfc57a97.js.map",
+    "main.5e8387a9.js.map": "/arpan-hospital/static/js/main.5e8387a9.js.map",
     "453.1dc6cd3a.chunk.js.map": "/arpan-hospital/static/js/453.1dc6cd3a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0fea0c71.css",
-    "static/js/main.bfc57a97.js"
+    "static/js/main.5e8387a9.js"
   ]
 }
