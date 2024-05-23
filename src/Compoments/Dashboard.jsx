@@ -8,7 +8,6 @@ import { MdFactCheck } from "react-icons/md";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as chartjs } from "chart.js/auto";
 import logo from "../element/logo3.jpg";
-import factor from "../element/fotor.jpg";
 import { FaUserDoctor } from "react-icons/fa6";
 import axios from "axios";
 import moment from "moment";
@@ -1623,7 +1622,7 @@ export default function Dashboard() {
             <div className="w-full h-full flex justify-center items-center">
               <img
                 className="h-16 rounded-lg animate-spin"
-                src={factor}
+                src={logo}
                 alt="Logo"
               />
             </div>

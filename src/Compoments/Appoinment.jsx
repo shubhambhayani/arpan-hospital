@@ -442,7 +442,7 @@ export default function Appoinment() {
                 <thead>
                   <tr className="w-full bg-cyan-950 text-center text-xs font-large text-white ">
                     <th className="px-4 py-2 tracking-wider">NO</th>
-                    <th className="px-4 py-2 tracking-wider">STAR</th>
+                    <th className="px-4 py-2 tracking-wider w-auto">STAR</th>
                     <th className="px-4 py-2 tracking-wider">DESCRIPTION</th>
                     <th className="px-4 py-2 tracking-wider">DELETE</th>
                   </tr>
@@ -455,7 +455,7 @@ export default function Appoinment() {
                         key={index}
                       >
                         <td className="px-4 py-2 text-center">{index + 1}</td>
-                        <td className="px-2 py-2 text-center">
+                        <td className="px-2 py-2 text-center w-auto">
                           {Array.from(
                             { length: Math.min(rating.stars, 5) },
                             (_, index) => (
