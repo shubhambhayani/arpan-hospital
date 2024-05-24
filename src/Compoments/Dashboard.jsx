@@ -62,6 +62,7 @@ export default function Dashboard() {
     diagnosis: "",
     treatment: ""
   });
+
   const [formData_1, setFormData_1] = useState({
     acidity: "",
     address: "",
@@ -1403,7 +1404,7 @@ export default function Dashboard() {
         formDataObject.append("dia", formData_3.dia);
         formDataObject.append("dob", formData_3.dob);
         formDataObject.append("fact_loss", formData_3.fact_loss);
-        formDataObject.append("fact_loss_3", formData_3.fact_loss_3);
+        formDataObject.append("fact_loss_2", formData_3.fact_loss_2);
         formDataObject.append("fitness", formData_3.fitness);
         formDataObject.append("health", formData_3.health);
         formDataObject.append("blood", formData_3.blood);
@@ -2056,6 +2057,7 @@ export default function Dashboard() {
                                                 required
                                                 onChange={handleInputChange_1}
                                                 value={formData_1.dob}
+                                                max={new Date().toISOString().split('T')[0]}
                                               />
                                             </div>
                                           </div>
@@ -2102,6 +2104,7 @@ export default function Dashboard() {
                                                 name="contact"
                                                 placeholder="મોબાઈલ નં"
                                                 required
+                                                pattern="^\d+$"
                                                 value={formData_1.contact}
                                                 onChange={handleInputChange_1}
                                                 minLength={10}
@@ -2465,6 +2468,7 @@ export default function Dashboard() {
                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                     type="text"
                                                     name="w_d_time"
+                                                    value={formData_1.w_d_time}
                                                     placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
                                                     onChange={
                                                       handleInputChange_1
@@ -3199,6 +3203,7 @@ export default function Dashboard() {
                                                 required
                                                 onChange={handleInputChange_3}
                                                 value={formData_3.dob}
+                                                max={new Date().toISOString().split('T')[0]}
                                               />
                                             </div>
                                           </div>
@@ -3245,6 +3250,7 @@ export default function Dashboard() {
                                                 name="contact"
                                                 placeholder="મોબાઈલ નં"
                                                 required
+                                                pattern="^\d+$"
                                                 value={formData_3.contact}
                                                 onChange={handleInputChange_3}
                                                 minLength={10}
@@ -3608,6 +3614,7 @@ export default function Dashboard() {
                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                     type="text"
                                                     name="w_d_time"
+                                                    value={formData_3.w_d_time}
                                                     placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
                                                     onChange={
                                                       handleInputChange_3
@@ -4604,6 +4611,7 @@ export default function Dashboard() {
                                                 required
                                                 onChange={handleInputChange_2}
                                                 value={formData_2.dob}
+                                                max={new Date().toISOString().split('T')[0]}
                                               />
                                             </div>
                                           </div>
@@ -4650,6 +4658,7 @@ export default function Dashboard() {
                                                 name="contact"
                                                 placeholder="મોબાઈલ નં"
                                                 required
+                                                pattern="^\d+$"
                                                 value={formData_2.contact}
                                                 onChange={handleInputChange_2}
                                                 minLength={10}
@@ -5013,6 +5022,7 @@ export default function Dashboard() {
                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                     type="text"
                                                     name="w_d_time"
+                                                    value={formData_2.w_d_time}
                                                     placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
                                                     onChange={
                                                       handleInputChange_2

@@ -201,10 +201,16 @@ export default function Appoinment() {
     }
   };
 
+  function filterUrl(url) {
+    const baseUrl = url.split('&')[0];
+    return baseUrl;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const filteredLink = filterUrl(link);
     const formData = new FormData();
-    formData.append("link", link);
+    formData.append("link",filteredLink);
     try {
       const response = await fetch(
         "https://arpanhospital.online/upload_video.php",
@@ -436,6 +442,7 @@ export default function Appoinment() {
                 <thead>
                   <tr className="w-full bg-cyan-950 text-center text-xs font-large text-white ">
                     <th className="px-4 py-2 tracking-wider">NO</th>
+                    <th  className="px-4 py-2 tracking-wider">NAME</th>
                     <th className="px-4 py-2 tracking-wider w-auto">STAR</th>
                     <th className="px-4 py-2 tracking-wider">DESCRIPTION</th>
                     <th className="px-4 py-2 tracking-wider">DELETE</th>
@@ -449,6 +456,7 @@ export default function Appoinment() {
                         key={index}
                       >
                         <td className="px-4 py-2 text-center">{index + 1}</td>
+                        <td className="px-4 py-2 text-center">{rating.name}</td>
                         <td className="px-2 py-2 text-center w-auto">
                           {Array.from(
                             { length: Math.min(rating.stars, 5) },
@@ -628,7 +636,7 @@ export default function Appoinment() {
                   }}
                 >
                   <img
-                   className="w-12 h-12 mr-1 border border-cyan-950 rounded-lg"
+                   className="border-3 border-cyan-950 rounded-lg"
                     src={image.url}
                     alt={`Image ${index + 1}`}
                     style={{
@@ -746,6 +754,7 @@ export default function Appoinment() {
                       }}
                     >
                       <img
+                      className="border-3 border-cyan-950 rounded-lg"
                        src={image.src || `https://arpanhospital.online/${image}`}
                         alt={`Image ${index + 1}`}
                         style={{
