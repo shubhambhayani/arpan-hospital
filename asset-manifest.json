@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/arpan-hospital/static/css/main.c1e55bc3.css",
-    "main.js": "/arpan-hospital/static/js/main.6bd0dedf.js",
-    "static/js/453.1dc6cd3a.chunk.js": "/arpan-hospital/static/js/453.1dc6cd3a.chunk.js",
-    "static/media/logo3.jpg": "/arpan-hospital/static/media/logo3.bc2b542ae3c0b9fdd229.jpg",
-    "static/media/phy.jpeg": "/arpan-hospital/static/media/phy.0060d7fb0f5a7951fffb.jpeg",
-    "static/media/pain.jpeg": "/arpan-hospital/static/media/pain.64bf5bf51bc16de9a4c5.jpeg",
-    "static/media/boy.jpg": "/arpan-hospital/static/media/boy.f9692c4bd0ea1d97b8f8.jpg",
-    "static/media/Weight Loss Icon.jpeg": "/arpan-hospital/static/media/Weight Loss Icon.06ba53650a614e20fd8a.jpeg",
-    "static/media/fitness.jpeg": "/arpan-hospital/static/media/fitness.afa1ba514acca1cb9971.jpeg",
-    "index.html": "/arpan-hospital/index.html",
-    "main.c1e55bc3.css.map": "/arpan-hospital/static/css/main.c1e55bc3.css.map",
-    "main.6bd0dedf.js.map": "/arpan-hospital/static/js/main.6bd0dedf.js.map",
-    "453.1dc6cd3a.chunk.js.map": "/arpan-hospital/static/js/453.1dc6cd3a.chunk.js.map"
+    "main.css": "/static/css/main.8fa63779.css",
+    "main.js": "/static/js/main.a9ce1a82.js",
+    "static/js/453.1dc6cd3a.chunk.js": "/static/js/453.1dc6cd3a.chunk.js",
+    "static/media/logo3.jpg": "/static/media/logo3.bc2b542ae3c0b9fdd229.jpg",
+    "static/media/phy.jpeg": "/static/media/phy.0060d7fb0f5a7951fffb.jpeg",
+    "static/media/pain.jpeg": "/static/media/pain.64bf5bf51bc16de9a4c5.jpeg",
+    "static/media/boy.jpg": "/static/media/boy.6860d9cc43642d75fa6e.jpg",
+    "static/media/Weight Loss Icon.jpeg": "/static/media/Weight Loss Icon.06ba53650a614e20fd8a.jpeg",
+    "static/media/fitness.jpeg": "/static/media/fitness.afa1ba514acca1cb9971.jpeg",
+    "index.html": "/index.html",
+    "main.8fa63779.css.map": "/static/css/main.8fa63779.css.map",
+    "main.a9ce1a82.js.map": "/static/js/main.a9ce1a82.js.map",
+    "453.1dc6cd3a.chunk.js.map": "/static/js/453.1dc6cd3a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c1e55bc3.css",
-    "static/js/main.6bd0dedf.js"
+    "static/css/main.8fa63779.css",
+    "static/js/main.a9ce1a82.js"
   ]
 }
