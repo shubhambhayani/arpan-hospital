@@ -586,7 +586,7 @@ export default function Dashboard() {
 
       // Make the fetch request with the appropriate URL and request body
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/all_patient.php",
+        "https://arpanhospital.online/all_patient.php",
         requestBody
       );
 
@@ -612,7 +612,7 @@ export default function Dashboard() {
       setLoad2(true);
       // Make the fetch request with the appropriate URL and request body
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/couting_patient.php"
+        "https://arpanhospital.online/couting_patient.php"
       );
 
       if (!response.ok) {
@@ -632,7 +632,7 @@ export default function Dashboard() {
     try {
       // Make the fetch request with the appropriate URL and request body
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/chart.php"
+        "https://arpanhospital.online/chart.php"
       );
 
       if (!response.ok) {
@@ -696,7 +696,7 @@ export default function Dashboard() {
     if (selectedDiv === "weight_loss") {
       try {
         const response = await axios.get(
-          `https://teraheartz.000webhostapp.com/hospital_management/appoi_by_id.php?patient_id=${patientId}`
+          `https://arpanhospital.online/appoi_by_id.php?patient_id=${patientId}`
         );
         const appointmentData = response.data.appointment;
         if (response?.data?.status === "error") {
@@ -735,7 +735,7 @@ export default function Dashboard() {
     if (selectedDiv === "physiotherapy") {
       try {
         const response = await axios.get(
-          `https://teraheartz.000webhostapp.com/hospital_management/py_by_id.php?patient_id=${patientId}`
+          `https://arpanhospital.online/py_by_id.php?patient_id=${patientId}`
         );
         const appointmentData = response.data.appointment;
         if (response?.data?.status === "error") {
@@ -820,7 +820,7 @@ export default function Dashboard() {
     if (selectedDiv === "pain_management") {
       try {
         const response = await axios.get(
-          `https://teraheartz.000webhostapp.com/hospital_management/pain_by_id.php?patient_id=${patientId}`
+          `https://arpanhospital.online/pain_by_id.php?patient_id=${patientId}`
         );
         const appointmentData = response.data.appointment;
         if (response?.data?.status === "error") {
@@ -906,7 +906,7 @@ export default function Dashboard() {
     if (selectedDiv === "fitness") {
       try {
         const response = await axios.get(
-          `https://teraheartz.000webhostapp.com/hospital_management/fitness_by_id.php?patient_id=${patientId}`
+          `https://arpanhospital.online/fitness_by_id.php?patient_id=${patientId}`
         );
         const appointmentData = response.data.appointment;
         if (response?.data?.status === "error") {
@@ -1028,7 +1028,7 @@ export default function Dashboard() {
           }
         });
         const response = await axios.post(
-          "https://teraheartz.000webhostapp.com/hospital_management/appointment_book.php",
+          "https://arpanhospital.online/appointment_book.php",
           formDataObject
         );
         setSelectedImages([]);
@@ -1137,7 +1137,7 @@ export default function Dashboard() {
           }
         });
         const response = await axios.post(
-          "https://teraheartz.000webhostapp.com/hospital_management/appointment_book_py.php",
+          "https://arpanhospital.online/appointment_book_py.php",
           formDataObject
         );
         setSelectedImages([]);
@@ -1296,7 +1296,7 @@ export default function Dashboard() {
           }
         });
         const response = await axios.post(
-          "https://teraheartz.000webhostapp.com/hospital_management/appointment_book_pain.php",
+          "https://arpanhospital.online/appointment_book_pain.php",
           formDataObject
         );
         setSelectedImages([]);
@@ -1455,7 +1455,7 @@ export default function Dashboard() {
           }
         });
         const response = await axios.post(
-          "https://teraheartz.000webhostapp.com/hospital_management/appointment_book_fitness.php",
+          "https://arpanhospital.online/appointment_book_fitness.php",
           formDataObject
         );
         setSelectedImages([]);
@@ -3055,7 +3055,11 @@ export default function Dashboard() {
                                                     className="h-4 w-4 "
                                                     type="checkbox"
                                                     name="work"
-                                                    checked={formData_1.work}
+                                                    checked={
+                                                      formData_1.work == 1
+                                                        ? true
+                                                        : false
+                                                    }
                                                     onChange={
                                                       handleInputChange_1
                                                     }
@@ -3124,7 +3128,7 @@ export default function Dashboard() {
                                                   }}
                                                 >
                                                   <img
-                                                    src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                                                    src={image.src || `https://arpanhospital.online/${image}`}
                                                     alt={`Image ${index + 1}`}
                                                     style={{
                                                       width: "100%",
@@ -3132,7 +3136,7 @@ export default function Dashboard() {
                                                       marginRight: "5px",
                                                       cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleImageClick(`https://teraheartz.000webhostapp.com/hospital_management/${image}`)}
+                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
                                                   />
                                                   <MdClose
                                                     style={{
@@ -4194,7 +4198,11 @@ export default function Dashboard() {
                                                     className="h-4 w-4 "
                                                     type="checkbox"
                                                     name="work"
-                                                    checked={formData_3.work}
+                                                    checked={
+                                                      formData_3.work == 1
+                                                        ? true
+                                                        : false
+                                                    }
                                                     onChange={
                                                       handleInputChange_3
                                                     }
@@ -4263,7 +4271,7 @@ export default function Dashboard() {
                                                   }}
                                                 >
                                                   <img
-                                                    src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                                                    src={image.src || `https://arpanhospital.online/${image}`}
                                                     alt={`Image ${index + 1}`}
                                                     style={{
                                                       width: "100%",
@@ -4271,7 +4279,7 @@ export default function Dashboard() {
                                                       marginRight: "5px",
                                                       cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleImageClick(`https://teraheartz.000webhostapp.com/hospital_management/${image}`)}
+                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
                                                   />
                                                   <MdClose
                                                     style={{
@@ -4524,7 +4532,7 @@ export default function Dashboard() {
                                                   }}
                                                 >
                                                   <img
-                                                    src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                                                    src={image.src || `https://arpanhospital.online/${image}`}
                                                     alt={`Image ${index + 1}`}
                                                     style={{
                                                       width: "100%",
@@ -4532,7 +4540,7 @@ export default function Dashboard() {
                                                       marginRight: "5px",
                                                       cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://teraheartz.000webhostapp.com/hospital_management/${image}` : URL.createObjectURL(image.file))}
+                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
                                                   />
                                                   <MdClose
                                                     style={{
@@ -5595,7 +5603,11 @@ export default function Dashboard() {
                                                     className="h-4 w-4 "
                                                     type="checkbox"
                                                     name="work"
-                                                    checked={formData_2.work}
+                                                    checked={
+                                                      formData_2.work == 1
+                                                        ? true
+                                                        : false
+                                                    }
                                                     onChange={
                                                       handleInputChange_2
                                                     }
@@ -5664,7 +5676,7 @@ export default function Dashboard() {
                                                   }}
                                                 >
                                                   <img
-                                                    src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                                                    src={image.src || `https://arpanhospital.online/${image}`}
                                                     alt={`Image ${index + 1}`}
                                                     style={{
                                                       width: "100%",
@@ -5672,7 +5684,7 @@ export default function Dashboard() {
                                                       marginRight: "5px",
                                                       cursor: 'pointer'
                                                     }}
-                                                    onClick={() => handleImageClick(`https://teraheartz.000webhostapp.com/hospital_management/${image}`)}
+                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
                                                   />
                                                   <MdClose
                                                     style={{

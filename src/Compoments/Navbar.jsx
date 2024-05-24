@@ -86,10 +86,10 @@ export default function Navbar({onSearch}) {
                                    : "text-gray-900"
                                } group  w-[170px] flex flex-row justify-center rounded-md px-2 py-1 font-serif`}
                                onClick={() => {
-                                 navigate("/report");
+                                {isDashboard ? navigate("/report"):navigate("/dashboard")}
                                }}
                              >
-                               Report
+                               {isDashboard?"Report":"Dashboard"}
                              </button>
                            )}
                          </Menu.Item>

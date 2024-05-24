@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import {useNavigate } from "react-router-dom";
 import { BiUser, BiLock } from "react-icons/bi";
 import { toast } from "react-toastify";
@@ -16,7 +16,13 @@ const Login = () => {
   const [Load, setLoad] = useState(false)
   const navigate = useNavigate();
 
-
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (role) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [navigate]);
+  
   const handleSubmit = async (e) => {
     setLoad(true)
     e.preventDefault();
@@ -27,7 +33,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://teraheartz.000webhostapp.com/hospital_management/admin_login.php",
+        "https://arpanhospital.online/admin_login.php",
         formData,
         {
           headers: {

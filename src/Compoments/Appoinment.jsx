@@ -46,7 +46,7 @@ export default function Appoinment() {
 
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/chart1.php",
+        "https://arpanhospital.online/chart1.php",
         {
           method: "POST",
           body: formData,
@@ -128,25 +128,23 @@ export default function Appoinment() {
   const fetchRatings = async () => {
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/show_rating.php"
+        "https://arpanhospital.online/show_rating.php"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch ratings");
       }
       const data = await response.json();
       setRatings(data);
-      setLoading(false);
     } catch (error) {
       console.error(error.message);
-    } finally {
-      setLoading(false);
     }
   };
+  console.log(ratings);
 
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://teraheartz.000webhostapp.com/hospital_management/delete_rating.php?id=${id}`,
+        `https://arpanhospital.online/delete_rating.php?id=${id}`,
         {
           method: "POST",
         }
@@ -164,10 +162,9 @@ export default function Appoinment() {
   };
 
   const handleDelete1 = async (id) => {
-    setLoading(true);
     try {
       const response = await fetch(
-        `https://teraheartz.000webhostapp.com/hospital_management/delete_video.php?id=${id}`,
+        `https://arpanhospital.online/delete_video.php?id=${id}`,
         {
           method: "POST",
         }
@@ -187,7 +184,7 @@ export default function Appoinment() {
   const handleDelete2 = async (id) => {
     try {
       const response = await fetch(
-        `https://teraheartz.000webhostapp.com/hospital_management/delete_event.php?id=${id}`,
+        `https://arpanhospital.online/delete_event.php?id=${id}`,
         {
           method: "POST",
         }
@@ -210,7 +207,7 @@ export default function Appoinment() {
     formData.append("link", link);
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/upload_video.php",
+        "https://arpanhospital.online/upload_video.php",
         {
           method: "POST",
           body: formData,
@@ -235,7 +232,7 @@ export default function Appoinment() {
   const fetchVideos = async () => {
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/show_video.php"
+        "https://arpanhospital.online/show_video.php"
       );
       const data = await response.json();
       setVideos(data);
@@ -247,7 +244,7 @@ export default function Appoinment() {
   const fetchEvent = async () => {
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/show_event.php"
+        "https://arpanhospital.online/show_event.php"
       );
       const data = await response.json();
       setEvents(data);
@@ -257,6 +254,7 @@ export default function Appoinment() {
   };
 
   const handleFileChange = (event) => {
+
     const files = event.target.files;
     const imagesArray = [];
     for (let i = 0; i < files.length; i++) {
@@ -288,7 +286,7 @@ export default function Appoinment() {
     });
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/upload_event_image.php",
+        "https://arpanhospital.online/upload_event_image.php",
         {
           method: "POST",
           body: formData,
@@ -303,16 +301,19 @@ export default function Appoinment() {
       setLoad(false);
     } catch (error) {
       console.error("Error:", error);
-      // Handle error
     }
   };
   const fetchCarousel = async () => {
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/show_carousel.php"
+        "https://arpanhospital.online/show_carousel.php"
       );
       const data = await response.json();
-      setSelectedImages_1(data?.appointment?.photos);
+      if (data && data.appointment && Array.isArray(data.appointment.photos)) {
+        setSelectedImages_1(data.appointment.photos);
+      } else {
+        setSelectedImages_1([]);
+      }
     } catch (error) {
       console.error("Error fetching videos:", error);
     }
@@ -332,7 +333,7 @@ export default function Appoinment() {
     });
     try {
       const response = await fetch(
-        "https://teraheartz.000webhostapp.com/hospital_management/upload_carousel.php",
+        "https://arpanhospital.online/upload_carousel.php",
         {
           method: "POST",
           body: formDataObject,
@@ -356,6 +357,8 @@ export default function Appoinment() {
     if (!e.target.files) {
       return; // Exit early if no files are selected
     }
+    console.log(e.target.files);
+    
   
     const files = Array.from(e.target.files);
   
@@ -365,6 +368,7 @@ export default function Appoinment() {
     }));
     setSelectedImages_1((prevImages) => [...prevImages, ...newImages]);
   };
+
   const handleRemoveImage_1 = (index) => {
     console.log("prevImages before removal:", selectedImages1);
     setSelectedImages_1((prevImages) => {
@@ -429,16 +433,6 @@ export default function Appoinment() {
         <div className="bg-white md:col-span-2 lg:col-span-1 p-4 rounded-md  overflow-auto">
           <h1 className="text-cyan-900 font-serif">RATING</h1>
           <table className="w-full  border-collapse border  text-center">
-            {loading ? (
-              <div className="w-full h-full flex justify-center items-center">
-                <img
-                  className="h-16 rounded-lg animate-spin"
-                  src={logo}
-                  alt="Logo"
-                />
-              </div>
-            ) : (
-              <>
                 <thead>
                   <tr className="w-full bg-cyan-950 text-center text-xs font-large text-white ">
                     <th className="px-4 py-2 tracking-wider">NO</th>
@@ -448,7 +442,7 @@ export default function Appoinment() {
                   </tr>
                 </thead>
                 <tbody>
-                  {ratings && ratings.length > 0 ? (
+                  {ratings.length > 0 ? (
                     ratings.map((rating, index) => (
                       <tr
                         className="font-serif uppercase text-xs font-bold"
@@ -488,8 +482,6 @@ export default function Appoinment() {
                     </tr>
                   )}
                 </tbody>
-              </>
-            )}
           </table>
         </div>
       </div>
@@ -636,6 +628,7 @@ export default function Appoinment() {
                   }}
                 >
                   <img
+                   className="w-12 h-12 mr-1 border border-cyan-950 rounded-lg"
                     src={image.url}
                     alt={`Image ${index + 1}`}
                     style={{
@@ -705,6 +698,16 @@ export default function Appoinment() {
       </div>
       <div className="bg-slate-200 px-2 grid grid-flow-row grid-cols-2 gap-2 pt-2 w-full lg:h-[450px] md:[900px] overflow-auto">
         <div className="col-span-2 flex flex-col gap-2 bg-white px-2 p-2 rounded-md h-full w-full">
+          {load1?(<>
+            <div className="w-full h-full flex justify-center items-center">
+                  <img
+                    className="animate-spin h-16"
+                    src={logo}
+                    alt=""
+                    srcset=""
+                  />
+              </div>
+          </>):(<>
           <div className="p-2 border-2 border-dashed rounded-md border-black h-full">
             <h1 className="text-center uppercase font-serif text-cyan-950">
               manage carousel
@@ -724,7 +727,6 @@ export default function Appoinment() {
                       multiple
                       accept="image/*"
                       onChange={handleFileChange_1}
-                      required
                     />
                   </div>
                   <div>
@@ -744,7 +746,7 @@ export default function Appoinment() {
                       }}
                     >
                       <img
-                       src={image.src || `https://teraheartz.000webhostapp.com/hospital_management/${image}`}
+                       src={image.src || `https://arpanhospital.online/${image}`}
                         alt={`Image ${index + 1}`}
                         style={{
                           width: "100%",
@@ -752,7 +754,7 @@ export default function Appoinment() {
                           marginRight: "5px",
                           cursor: "pointer",
                         }}
-                        onClick={() => handleImageClick(typeof image === "string" ? `https://teraheartz.000webhostapp.com/hospital_management/${image}` : URL.createObjectURL(image.file))}
+                        onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
                       />
                       <MdClose
                         style={{
@@ -771,6 +773,7 @@ export default function Appoinment() {
               </div>
             </div>
           </div>
+          </>)}
         </div>
       </div>
     </>
