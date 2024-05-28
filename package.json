@@ -1,5 +1,5 @@
 {
-  "homepage":"https://react.arpanhospital.online",
+  "homepage": "https://react.arpanhospital.online",
   "name": "my-redux-app",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +12,7 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
+    "jspdf": "^2.5.1",
     "moment": "^2.30.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",

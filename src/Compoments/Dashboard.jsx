@@ -17,6 +17,9 @@ import image4 from "../element/fitness.jpeg";
 import physiotherapy from "../element/phy.jpeg";
 import image2 from "../element/Weight Loss Icon.jpeg";
 import pain_managment from "../element/pain.jpeg";
+import jsPDF from 'jspdf';
+
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -36,6 +39,8 @@ export default function Dashboard() {
     name: "",
     age: "",
     gender: "",
+    appointment_date:"",
+    appointment_time:""
   });
 
   const images = {
@@ -48,20 +53,6 @@ export default function Dashboard() {
   const getImageForCategory = (category) => {
     return images[category];
   };
-
-  const [formData, setFormData] = useState({
-    height: "",
-    weight: "",
-    address: "",
-    occupation: "",
-    evaluation: "",
-    history: "",
-    chief_complaint: "",
-    observation: "",
-    radiological_findings: "",
-    diagnosis: "",
-    treatment: ""
-  });
 
   const [formData_1, setFormData_1] = useState({
     acidity: "",
@@ -125,137 +116,8 @@ export default function Dashboard() {
     yoga: "",
     yoga_how: "",
     yoga_when: "",
-    dayabitis: ""
-  });
-
-  const [formData_2, setFormData_2] = useState({
-    acidity: "",
-    address: "",
-    contact: "",
-    cyc: "",
-    cyc_how: "",
-    cyc_when: "",
-    d_time: "",
-    d_what: "",
-    dada: "",
-    dada_how: "",
-    dada_when: "",
-    dia: "",
-    dob: "",
-    fact_loss: "",
-    fact_loss_2: "",
-    fitness: "",
-    gender: "",
-    health: "",
-    blood: "",
-    heart: "",
-    kabajiyat: "",
-    l_time: "",
-    l_what: "",
-    m_time: "",
-    m_what: "",
-    machine: "",
-    machine_how: "",
-    machine_when: "",
-    name: "",
-    o: "",
-    o_how: "",
-    o_time: "",
-    o_what: "",
-    o_when: "",
-    occupation: "",
-    other_p: "",
-    other_p_value: "",
-    phy: "",
-    run: "",
-    run_how: "",
-    run_when: "",
-    study: "",
-    swe: "",
-    swe_how: "",
-    swe_when: "",
-    thairoid: "",
-    w_d_count: "",
-    w_d_time: "",
-    w_time: "",
-    w_what: "",
-    walk: "",
-    walk_how: "",
-    walk_when: "",
-    weight__up: "",
-    weight_down: "",
-    work: "",
-    work_how: "",
-    work_when: "",
-    yoga: "",
-    yoga_how: "",
-    yoga_when: "",
-    dayabitis: ""
-  });
-
-  const [formData_3, setFormData_3] = useState({
-    acidity: "",
-    address: "",
-    contact: "",
-    cyc: "",
-    cyc_how: "",
-    cyc_when: "",
-    d_time: "",
-    d_what: "",
-    dada: "",
-    dada_how: "",
-    dada_when: "",
-    dia: "",
-    dob: "",
-    fact_loss: "",
-    fact_loss_2: "",
-    fitness: "",
-    gender: "",
-    health: "",
-    blood: "",
-    heart: "",
-    kabajiyat: "",
-    l_time: "",
-    l_what: "",
-    m_time: "",
-    m_what: "",
-    machine: "",
-    machine_how: "",
-    machine_when: "",
-    name: "",
-    o: "",
-    o_how: "",
-    o_time: "",
-    o_what: "",
-    o_when: "",
-    occupation: "",
-    other_p: "",
-    other_p_value: "",
-    phy: "",
-    run: "",
-    run_how: "",
-    run_when: "",
-    study: "",
-    swe: "",
-    swe_how: "",
-    swe_when: "",
-    thairoid: "",
-    w_d_count: "",
-    w_d_time: "",
-    w_time: "",
-    w_what: "",
-    walk: "",
-    walk_how: "",
-    walk_when: "",
-    weight__up: "",
-    weight_down: "",
-    work: "",
-    work_how: "",
-    work_when: "",
-    yoga: "",
-    yoga_how: "",
-    yoga_when: "",
-    dayabitis: ""
+    dayabitis: "",
+    remark: "",
   });
 
   const handleDivClick = (category) => {
@@ -268,7 +130,9 @@ export default function Dashboard() {
     appointment_id,
     category,
     age,
-    gender
+    gender,
+    appointment_date,
+    appointment_time
   ) => {
     setSelectedDiv(category);
     setSelectedPatientId({
@@ -277,6 +141,8 @@ export default function Dashboard() {
       patient_id,
       appointment_id,
       gender,
+      appointment_date,
+      appointment_time,
     });
     setShowModal(true);
     fetchAppointment(patient_id);
@@ -291,216 +157,7 @@ export default function Dashboard() {
   const closeModal = () => {
     setShowModal(false);
     setSelectedDiv("");
-    setFormData({
-      patient_id: "",
-      appointment_id: "",
-      name: "",
-      age: "",
-      gender: "",
-      height: "",
-      weight: "",
-      address: "",
-      occupation: "",
-      evaluation: "",
-      history: "",
-      chief_complaint: "",
-      observation: "",
-      radiological_findings: "",
-      diagnosis: "",
-      treatment: "",
-    });
-    setFormData_1({
-      acidity: "",
-      address: "",
-      contact: "",
-      cyc: "",
-      cyc_how: "",
-      cyc_when: "",
-      d_time: "",
-      d_what: "",
-      dada: "",
-      dada_how: "",
-      dada_when: "",
-      dia: "",
-      dob: "",
-      fact_loss: "",
-      fact_loss_2: "",
-      fitness: "",
-      gender: "",
-      health: "",
-      blood: "",
-      heart: "",
-      kabajiyat: "",
-      l_time: "",
-      l_what: "",
-      m_time: "",
-      m_what: "",
-      machine: "",
-      machine_how: "",
-      machine_when: "",
-      name: "",
-      o: "",
-      o_how: "",
-      o_time: "",
-      o_what: "",
-      o_when: "",
-      occupation: "",
-      other_p: "",
-      other_p_value: "",
-      phy: "",
-      run: "",
-      run_how: "",
-      run_when: "",
-      study: "",
-      swe: "",
-      swe_how: "",
-      swe_when: "",
-      thairoid: "",
-      w_d_count: "",
-      w_d_time: "",
-      w_time: "",
-      w_what: "",
-      walk: "",
-      walk_how: "",
-      walk_when: "",
-      weight__up: "",
-      weight_down: "",
-      work: "",
-      work_how: "",
-      work_when: "",
-      yoga: "",
-      yoga_how: "",
-      yoga_when: "",
-      dayabitis: "",
-    });
-    setFormData_2({
-      acidity: "",
-      address: "",
-      contact: "",
-      cyc: "",
-      cyc_how: "",
-      cyc_when: "",
-      d_time: "",
-      d_what: "",
-      dada: "",
-      dada_how: "",
-      dada_when: "",
-      dia: "",
-      dob: "",
-      fact_loss: "",
-      fact_loss_2: "",
-      fitness: "",
-      gender: "",
-      health: "",
-      blood: "",
-      heart: "",
-      kabajiyat: "",
-      l_time: "",
-      l_what: "",
-      m_time: "",
-      m_what: "",
-      machine: "",
-      machine_how: "",
-      machine_when: "",
-      name: "",
-      o: "",
-      o_how: "",
-      o_time: "",
-      o_what: "",
-      o_when: "",
-      occupation: "",
-      other_p: "",
-      other_p_value: "",
-      phy: "",
-      run: "",
-      run_how: "",
-      run_when: "",
-      study: "",
-      swe: "",
-      swe_how: "",
-      swe_when: "",
-      thairoid: "",
-      w_d_count: "",
-      w_d_time: "",
-      w_time: "",
-      w_what: "",
-      walk: "",
-      walk_how: "",
-      walk_when: "",
-      weight__up: "",
-      weight_down: "",
-      work: "",
-      work_how: "",
-      work_when: "",
-      yoga: "",
-      yoga_how: "",
-      yoga_when: "",
-      dayabitis: "",
-    });
-    setFormData_3({
-      acidity: "",
-      address: "",
-      contact: "",
-      cyc: "",
-      cyc_how: "",
-      cyc_when: "",
-      d_time: "",
-      d_what: "",
-      dada: "",
-      dada_how: "",
-      dada_when: "",
-      dia: "",
-      dob: "",
-      fact_loss: "",
-      fact_loss_2: "",
-      fitness: "",
-      gender: "",
-      health: "",
-      blood: "",
-      heart: "",
-      kabajiyat: "",
-      l_time: "",
-      l_what: "",
-      m_time: "",
-      m_what: "",
-      machine: "",
-      machine_how: "",
-      machine_when: "",
-      name: "",
-      o: "",
-      o_how: "",
-      o_time: "",
-      o_what: "",
-      o_when: "",
-      occupation: "",
-      other_p: "",
-      other_p_value: "",
-      phy: "",
-      run: "",
-      run_how: "",
-      run_when: "",
-      study: "",
-      swe: "",
-      swe_how: "",
-      swe_when: "",
-      thairoid: "",
-      w_d_count: "",
-      w_d_time: "",
-      w_time: "",
-      w_what: "",
-      walk: "",
-      walk_how: "",
-      walk_when: "",
-      weight__up: "",
-      weight_down: "",
-      work: "",
-      work_how: "",
-      work_when: "",
-      yoga: "",
-      yoga_how: "",
-      yoga_when: "",
-      dayabitis: "",
-    });
+    // setFormData_1(initialFormData)
     setLoad1(false);
     fetchData();
   };
@@ -632,9 +289,7 @@ export default function Dashboard() {
   const fetchData_2 = async () => {
     try {
       // Make the fetch request with the appropriate URL and request body
-      const response = await fetch(
-        "https://arpanhospital.online/chart.php"
-      );
+      const response = await fetch("https://arpanhospital.online/chart.php");
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -697,46 +352,7 @@ export default function Dashboard() {
     if (selectedDiv === "weight_loss") {
       try {
         const response = await axios.get(
-          `https://arpanhospital.online/appoi_by_id.php?patient_id=${patientId}`
-        );
-        const appointmentData = response.data.appointment;
-        if (response?.data?.status === "error") {
-          setButton(true);
-          return;
-        }
-        // Set form data with fetched appointment data
-        setFormData({
-          patient_id: appointmentData?.patient_id,
-          appointment_id: appointmentData?.appointment_id,
-          name: appointmentData.name,
-          age: appointmentData.age,
-          gender: appointmentData.gender,
-          height: appointmentData.height,
-          weight: appointmentData.weight,
-          address: appointmentData.address,
-          occupation: appointmentData.occupation,
-          evaluation: appointmentData.evaluation,
-          history: appointmentData.history,
-          chief_complaint: appointmentData.chief_complaint,
-          observation: appointmentData.observation,
-          radiological_findings: appointmentData.radiological_findings,
-          diagnosis: appointmentData.diagnosis,
-          treatment: appointmentData.treatment,
-        });
-        setSelectedImages(appointmentData?.photos);
-        setLoad1(false);
-        // Set updating flag to true
-      } catch (error) {
-        console.error(error.message);
-      } finally {
-        setLoad1(false);
-      }
-      return;
-    }
-    if (selectedDiv === "physiotherapy") {
-      try {
-        const response = await axios.get(
-          `https://arpanhospital.online/py_by_id.php?patient_id=${patientId}`
+          `https://arpanhospital.online/pain_by_id.php?patient_id=${patientId}`
         );
         const appointmentData = response.data.appointment;
         if (response?.data?.status === "error") {
@@ -808,6 +424,7 @@ export default function Dashboard() {
           yoga_when: appointmentData.yoga_when,
           name: appointmentData.name,
           dayabitis: appointmentData.dayabitis,
+          remark: appointmentData.remark,
         });
         setSelectedImages(appointmentData?.photos);
         setLoad1(false);
@@ -817,86 +434,19 @@ export default function Dashboard() {
       } finally {
         setLoad1(false);
       }
+      return;
+    }
+    if (selectedDiv === "physiotherapy") {
+      try {
+       
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoad1(false);
+      }
     }
     if (selectedDiv === "pain_management") {
       try {
-        const response = await axios.get(
-          `https://arpanhospital.online/pain_by_id.php?patient_id=${patientId}`
-        );
-        const appointmentData = response.data.appointment;
-        if (response?.data?.status === "error") {
-          setButton(true);
-          return;
-        }
-        // Set form data with fetched appointment data
-        setFormData_2({
-          acidity: appointmentData.acidity,
-          address: appointmentData.address,
-          contact: appointmentData.contact,
-          blood: appointmentData.blood,
-          cyc: appointmentData.cyc,
-          cyc_how: appointmentData.cyc_how,
-          cyc_when: appointmentData.cyc_when,
-          d_time: appointmentData.d_time,
-          d_what: appointmentData.d_what,
-          dada: appointmentData.dada,
-          dada_how: appointmentData.dada_how,
-          dada_when: appointmentData.dada_when,
-          dia: appointmentData.dia,
-          dob: appointmentData.dob,
-          fact_loss: appointmentData.fact_loss,
-          fact_loss_2: appointmentData.fact_loss_2,
-          fitness: appointmentData.fitness,
-          gender: appointmentData.gender,
-          health: appointmentData.health,
-          heart: appointmentData.heart,
-          kabajiyat: appointmentData.kabajiyat,
-          l_time: appointmentData.l_time,
-          l_what: appointmentData.l_what,
-          m_time: appointmentData.m_time,
-          m_what: appointmentData.m_what,
-          machine: appointmentData.machine,
-          machine_how: appointmentData.machine_how,
-          machine_when: appointmentData.machine_when,
-          name: appointmentData.name,
-          o: appointmentData.o,
-          o_how: appointmentData.o_how,
-          o_time: appointmentData.o_time,
-          o_what: appointmentData.o_what,
-          o_when: appointmentData.o_when,
-          occupation: appointmentData.occupation,
-          other_p: appointmentData.other_p,
-          other_p_value: appointmentData.other_p_value,
-          phy: appointmentData.phy,
-          run: appointmentData.run,
-          run_how: appointmentData.run_how,
-          run_when: appointmentData.run_when,
-          study: appointmentData.study,
-          swe: appointmentData.swe,
-          swe_how: appointmentData.swe_how,
-          swe_when: appointmentData.swe_when,
-          thairoid: appointmentData.thairoid,
-          w_d_count: appointmentData.w_d_count,
-          w_d_time: appointmentData.w_d_time,
-          w_time: appointmentData.w_time,
-          w_what: appointmentData.w_what,
-          walk: appointmentData.walk,
-          walk_how: appointmentData.walk_how,
-          walk_when: appointmentData.walk_when,
-          weight__up: appointmentData.weight__up,
-          weight_down: appointmentData.weight_down,
-          work: appointmentData.work,
-          work_how: appointmentData.work_how,
-          work_when: appointmentData.work_when,
-          yoga: appointmentData.yoga,
-          yoga_how: appointmentData.yoga_how,
-          yoga_when: appointmentData.yoga_when,
-          name: appointmentData.name,
-          dayabitis: appointmentData.dayabitis,
-        });
-        setSelectedImages(appointmentData?.photos);
-        setLoad1(false);
-        // Set updating flag to true
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -906,83 +456,6 @@ export default function Dashboard() {
     }
     if (selectedDiv === "fitness") {
       try {
-        const response = await axios.get(
-          `https://arpanhospital.online/fitness_by_id.php?patient_id=${patientId}`
-        );
-        const appointmentData = response.data.appointment;
-        if (response?.data?.status === "error") {
-          setButton(true);
-          return;
-        }
-        // Set form data with fetched appointment data
-        setFormData_3({
-          acidity: appointmentData.acidity,
-          address: appointmentData.address,
-          contact: appointmentData.contact,
-          blood: appointmentData.blood,
-          cyc: appointmentData.cyc,
-          cyc_how: appointmentData.cyc_how,
-          cyc_when: appointmentData.cyc_when,
-          d_time: appointmentData.d_time,
-          d_what: appointmentData.d_what,
-          dada: appointmentData.dada,
-          dada_how: appointmentData.dada_how,
-          dada_when: appointmentData.dada_when,
-          dia: appointmentData.dia,
-          dob: appointmentData.dob,
-          fact_loss: appointmentData.fact_loss,
-          fact_loss_2: appointmentData.fact_loss_2,
-          fitness: appointmentData.fitness,
-          gender: appointmentData.gender,
-          health: appointmentData.health,
-          heart: appointmentData.heart,
-          kabajiyat: appointmentData.kabajiyat,
-          l_time: appointmentData.l_time,
-          l_what: appointmentData.l_what,
-          m_time: appointmentData.m_time,
-          m_what: appointmentData.m_what,
-          machine: appointmentData.machine,
-          machine_how: appointmentData.machine_how,
-          machine_when: appointmentData.machine_when,
-          name: appointmentData.name,
-          o: appointmentData.o,
-          o_how: appointmentData.o_how,
-          o_time: appointmentData.o_time,
-          o_what: appointmentData.o_what,
-          o_when: appointmentData.o_when,
-          occupation: appointmentData.occupation,
-          other_p: appointmentData.other_p,
-          other_p_value: appointmentData.other_p_value,
-          phy: appointmentData.phy,
-          run: appointmentData.run,
-          run_how: appointmentData.run_how,
-          run_when: appointmentData.run_when,
-          study: appointmentData.study,
-          swe: appointmentData.swe,
-          swe_how: appointmentData.swe_how,
-          swe_when: appointmentData.swe_when,
-          thairoid: appointmentData.thairoid,
-          w_d_count: appointmentData.w_d_count,
-          w_d_time: appointmentData.w_d_time,
-          w_time: appointmentData.w_time,
-          w_what: appointmentData.w_what,
-          walk: appointmentData.walk,
-          walk_how: appointmentData.walk_how,
-          walk_when: appointmentData.walk_when,
-          weight__up: appointmentData.weight__up,
-          weight_down: appointmentData.weight_down,
-          work: appointmentData.work,
-          work_how: appointmentData.work_how,
-          work_when: appointmentData.work_when,
-          yoga: appointmentData.yoga,
-          yoga_how: appointmentData.yoga_how,
-          yoga_when: appointmentData.yoga_when,
-          name: appointmentData.name,
-          dayabitis: appointmentData.dayabitis,
-        });
-        setSelectedImages(appointmentData?.photos);
-        setLoad1(false);
-        // Set updating flag to true
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -992,81 +465,134 @@ export default function Dashboard() {
     }
   };
 
+ 
   // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoad1(true);
+    const doc = new jsPDF();
+    doc.text("Patient Report", doc.internal.pageSize.getWidth() / 2, 12, { align: 'center' });
+
+    let y = 20; 
+
+  function addText(text, x, y, fontStyle, fontSize) {
+      doc.setFont(fontStyle);
+      doc.setFontSize(fontSize);
+      doc.text(text, x, y);
+  }
+
+  function addPageBorder() {
+    doc.setDrawColor(0); // Border color (black)
+    doc.setLineWidth(0.5); // Border line width
+    doc.rect(5, 5, doc.internal.pageSize.getWidth() - 10, doc.internal.pageSize.getHeight() - 10); // Add a border around the page
+}
+
+    const fields = [
+      { label: 'Name', value: selectedPatientId.name, labelX: 10, labelY: y, valueX: 10, valueY: y+7},
+      { label: 'Age', value: selectedPatientId.age, labelX:80, labelY: y , valueX: 80, valueY: y+7},
+      { label: 'Gender', value: selectedPatientId.gender, labelX: 102, labelY: y, valueX: 102, valueY: y+7},
+      { label: 'Contact', value: formData_1.contact,labelX: 138, labelY: y, valueX: 138, valueY: y+7},
+      { label: 'Occupation', value: formData_1.occupation,labelX: 174, labelY: y, valueX: 174, valueY: y+7},
+      { label: 'Address', value: formData_1.address,labelX: 10, labelY: y+15, valueX:10, valueY: y+22},
+      { label: '1)Acidity', value: formData_1.acidity== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+35, valueX:55, valueY: y+35},
+      { label: '2)Dayabitis', value: formData_1.dayabitis== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+42, valueX:55, valueY: y+42},
+      { label: '3)Kabajiyat', value: formData_1.kabajiyat== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+49, valueX:55, valueY: y+49},
+      { label: '4)Heart', value: formData_1.heart== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+56, valueX:55, valueY: y+56},
+      { label: '5)Blood', value: formData_1.blood== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+63, valueX:55, valueY: y+63},
+      { label: '6)Thairoid', value: formData_1.thairoid== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+70, valueX:55, valueY: y+77},
+      { label: '7)Other_Problem', value: formData_1.other_p== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+77, valueX:55, valueY: y+77},
+      { label: 'i)Problem', value: formData_1.other_p_value,labelX:65,labelY: y+77, valueX:95, valueY: y+77},
+      { label: '1)Fact Loss', value: formData_1.fact_loss== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+90, valueX:80, valueY: y+90},
+      { label: '2)Fact Loss 2', value: formData_1.fact_loss_2== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+97, valueX:80, valueY: y+97},
+      { label: '3)Fitness', value: formData_1.fitness== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+104, valueX:80, valueY: y+104},
+      { label: '4)Health', value: formData_1.health== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+111, valueX:80, valueY: y+111},
+      { label: '5)Physique', value: formData_1.phy== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+118, valueX:80, valueY: y+118},
+      { label: '6)Found Problem', value: formData_1.dia== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+125, valueX:80, valueY: y+125},
+      { label: '7)Weight Gain', value: formData_1.weight__up== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+132, valueX:80, valueY: y+132},
+      { label: '8)Weight loss', value: formData_1.weight_down== 1 ? 'Yes' : 'No',labelX: 10, labelY: y+139, valueX:80, valueY: y+139},
+      { label: 'how many', value: formData_1.w_d_count,labelX: 90, labelY: y+139, valueX:117, valueY: y+139},
+      { label: 'Time' ,value: formData_1.w_d_time,labelX: 170, labelY: y+139, valueX:185, valueY: y+139},
+      { label: 'Diet' ,labelX: 10, labelY: y+152}, 
+      { label: 'What', labelX: 50, labelY: y+152},   
+      { label: 'Time',labelX: 160, labelY: y+152}, 
+      { label: 'Breakfast',labelX: 10, labelY: y+160},
+      {value: formData_1.m_what,valueX:50,valueY: y+160},
+      {value: formData_1.m_time,valueX:160, valueY: y+160},
+      { label: 'Lunch',labelX: 10, labelY: y+167},
+      {value: formData_1.l_what,valueX:50,valueY: y+167},
+      {value: formData_1.l_time,valueX:160, valueY: y+167},
+      { label: 'Dinner',labelX: 10, labelY: y+174},
+      {value: formData_1.d_what,valueX:50,valueY: y+174},
+      {value: formData_1.d_time,valueX:160, valueY: y+174},
+      { label: 'In beetween diet',labelX: 10, labelY: y+181},
+      {value: formData_1.o_what,valueX:50,valueY: y+181},
+      {value: formData_1.o_time,valueX:160, valueY: y+181},
+      { label: 'Water',labelX: 10, labelY: y+188},
+      {value: formData_1.w_what,valueX:50,valueY: y+188},
+      {value: formData_1.w_time,valueX:160, valueY: y+188},
+      { label: 'Activity',labelX: 10, labelY: y+201},
+      { label: 'yes/no',labelX: 50, labelY: y+201},
+      { label: 'how much',labelX: 100, labelY: y+201},
+      { label: 'When',labelX: 170, labelY: y+201},
+      { label: 'Cycleling',labelX: 10, labelY: y+208},
+      { value: formData_1.cyc== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+208},
+      { value: formData_1.cyc_how,valueX: 100, valueY: y+208},
+      { value: formData_1.cyc_when,valueX: 170, valueY: y+208},
+      { label: 'Walking',labelX: 10, labelY: y+215},
+      { value: formData_1.walk== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+215},
+      { value: formData_1.walk_how,valueX: 100, valueY: y+215},
+      { value: formData_1.walk_when,valueX: 170, valueY: y+215},
+      { label: 'Yoga',labelX: 10, labelY: y+222},
+      { value: formData_1.yoga== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+222},
+      { value: formData_1.yoga_how,valueX: 100, valueY: y+222},
+      { value: formData_1.yoga_when,valueX: 170, valueY: y+222},
+      { label: 'Swimming',labelX: 10, labelY: y+229},
+      { value: formData_1.swe== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+229},
+      { value: formData_1.swe_how,valueX: 100, valueY: y+229},
+      { value: formData_1.swe_when,valueX: 170, valueY: y+229},
+      { label: 'Running',labelX: 10, labelY: y+236},
+      { value: formData_1.run== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+236},
+      { value: formData_1.run_how,valueX: 100, valueY: y+236},
+      { value: formData_1.run_when,valueX: 170, valueY: y+236},
+      { label: 'Machine_Run',labelX: 10, labelY: y+241},
+      { value: formData_1.machine== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+241},
+      { value: formData_1.machine_how,valueX: 100, valueY: y+241},
+      { value: formData_1.machine_when,valueX: 170, valueY: y+241},
+      { label: 'Other',labelX: 10, labelY: y+248},
+      { value: formData_1.o== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+248},
+      { value: formData_1.o_how,valueX: 100, valueY: y+248},
+      { value: formData_1.o_when,valueX: 170, valueY: y+248},
+      { label: 'climb stairs',labelX: 10, labelY: y+255},
+      { value: formData_1.dada== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+255},
+      { value: formData_1.dada_how,valueX: 100, valueY: y+255},
+      { value: formData_1.dada_when,valueX: 170, valueY: y+255},
+      { label: 'Household work',labelX: 10, labelY: y+262},
+      { value: formData_1.work== 1 ? 'Yes' : 'No',valueX: 50, valueY: y+262},
+      { value: formData_1.work_how,valueX: 100, valueY: y+262},
+      { value: formData_1.work_when,valueX: 170, valueY: y+262},
+     
+        // { label: 'Remark', value: formData_1.remark },
+    ];
+
+    fields.forEach(field => {
+      addPageBorder();
+      if (field.label !== undefined) { 
+        doc.setTextColor(255, 0, 0);
+        addText(`${field.label}:`, field.labelX, field.labelY,'italic', 16);
+      }
+        if (field.value !== undefined) { 
+        doc.setTextColor(0);
+        addText(field.value, field.valueX, field.valueY, 'normal', 14);
+        }
+    
+  });
+  const pdfBlob = doc.output('blob');
+
     if (selectedDiv == "weight_loss") {
       try {
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
-        formDataObject.append(
-          "appointment_id",
-          selectedPatientId.appointment_id
-        );
-        formDataObject.append("name", selectedPatientId.name);
-        formDataObject.append("age", selectedPatientId.age);
-        formDataObject.append("gender", selectedPatientId.gender);
-        formDataObject.append("height", formData.height);
-        formDataObject.append("weight", formData.weight);
-        formDataObject.append("address", formData.address);
-        formDataObject.append("occupation", formData.occupation);
-        formDataObject.append("evaluation", formData.evaluation);
-        formDataObject.append("history", formData.history);
-        formDataObject.append("chief_complaint", formData.chief_complaint);
-        formDataObject.append("observation", formData.observation);
-        formDataObject.append(
-          "radiological_findings",
-          formData.radiological_findings
-        );
-        formDataObject.append("diagnosis", formData.diagnosis);
-        formDataObject.append("treatment", formData.treatment);
-        selectedImages.forEach((image, index) => {
-          if (typeof image === 'string') {
-            formDataObject.append("images[]", image);
-          } else {
-            formDataObject.append("images[]", image.file);
-          }
-        });
-        const response = await axios.post(
-          "https://arpanhospital.online/appointment_book.php",
-          formDataObject
-        );
-        setSelectedImages([]);
-        setFormData({
-          height: "",
-          weight: "",
-          address: "",
-          occupation: "",
-          evaluation: "",
-          history: "",
-          chief_complaint: "",
-          observation: "",
-          radiological_findings: "",
-          diagnosis: "",
-          treatment: "",
-        });
-        setSelectedPatientId({
-          patient_id: "",
-          appointment_id: "",
-          name: "",
-          age: "",
-          gender: "",
-        });
-        closeModal();
-        toast.success(response.data.message);
-        return;
-      } catch (error) {
-        console.error(error.message);
-      }
-    } else if (selectedDiv == "physiotherapy") {
-      try {
-        const formDataObject = new FormData();
-        formDataObject.append("patient_id", selectedPatientId.patient_id);
-        formDataObject.append(
-          "appointment_id",
-          selectedPatientId.appointment_id
-        );
+        formDataObject.append("appointment_id",selectedPatientId.appointment_id);
         formDataObject.append("name", selectedPatientId.name);
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
@@ -1130,167 +656,10 @@ export default function Dashboard() {
         formDataObject.append("yoga", formData_1.yoga);
         formDataObject.append("yoga_how", formData_1.yoga_how);
         formDataObject.append("yoga_when", formData_1.yoga_when);
+        formDataObject.append("remark", formData_1.remark);
+        formDataObject.append("report_pdf", pdfBlob,`${selectedPatientId.patient_id}_2.pdf`);
         selectedImages.forEach((image, index) => {
-          if (typeof image === 'string') {
-            formDataObject.append("images[]", image);
-          } else {
-            formDataObject.append("images[]", image.file);
-          }
-        });
-        const response = await axios.post(
-          "https://arpanhospital.online/appointment_book_py.php",
-          formDataObject
-        );
-        setSelectedImages([]);
-        setFormData_1({
-          acidity: "",
-          address: "",
-          contact: "",
-          cyc: "",
-          cyc_how: "",
-          cyc_when: "",
-          d_time: "",
-          d_what: "",
-          dada: "",
-          dada_how: "",
-          dada_when: "",
-          dia: "",
-          dob: "",
-          fact_loss: "",
-          fact_loss_2: "",
-          fitness: "",
-          gender: "",
-          health: "",
-          blood: "",
-          heart: "",
-          kabajiyat: "",
-          l_time: "",
-          l_what: "",
-          m_time: "",
-          m_what: "",
-          machine: "",
-          machine_how: "",
-          machine_when: "",
-          name: "",
-          o: "",
-          o_how: "",
-          o_time: "",
-          o_what: "",
-          o_when: "",
-          occupation: "",
-          other_p: "",
-          other_p_value: "",
-          phy: "",
-          run: "",
-          run_how: "",
-          run_when: "",
-          study: "",
-          swe: "",
-          swe_how: "",
-          swe_when: "",
-          thairoid: "",
-          w_d_count: "",
-          w_d_time: "",
-          w_time: "",
-          w_what: "",
-          walk: "",
-          walk_how: "",
-          walk_when: "",
-          weight__up: "",
-          weight_down: "",
-          work: "",
-          work_how: "",
-          work_when: "",
-          yoga: "",
-          yoga_how: "",
-          yoga_when: "",
-        });
-        setSelectedPatientId({
-          patient_id: "",
-          appointment_id: "",
-          name: "",
-          age: "",
-          gender: "",
-        });
-        closeModal();
-        toast.success(response.data.message);
-        return;
-      } catch (error) {
-        console.error(error.message);
-      }
-    } else if (selectedDiv == "pain_management") {
-      try {
-        const formDataObject = new FormData();
-        formDataObject.append("patient_id", selectedPatientId.patient_id);
-        formDataObject.append(
-          "appointment_id",
-          selectedPatientId.appointment_id
-        );
-        formDataObject.append("name", selectedPatientId.name);
-        formDataObject.append("age", selectedPatientId.age);
-        formDataObject.append("gender", selectedPatientId.gender);
-        formDataObject.append("acidity", formData_2.acidity);
-        formDataObject.append("contact", formData_2.contact);
-        formDataObject.append("occupation", formData_2.occupation);
-        formDataObject.append("address", formData_2.address);
-        formDataObject.append("dayabitis", formData_2.dayabitis);
-        formDataObject.append("cyc", formData_2.cyc);
-        formDataObject.append("cyc_how", formData_2.cyc_how);
-        formDataObject.append("cyc_when", formData_2.cyc_when);
-        formDataObject.append("d_time", formData_2.d_time);
-        formDataObject.append("d_what", formData_2.d_what);
-        formDataObject.append("dada", formData_2.dada);
-        formDataObject.append("dada_how", formData_2.dada_how);
-        formDataObject.append("dada_when", formData_2.dada_when);
-        formDataObject.append("dia", formData_2.dia);
-        formDataObject.append("dob", formData_2.dob);
-        formDataObject.append("fact_loss", formData_2.fact_loss);
-        formDataObject.append("fact_loss_2", formData_2.fact_loss_2);
-        formDataObject.append("fitness", formData_2.fitness);
-        formDataObject.append("health", formData_2.health);
-        formDataObject.append("blood", formData_2.blood);
-        formDataObject.append("heart", formData_2.heart);
-        formDataObject.append("kabajiyat", formData_2.kabajiyat);
-        formDataObject.append("l_time", formData_2.l_time);
-        formDataObject.append("l_what", formData_2.l_what);
-        formDataObject.append("m_time", formData_2.m_time);
-        formDataObject.append("m_what", formData_2.m_what);
-        formDataObject.append("machine", formData_2.machine);
-        formDataObject.append("machine_how", formData_2.machine_how);
-        formDataObject.append("machine_when", formData_2.machine_when);
-        formDataObject.append("o", formData_2.o);
-        formDataObject.append("o_how", formData_2.o_how);
-        formDataObject.append("o_time", formData_2.o_time);
-        formDataObject.append("o_what", formData_2.o_what);
-        formDataObject.append("o_when", formData_2.o_when);
-        formDataObject.append("other_p", formData_2.other_p);
-        formDataObject.append("other_p_value", formData_2.other_p_value);
-        formDataObject.append("phy", formData_2.phy);
-        formDataObject.append("run", formData_2.run);
-        formDataObject.append("run_how", formData_2.run_how);
-        formDataObject.append("run_when", formData_2.run_when);
-        formDataObject.append("study", formData_2.study);
-        formDataObject.append("swe", formData_2.swe);
-        formDataObject.append("swe_how", formData_2.swe_how);
-        formDataObject.append("swe_when", formData_2.swe_when);
-        formDataObject.append("thairoid", formData_2.thairoid);
-        formDataObject.append("w_d_count", formData_2.w_d_count);
-        formDataObject.append("w_d_time", formData_2.w_d_time);
-        formDataObject.append("w_time", formData_2.w_time);
-        formDataObject.append("w_what", formData_2.w_what);
-        formDataObject.append("walk", formData_2.walk);
-        formDataObject.append("walk_how", formData_2.walk_how);
-        formDataObject.append("walk_when", formData_2.walk_when);
-        formDataObject.append("weight__up", formData_2.weight__up);
-        formDataObject.append("weight_down", formData_2.weight_down);
-        formDataObject.append("work", formData_2.work);
-        formDataObject.append("work_how", formData_2.work_how);
-        formDataObject.append("work_when", formData_2.work_when);
-        formDataObject.append("yoga", formData_2.yoga);
-        formDataObject.append("yoga_how", formData_2.yoga_how);
-        formDataObject.append("yoga_when", formData_2.yoga_when);
-        selectedImages.forEach((image, index) => {
-          if (typeof image === 'string') {
+          if (typeof image === "string") {
             formDataObject.append("images[]", image);
           } else {
             formDataObject.append("images[]", image.file);
@@ -1301,251 +670,22 @@ export default function Dashboard() {
           formDataObject
         );
         setSelectedImages([]);
-        setFormData_2({
-          acidity: "",
-          address: "",
-          contact: "",
-          cyc: "",
-          cyc_how: "",
-          cyc_when: "",
-          d_time: "",
-          d_what: "",
-          dada: "",
-          dada_how: "",
-          dada_when: "",
-          dia: "",
-          dob: "",
-          fact_loss: "",
-          fact_loss_2: "",
-          fitness: "",
-          gender: "",
-          health: "",
-          blood: "",
-          heart: "",
-          kabajiyat: "",
-          l_time: "",
-          l_what: "",
-          m_time: "",
-          m_what: "",
-          machine: "",
-          machine_how: "",
-          machine_when: "",
-          name: "",
-          o: "",
-          o_how: "",
-          o_time: "",
-          o_what: "",
-          o_when: "",
-          occupation: "",
-          other_p: "",
-          other_p_value: "",
-          phy: "",
-          run: "",
-          run_how: "",
-          run_when: "",
-          study: "",
-          swe: "",
-          swe_how: "",
-          swe_when: "",
-          thairoid: "",
-          w_d_count: "",
-          w_d_time: "",
-          w_time: "",
-          w_what: "",
-          walk: "",
-          walk_how: "",
-          walk_when: "",
-          weight__up: "",
-          weight_down: "",
-          work: "",
-          work_how: "",
-          work_when: "",
-          yoga: "",
-          yoga_how: "",
-          yoga_when: "",
-        });
-        setSelectedPatientId({
-          patient_id: "",
-          appointment_id: "",
-          name: "",
-          age: "",
-          gender: "",
-        });
+        // setSelectedPatientId(initialFormData);
         closeModal();
         toast.success(response.data.message);
-        return;
-      } catch (error) {
-        console.error(error.message);
-      }
-    } else {
-      try {
-        const formDataObject = new FormData();
-        formDataObject.append("patient_id", selectedPatientId.patient_id);
-        formDataObject.append(
-          "appointment_id",
-          selectedPatientId.appointment_id
-        );
-        formDataObject.append("name", selectedPatientId.name);
-        formDataObject.append("age", selectedPatientId.age);
-        formDataObject.append("gender", selectedPatientId.gender);
-        formDataObject.append("acidity", formData_3.acidity);
-        formDataObject.append("contact", formData_3.contact);
-        formDataObject.append("occupation", formData_3.occupation);
-        formDataObject.append("address", formData_3.address);
-        formDataObject.append("dayabitis", formData_3.dayabitis);
-        formDataObject.append("cyc", formData_3.cyc);
-        formDataObject.append("cyc_how", formData_3.cyc_how);
-        formDataObject.append("cyc_when", formData_3.cyc_when);
-        formDataObject.append("d_time", formData_3.d_time);
-        formDataObject.append("d_what", formData_3.d_what);
-        formDataObject.append("dada", formData_3.dada);
-        formDataObject.append("dada_how", formData_3.dada_how);
-        formDataObject.append("dada_when", formData_3.dada_when);
-        formDataObject.append("dia", formData_3.dia);
-        formDataObject.append("dob", formData_3.dob);
-        formDataObject.append("fact_loss", formData_3.fact_loss);
-        formDataObject.append("fact_loss_2", formData_3.fact_loss_2);
-        formDataObject.append("fitness", formData_3.fitness);
-        formDataObject.append("health", formData_3.health);
-        formDataObject.append("blood", formData_3.blood);
-        formDataObject.append("heart", formData_3.heart);
-        formDataObject.append("kabajiyat", formData_3.kabajiyat);
-        formDataObject.append("l_time", formData_3.l_time);
-        formDataObject.append("l_what", formData_3.l_what);
-        formDataObject.append("m_time", formData_3.m_time);
-        formDataObject.append("m_what", formData_3.m_what);
-        formDataObject.append("machine", formData_3.machine);
-        formDataObject.append("machine_how", formData_3.machine_how);
-        formDataObject.append("machine_when", formData_3.machine_when);
-        formDataObject.append("o", formData_3.o);
-        formDataObject.append("o_how", formData_3.o_how);
-        formDataObject.append("o_time", formData_3.o_time);
-        formDataObject.append("o_what", formData_3.o_what);
-        formDataObject.append("o_when", formData_3.o_when);
-        formDataObject.append("other_p", formData_3.other_p);
-        formDataObject.append("other_p_value", formData_3.other_p_value);
-        formDataObject.append("phy", formData_3.phy);
-        formDataObject.append("run", formData_3.run);
-        formDataObject.append("run_how", formData_3.run_how);
-        formDataObject.append("run_when", formData_3.run_when);
-        formDataObject.append("study", formData_3.study);
-        formDataObject.append("swe", formData_3.swe);
-        formDataObject.append("swe_how", formData_3.swe_how);
-        formDataObject.append("swe_when", formData_3.swe_when);
-        formDataObject.append("thairoid", formData_3.thairoid);
-        formDataObject.append("w_d_count", formData_3.w_d_count);
-        formDataObject.append("w_d_time", formData_3.w_d_time);
-        formDataObject.append("w_time", formData_3.w_time);
-        formDataObject.append("w_what", formData_3.w_what);
-        formDataObject.append("walk", formData_3.walk);
-        formDataObject.append("walk_how", formData_3.walk_how);
-        formDataObject.append("walk_when", formData_3.walk_when);
-        formDataObject.append("weight__up", formData_3.weight__up);
-        formDataObject.append("weight_down", formData_3.weight_down);
-        formDataObject.append("work", formData_3.work);
-        formDataObject.append("work_how", formData_3.work_how);
-        formDataObject.append("work_when", formData_3.work_when);
-        formDataObject.append("yoga", formData_3.yoga);
-        formDataObject.append("yoga_how", formData_3.yoga_how);
-        formDataObject.append("yoga_when", formData_3.yoga_when);
-        selectedImages.forEach((image, index) => {
-          if (typeof image === 'string') {
-            formDataObject.append("images[]", image);
-          } else {
-            formDataObject.append("images[]", image.file);
-          }
-        });
-        const response = await axios.post(
-          "https://arpanhospital.online/appointment_book_fitness.php",
-          formDataObject
-        );
-        setSelectedImages([]);
-        setFormData_3({
-          acidity: "",
-          address: "",
-          contact: "",
-          cyc: "",
-          cyc_how: "",
-          cyc_when: "",
-          d_time: "",
-          d_what: "",
-          dada: "",
-          dada_how: "",
-          dada_when: "",
-          dia: "",
-          dob: "",
-          fact_loss: "",
-          fact_loss_2: "",
-          fitness: "",
-          gender: "",
-          health: "",
-          blood: "",
-          heart: "",
-          kabajiyat: "",
-          l_time: "",
-          l_what: "",
-          m_time: "",
-          m_what: "",
-          machine: "",
-          machine_how: "",
-          machine_when: "",
-          name: "",
-          o: "",
-          o_how: "",
-          o_time: "",
-          o_what: "",
-          o_when: "",
-          occupation: "",
-          other_p: "",
-          other_p_value: "",
-          phy: "",
-          run: "",
-          run_how: "",
-          run_when: "",
-          study: "",
-          swe: "",
-          swe_how: "",
-          swe_when: "",
-          thairoid: "",
-          w_d_count: "",
-          w_d_time: "",
-          w_time: "",
-          w_what: "",
-          walk: "",
-          walk_how: "",
-          walk_when: "",
-          weight__up: "",
-          weight_down: "",
-          work: "",
-          work_how: "",
-          work_when: "",
-          yoga: "",
-          yoga_how: "",
-          yoga_when: "",
-        });
-        setSelectedPatientId({
-          patient_id: "",
-          appointment_id: "",
-          name: "",
-          age: "",
-          gender: "",
-        });
-        closeModal();
-        toast.success(response.data.message);
-        return;
       } catch (error) {
         console.error(error.message);
       }
     }
   };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleInputChange_1 = (event) => {
     const target = event.target;
@@ -1559,29 +699,29 @@ export default function Dashboard() {
     });
   };
 
-  const handleInputChange_2 = (event) => {
-    const target = event.target;
-    const value =
-      target.type === "checkbox" ? (target.checked ? 1 : 0) : target.value;
-    const name = target.name;
+  // const handleInputChange_2 = (event) => {
+  //   const target = event.target;
+  //   const value =
+  //     target.type === "checkbox" ? (target.checked ? 1 : 0) : target.value;
+  //   const name = target.name;
 
-    setFormData_2({
-      ...formData_2,
-      [name]: value,
-    });
-  };
+  //   setFormData_2({
+  //     ...formData_2,
+  //     [name]: value,
+  //   });
+  // };
 
-  const handleInputChange_3 = (event) => {
-    const target = event.target;
-    const value =
-      target.type === "checkbox" ? (target.checked ? 1 : 0) : target.value;
-    const name = target.name;
+  // const handleInputChange_3 = (event) => {
+  //   const target = event.target;
+  //   const value =
+  //     target.type === "checkbox" ? (target.checked ? 1 : 0) : target.value;
+  //   const name = target.name;
 
-    setFormData_3({
-      ...formData_3,
-      [name]: value,
-    });
-  };
+  //   setFormData_3({
+  //     ...formData_3,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleInputChange_w = (event) => {
     const { name, value } = event.target;
@@ -1603,7 +743,6 @@ export default function Dashboard() {
     setSelectedImages((prevImages) => [...prevImages, ...newImages]);
   };
 
-
   const handleRemoveImage = (index) => {
     setSelectedImages((prevImages) => [
       ...prevImages.slice(0, index),
@@ -1612,7 +751,7 @@ export default function Dashboard() {
   };
 
   const handleImageClick = (url) => {
-    window.open(url, '_blank').focus();
+    window.open(url, "_blank").focus();
   };
 
   return (
@@ -1826,7 +965,9 @@ export default function Dashboard() {
                                           item.appointment_id,
                                           item.category,
                                           item.age,
-                                          item.gender
+                                          item.gender,
+                                          item.appointment_date,
+                                          item.appointment_time
                                         )
                                       }
                                     >
@@ -2037,3704 +1178,1194 @@ export default function Dashboard() {
                                   </div>
                                 </div>
                                 {selectedDiv === "physiotherapy" && (
-                                  <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                    <h1 className="text-blue-800 font-serif text-xl">
-                                      PERSONAL INFORMATION
-                                    </h1>
-                                    <form onSubmit={handleSubmit} enctype="multipart/form-data">
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
-                                        <div className="col-span-2 flex flex-row  gap-2">
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>જન્મ તારીખ</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="date"
-                                                name="dob"
-                                                id=""
-                                                required
-                                                onChange={handleInputChange_1}
-                                                value={formData_1.dob}
-                                                max={new Date().toISOString().split('T')[0]}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>અભ્યાસ </p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="study"
-                                                placeholder="અભ્યાસ"
-                                                required
-                                                onChange={handleInputChange_1}
-                                                value={formData_1.study}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>વ્યવસાય</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="occupation"
-                                                placeholder="વ્યવસાય"
-                                                required
-                                                onChange={handleInputChange_1}
-                                                value={formData_1.occupation}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>મોબાઈલ નં</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                type="tel"
-                                                name="contact"
-                                                placeholder="મોબાઈલ નં"
-                                                required
-                                                pattern="^\d+$"
-                                                value={formData_1.contact}
-                                                onChange={handleInputChange_1}
-                                                minLength={10}
-                                                maxLength={10}
-                                              />
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="col-span-2  flex flex-col gap-2 ">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>સરનામું</p>
-                                          </div>
-                                          <div className="">
-                                            <textarea
-                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="address"
-                                              placeholder="સરનામું"
-                                              required
-                                              onChange={handleInputChange_1}
-                                              value={formData_1.address}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 ">
-                                        <div className="flex flex-col gap-2">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>* મેડીકલ હીસ્ટરી</p>
-                                          </div>
-                                          <div className="flex flex-col gap-2 items-center ">
-                                            <div className="flex flex-row gap-2 w-full items-center justify-around">
-                                              <div
-                                                className="text-left text-sm font-extrabold text-red-500 uppercase w-full  tracking-wider "
-                                                onClick={handleInputChange_1}
-                                              >
-                                                <p>(1) લોહીનું ઉંચુ દબાણ</p>
-                                              </div>
-                                              <div className="text-center w-full">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="blood"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.blood == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 w-full items-center justify-evenly">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(2) એસીડીટી</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="acidity"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.acidity == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(3) કબજીયાત</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="kabajiyat"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.kabajiyat == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(4) હૃદય રોગ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="heart"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.heart == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(5) થાયરોઈડ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="thairoid"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.thairoid == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(6) ડાયાબીટીસ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="dayabitis"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.dayabitis == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-evenly w-full">
-                                              <div className="text-left w-full text-sm font-extrabold text-red-500 uppercase  tracking-wider">
-                                                <p>(7) બીજી કોઈ તકલીફ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="other_p"
-                                                  checked={
-                                                    formData_1.other_p == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            </div>
-                                            {formData_1.other_p == 1 && (
-                                              <div>
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="other_p_value"
-                                                  value={
-                                                    formData_1.other_p_value
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* તમારે શું કરવું છે ?</p>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (1) તંદુરસ્તી સારી કરવી છે ?{" "}
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="health"
-                                                checked={
-                                                  formData_1.health == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (2) શારીરિક ક્ષમતા વધારવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fitness"
-                                                checked={
-                                                  formData_1.fitness == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (3) શરીરનો દેખાવ સુધારવો છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="phy"
-                                                checked={
-                                                  formData_1.phy == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (4) જો કોઈ બીમારી હોય તો તેને
-                                                સારી કરવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="dia"
-                                                checked={
-                                                  formData_1.dia == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(5) વજન વધારવું છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight__up"
-                                                checked={
-                                                  formData_1.weight__up == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(6) ચરબી ઘટાડવી છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss"
-                                                checked={
-                                                  formData_1.fact_loss == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (7) પેટ પર ની ચરબી ઘટાડવી છે?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss_2"
-                                                checked={
-                                                  formData_1.fact_loss_2 == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(8) વજન ઘટાડવું છે ? </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight_down"
-                                                checked={
-                                                  formData_1.weight_down == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center w-full justify-center">
-                                            {formData_1.weight_down == 1 && (
-                                              <>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_count"
-                                                    value={formData_1.w_d_count}
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                    placeholder="કેટલું ઘટાડવું છે ?"
-                                                    required
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_time"
-                                                    value={formData_1.w_d_time}
-                                                    placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                    required
-                                                  />
-                                                </div>
-                                              </>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* અત્યારની સ્થિતિ</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) ખોરાક</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સવારનો નાસ્તો</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_1.m_time}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_1.m_what}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• બપોરનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_1.l_time}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_1.l_what}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સાંજનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_1.d_time}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_1.d_what}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>
-                                                  • ત્રણ ભોજનની વચ્ચે શું લો છો{" "}
-                                                </p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_1.o_time}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_1.o_what}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) પાણી</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• પાણી</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif placeholder:text-[11px]  text-md w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_time"
-                                                  placeholder="કેટલા ગ્લાસ પાણી પીવો છો?"
-                                                  value={formData_1.w_time}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md placeholder:text-[11px]  w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_what"
-                                                  placeholder="ક્યા સમયે કેટલા ગ્લાસ પાણી પીવો છો ?"
-                                                  value={formData_1.w_what}
-                                                  onChange={handleInputChange_1}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* કાર્યપ્રણાલી</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) કસરત</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="walk"
-                                                  checked={
-                                                    formData_1.walk == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.walk == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.walk_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.walk_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• દોડવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="run"
-                                                  checked={
-                                                    formData_1.run == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.run == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.run_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.run_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• યોગાસન</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="yoga"
-                                                  checked={
-                                                    formData_1.yoga == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.yoga == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.yoga_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.yoga_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સ્વીમીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="swe"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.swe == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.swe == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.swe_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.swe_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સાયકલીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="cyc"
-                                                  checked={
-                                                    formData_1.cyc == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.cyc == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.cyc_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.cyc_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• મશીન પર ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="machine"
-                                                  checked={
-                                                    formData_1.machine == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.machine == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.machine_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.machine_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• અન્ય</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="o"
-                                                  checked={
-                                                    formData_1.o == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                              {formData_1.o == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.o_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={formData_1.o_when}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) રૂટીન એકટીવિટી</p>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• દાદર ચડવું/ઉતરવું </p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="dada"
-                                                    checked={
-                                                      formData_1.dada == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_1.dada == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_1.dada_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_1.dada_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• ઘર નું કામ</p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="work"
-                                                    checked={
-                                                      formData_1.work == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_1.work == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_1.work_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_1.work_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                        <div className=" flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>IMAGE</p>
-                                          </div>
-                                          <div className="grid grid-flow-row grid-cols-10 pt-1">
-                                            <input
-                                              className="w-full"
-                                              name="images[]"
-                                              type="file"
-                                              multiple
-                                              accept="image/*"
-                                              onChange={handleFileChange}
-                                            />
-                                            {selectedImages.map(
-                                              (image, index) => (
-                                                <div
-                                                  key={index}
-                                                  style={{
-                                                    position: "relative",
-                                                    display: "inline-block",
-                                                    margin: "5px",
-                                                  }}
-                                                >
-                                                  <img
-                                                    src={image.src || `https://arpanhospital.online/${image}`}
-                                                    alt={`Image ${index + 1}`}
-                                                    style={{
-                                                      width: "100%",
-                                                      height: "100px",
-                                                      marginRight: "5px",
-                                                      cursor: 'pointer'
-                                                    }}
-                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
-                                                  />
-                                                  <MdClose
-                                                    style={{
-                                                      position: "absolute",
-                                                      top: "-5",
-                                                      right: "-5",
-                                                      cursor: "pointer",
-                                                      background: "gray",
-                                                      borderRadius: "50%",
-                                                      padding: "3px",
-                                                    }}
-                                                    onClick={() =>
-                                                      handleRemoveImage(index)
-                                                    }
-                                                  />
-                                                </div>
-                                              )
-                                            )}
-                                          </div>
-                                        </div>
-                                      <div className="flex flex-row justify-end gap-3 font-serif uppercase mt-5">
-                                        <div>
-                                          <button
-                                            className="bg-cyan-950 text-white py-2 px-3 rounded-md uppercase"
-                                            type="submit"
-                                          >
-                                            {button ? "SUBMIT" : "UPDATE"}
-                                          </button>
-                                        </div>
-                                        <div>
-                                          <button
-                                            className="bg-red-600 text-white py-2 px-3 rounded-md uppercase"
-                                            type="reset"
-                                          >
-                                            reset
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
+                                <></> 
                                 )}
                                 {selectedDiv === "fitness" && (
-                                  <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                    <h1 className="text-blue-800 font-serif text-xl">
-                                      PERSONAL INFORMATION
-                                    </h1>
-                                    <form onSubmit={handleSubmit} enctype="multipart/form-data">
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
-                                        <div className="col-span-2 flex flex-row  gap-2">
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>જન્મ તારીખ</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="date"
-                                                name="dob"
-                                                id=""
-                                                required
-                                                onChange={handleInputChange_3}
-                                                value={formData_3.dob}
-                                                max={new Date().toISOString().split('T')[0]}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>અભ્યાસ </p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="study"
-                                                placeholder="અભ્યાસ"
-                                                required
-                                                onChange={handleInputChange_3}
-                                                value={formData_3.study}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>વ્યવસાય</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="occupation"
-                                                placeholder="વ્યવસાય"
-                                                required
-                                                onChange={handleInputChange_3}
-                                                value={formData_3.occupation}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>મોબાઈલ નં</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                type="tel"
-                                                name="contact"
-                                                placeholder="મોબાઈલ નં"
-                                                required
-                                                pattern="^\d+$"
-                                                value={formData_3.contact}
-                                                onChange={handleInputChange_3}
-                                                minLength={10}
-                                                maxLength={10}
-                                              />
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="col-span-2  flex flex-col gap-2 ">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>સરનામું</p>
-                                          </div>
-                                          <div className="">
-                                            <textarea
-                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="address"
-                                              placeholder="સરનામું"
-                                              required
-                                              onChange={handleInputChange_3}
-                                              value={formData_3.address}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 ">
-                                        <div className="flex flex-col gap-2">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>* મેડીકલ હીસ્ટરી</p>
-                                          </div>
-                                          <div className="flex flex-col gap-2 items-center ">
-                                            <div className="flex flex-row gap-2 w-full items-center justify-around">
-                                              <div
-                                                className="text-left text-sm font-extrabold text-red-500 uppercase w-full  tracking-wider "
-                                                onClick={handleInputChange_3}
-                                              >
-                                                <p>(1) લોહીનું ઉંચુ દબાણ</p>
-                                              </div>
-                                              <div className="text-center w-full">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="blood"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.blood == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 w-full items-center justify-evenly">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(2) એસીડીટી</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="acidity"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.acidity == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(3) કબજીયાત</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="kabajiyat"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.kabajiyat == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(4) હૃદય રોગ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="heart"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.heart == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(5) થાયરોઈડ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="thairoid"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.thairoid == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(6) ડાયાબીટીસ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="dayabitis"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.dayabitis == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-evenly w-full">
-                                              <div className="text-left w-full text-sm font-extrabold text-red-500 uppercase  tracking-wider">
-                                                <p>(7) બીજી કોઈ તકલીફ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="other_p"
-                                                  checked={
-                                                    formData_3.other_p == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            </div>
-                                            {formData_3.other_p == 1 && (
-                                              <div>
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="other_p_value"
-                                                  value={
-                                                    formData_3.other_p_value
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* તમારે શું કરવું છે ?</p>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (1) તંદુરસ્તી સારી કરવી છે ?{" "}
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="health"
-                                                checked={
-                                                  formData_3.health == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (2) શારીરિક ક્ષમતા વધારવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fitness"
-                                                checked={
-                                                  formData_3.fitness == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (3) શરીરનો દેખાવ સુધારવો છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="phy"
-                                                checked={
-                                                  formData_3.phy == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (4) જો કોઈ બીમારી હોય તો તેને
-                                                સારી કરવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="dia"
-                                                checked={
-                                                  formData_3.dia == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(5) વજન વધારવું છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight__up"
-                                                checked={
-                                                  formData_3.weight__up == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(6) ચરબી ઘટાડવી છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss"
-                                                checked={
-                                                  formData_3.fact_loss == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (7) પેટ પર ની ચરબી ઘટાડવી છે?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss_2"
-                                                checked={
-                                                  formData_3.fact_loss_2 == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(8) વજન ઘટાડવું છે ? </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight_down"
-                                                checked={
-                                                  formData_3.weight_down == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center w-full justify-center">
-                                            {formData_3.weight_down == 1 && (
-                                              <>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_count"
-                                                    value={formData_3.w_d_count}
-                                                    onChange={
-                                                      handleInputChange_3
-                                                    }
-                                                    placeholder="કેટલું ઘટાડવું છે ?"
-                                                    required
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_time"
-                                                    value={formData_3.w_d_time}
-                                                    placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
-                                                    onChange={
-                                                      handleInputChange_3
-                                                    }
-                                                    required
-                                                  />
-                                                </div>
-                                              </>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* અત્યારની સ્થિતિ</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) ખોરાક</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સવારનો નાસ્તો</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_3.m_time}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_3.m_what}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• બપોરનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_3.l_time}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_3.l_what}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સાંજનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_3.d_time}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_3.d_what}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>
-                                                  • ત્રણ ભોજનની વચ્ચે શું લો છો{" "}
-                                                </p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_3.o_time}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_3.o_what}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) પાણી</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• પાણી</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif placeholder:text-[11px]  text-md w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_time"
-                                                  placeholder="કેટલા ગ્લાસ પાણી પીવો છો?"
-                                                  value={formData_3.w_time}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md placeholder:text-[11px]  w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_what"
-                                                  placeholder="ક્યા સમયે કેટલા ગ્લાસ પાણી પીવો છો ?"
-                                                  value={formData_3.w_what}
-                                                  onChange={handleInputChange_3}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* કાર્યપ્રણાલી</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) કસરત</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="walk"
-                                                  checked={
-                                                    formData_3.walk == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.walk == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_3.walk_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.walk_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• દોડવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="run"
-                                                  checked={
-                                                    formData_3.run == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.run == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_3.run_how}
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.run_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• યોગાસન</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="yoga"
-                                                  checked={
-                                                    formData_3.yoga == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.yoga == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_3.yoga_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.yoga_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સ્વીમીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="swe"
-                                                  id=""
-                                                  checked={
-                                                    formData_3.swe == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.swe == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_3.swe_how}
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.swe_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સાયકલીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="cyc"
-                                                  checked={
-                                                    formData_3.cyc == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.cyc == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_3.cyc_how}
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.cyc_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• મશીન પર ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="machine"
-                                                  checked={
-                                                    formData_3.machine == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.machine == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_3.machine_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_3.machine_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• અન્ય</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="o"
-                                                  checked={
-                                                    formData_3.o == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_3}
-                                                />
-                                              </div>
-                                              {formData_3.o == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_3.o_how}
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={formData_3.o_when}
-                                                      onChange={
-                                                        handleInputChange_3
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) રૂટીન એકટીવિટી</p>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• દાદર ચડવું/ઉતરવું </p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="dada"
-                                                    checked={
-                                                      formData_3.dada == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_3
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_3.dada == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_3.dada_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_3
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_3.dada_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_3
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• ઘર નું કામ</p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="work"
-                                                    checked={
-                                                      formData_3.work == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_3
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_3.work == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_3.work_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_3
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_3.work_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_3
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className=" flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>IMAGE</p>
-                                          </div>
-                                          <div className="grid grid-flow-row grid-cols-10 pt-1">
-                                            <input
-                                              className="w-full"
-                                              name="images[]"
-                                              type="file"
-                                              multiple
-                                              accept="image/*"
-                                              onChange={handleFileChange}
-                                            />
-                                            {selectedImages.map(
-                                              (image, index) => (
-                                                <div
-                                                  key={index}
-                                                  style={{
-                                                    position: "relative",
-                                                    display: "inline-block",
-                                                    margin: "5px",
-                                                  }}
-                                                >
-                                                  <img
-                                                    src={image.src || `https://arpanhospital.online/${image}`}
-                                                    alt={`Image ${index + 1}`}
-                                                    style={{
-                                                      width: "100%",
-                                                      height: "100px",
-                                                      marginRight: "5px",
-                                                      cursor: 'pointer'
-                                                    }}
-                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
-                                                  />
-                                                  <MdClose
-                                                    style={{
-                                                      position: "absolute",
-                                                      top: "-5",
-                                                      right: "-5",
-                                                      cursor: "pointer",
-                                                      background: "gray",
-                                                      borderRadius: "50%",
-                                                      padding: "3px",
-                                                    }}
-                                                    onClick={() =>
-                                                      handleRemoveImage(index)
-                                                    }
-                                                  />
-                                                </div>
-                                              )
-                                            )}
-                                          </div>
-                                        </div>
-                                      <div className="flex flex-row justify-end gap-3 font-serif uppercase mt-5">
-                                        <div>
-                                          <button
-                                            className="bg-cyan-950 text-white py-2 px-3 rounded-md uppercase"
-                                            type="submit"
-                                          >
-                                            {button ? "SUBMIT" : "UPDATE"}
-                                          </button>
-                                        </div>
-                                        <div>
-                                          <button
-                                            className="bg-red-600 text-white py-2 px-3 rounded-md uppercase"
-                                            type="reset"
-                                          >
-                                            reset
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
+                                  <></>
                                 )}
                                 {selectedDiv === "weight_loss" && (
-                                  <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                    <h1 className="text-blue-800 font-serif text-xl">
-                                      PERSONAL INFORMATION
-                                    </h1>
-                                    <form
-                                      onSubmit={handleSubmit}
-                                      enctype="multipart/form-data"
-                                    >
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
-                                        <div className="col-span-2 flex flex-row  gap-2">
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                                              <p>HEIGHT</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="height"
-                                                placeholder="HEIGHT"
-                                                required
-                                                onChange={handleInputChange}
-                                                value={formData.height}
-                                              />
-                                            </div>
+                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
+                                   <h1 className="text-blue-800 font-serif text-xl">
+                                     PERSONAL INFORMATION
+                                   </h1>
+                                   <form
+                                     onSubmit={handleSubmit}
+                                     enctype="multipart/form-data"
+                                   >
+                                     <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
+                                       <div className="col-span-2 flex flex-row  gap-2">
+                                         <div className="flex flex-col gap-2 w-full ">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                             <p>જન્મ તારીખ</p>
+                                           </div>
+                                           <div className="">
+                                             <input
+                                               className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
+                                               type="date"
+                                               name="dob"
+                                               id=""
+                                               required
+                                               onChange={handleInputChange_1}
+                                               value={formData_1.dob}
+                                               max={
+                                                 new Date()
+                                                   .toISOString()
+                                                   .split("T")[0]
+                                               }
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-col gap-2 w-full ">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                             <p>અભ્યાસ </p>
+                                           </div>
+                                           <div className="">
+                                             <input
+                                               className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
+                                               type="text"
+                                               name="study"
+                                               placeholder="અભ્યાસ"
+                                               required
+                                               onChange={handleInputChange_1}
+                                               value={formData_1.study}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-col gap-2 w-full ">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                             <p>વ્યવસાય</p>
+                                           </div>
+                                           <div className="">
+                                             <input
+                                               className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                               type="text"
+                                               name="occupation"
+                                               placeholder="વ્યવસાય"
+                                               required
+                                               onChange={handleInputChange_1}
+                                               value={formData_1.occupation}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-col gap-2 w-full ">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                             <p>મોબાઈલ નં</p>
+                                           </div>
+                                           <div className="">
+                                             <input
+                                               className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
+                                               type="tel"
+                                               name="contact"
+                                               placeholder="મોબાઈલ નં"
+                                               required
+                                               pattern="^\d+$"
+                                               value={formData_1.contact}
+                                               onChange={handleInputChange_1}
+                                               minLength={10}
+                                               maxLength={10}
+                                             />
+                                           </div>
+                                         </div>
+                                       </div>
+                                       <div className="col-span-2  flex flex-col gap-2 ">
+                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
+                                           <p>સરનામું</p>
+                                         </div>
+                                         <div className="">
+                                           <textarea
+                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                             name="address"
+                                             placeholder="સરનામું"
+                                             required
+                                             onChange={handleInputChange_1}
+                                             value={formData_1.address}
+                                           ></textarea>
+                                         </div>
+                                       </div>
+                                     </div>
+                                     <h1 className="text-blue-800 font-serif text-xl pt-5">
+                                       PATIENT INFORMATION
+                                     </h1>
+                                     <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 ">
+                                       <div className="flex flex-col gap-2">
+                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
+                                           <p>* મેડીકલ હીસ્ટરી</p>
+                                         </div>
+                                         <div className="flex flex-col gap-2 items-center ">
+                                           <div className="flex flex-row gap-2 w-full items-center justify-around">
+                                             <div
+                                               className="text-left text-sm font-extrabold text-red-500 uppercase w-full  tracking-wider "
+                                               onClick={handleInputChange_1}
+                                             >
+                                               <p>(1) લોહીનું ઉંચુ દબાણ</p>
+                                             </div>
+                                             <div className="text-center w-full">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="blood"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.blood == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 w-full items-center justify-evenly">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>(2) એસીડીટી</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="acidity"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.acidity == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 items-center justify-around w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>(3) કબજીયાત</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="kabajiyat"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.kabajiyat == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 items-center justify-around w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>(4) હૃદય રોગ</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="heart"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.heart == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 items-center justify-around w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>(5) થાયરોઈડ</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="thairoid"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.thairoid == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 items-center justify-around w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>(6) ડાયાબીટીસ</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4"
+                                                 type="checkbox"
+                                                 name="dayabitis"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.dayabitis == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row gap-2 items-center justify-evenly w-full">
+                                             <div className="text-left w-full text-sm font-extrabold text-red-500 uppercase  tracking-wider">
+                                               <p>(7) બીજી કોઈ તકલીફ</p>
+                                             </div>
+                                             <div className="w-full text-center">
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="other_p"
+                                                 checked={
+                                                   formData_1.other_p == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           </div>
+                                           {formData_1.other_p == 1 && (
+                                             <div>
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="other_p_value"
+                                                 value={
+                                                   formData_1.other_p_value
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                           )}
+                                         </div>
+                                       </div>
+                                       <div className="flex flex-col gap-2 w-full">
+                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                           <p>* તમારે શું કરવું છે ?</p>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>
+                                               (1) તંદુરસ્તી સારી કરવી છે ?{" "}
+                                             </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="health"
+                                               checked={
+                                                 formData_1.health == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>
+                                               (2) શારીરિક ક્ષમતા વધારવી છે ?
+                                             </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="fitness"
+                                               checked={
+                                                 formData_1.fitness == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>
+                                               (3) શરીરનો દેખાવ સુધારવો છે ?
+                                             </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="phy"
+                                               checked={
+                                                 formData_1.phy == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>
+                                               (4) જો કોઈ બીમારી હોય તો તેને
+                                               સારી કરવી છે ?
+                                             </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="dia"
+                                               checked={
+                                                 formData_1.dia == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>(5) વજન વધારવું છે?</p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="weight__up"
+                                               checked={
+                                                 formData_1.weight__up == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>(6) ચરબી ઘટાડવી છે?</p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="fact_loss"
+                                               checked={
+                                                 formData_1.fact_loss == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>
+                                               (7) પેટ પર ની ચરબી ઘટાડવી છે?
+                                             </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="fact_loss_2"
+                                               checked={
+                                                 formData_1.fact_loss_2 == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center">
+                                           <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                             <p>(8) વજન ઘટાડવું છે ? </p>
+                                           </div>
+                                           <div>
+                                             <input
+                                               className="h-4 w-4"
+                                               type="checkbox"
+                                               name="weight_down"
+                                               checked={
+                                                 formData_1.weight_down == 1
+                                                   ? true
+                                                   : false
+                                               }
+                                               onChange={handleInputChange_1}
+                                             />
+                                           </div>
+                                         </div>
+                                         <div className="flex flex-row gap-3 items-center w-full justify-center">
+                                           {formData_1.weight_down == 1 && (
+                                             <>
+                                               <div>
+                                                 <input
+                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                   type="text"
+                                                   name="w_d_count"
+                                                   value={formData_1.w_d_count}
+                                                   onChange={
+                                                     handleInputChange_1
+                                                   }
+                                                   placeholder="કેટલું ઘટાડવું છે ?"
+                                                   required
+                                                 />
+                                               </div>
+                                               <div>
+                                                 <input
+                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                   type="text"
+                                                   name="w_d_time"
+                                                   value={formData_1.w_d_time}
+                                                   placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
+                                                   onChange={
+                                                     handleInputChange_1
+                                                   }
+                                                   required
+                                                 />
+                                               </div>
+                                             </>
+                                           )}
+                                         </div>
+                                       </div>
+                                       <div className="flex flex-col gap-2  w-full">
+                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                           <p>* અત્યારની સ્થિતિ</p>
+                                         </div>
+                                         <div className="pl-2 w-full">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                             <p>(1) ખોરાક</p>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>• સવારનો નાસ્તો</p>
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="m_time"
+                                                 placeholder="ક્યારે ?"
+                                                 value={formData_1.m_time}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="m_what"
+                                                 placeholder="શું લો છો ?"
+                                                 value={formData_1.m_what}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>• બપોરનું ભોજન</p>
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="l_time"
+                                                 placeholder="ક્યારે ?"
+                                                 value={formData_1.l_time}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="l_what"
+                                                 placeholder="શું લો છો ?"
+                                                 value={formData_1.l_what}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>• સાંજનું ભોજન</p>
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="d_time"
+                                                 placeholder="ક્યારે ?"
+                                                 value={formData_1.d_time}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="d_what"
+                                                 placeholder="શું લો છો ?"
+                                                 value={formData_1.d_what}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>
+                                                 • ત્રણ ભોજનની વચ્ચે શું લો છો{" "}
+                                               </p>
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="o_time"
+                                                 placeholder="ક્યારે ?"
+                                                 value={formData_1.o_time}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                 type="text"
+                                                 name="o_what"
+                                                 placeholder="શું લો છો ?"
+                                                 value={formData_1.o_what}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                           </div>
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                             <p>(2) પાણી</p>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                               <p>• પાણી</p>
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif placeholder:text-[11px]  text-md w-full text-cyan-950"
+                                                 type="text"
+                                                 name="w_time"
+                                                 placeholder="કેટલા ગ્લાસ પાણી પીવો છો?"
+                                                 value={formData_1.w_time}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                             <div className="w-full">
+                                               <input
+                                                 className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md placeholder:text-[11px]  w-full text-cyan-950"
+                                                 type="text"
+                                                 name="w_what"
+                                                 placeholder="ક્યા સમયે કેટલા ગ્લાસ પાણી પીવો છો ?"
+                                                 value={formData_1.w_what}
+                                                 onChange={handleInputChange_1}
+                                                 required
+                                               />
+                                             </div>
+                                           </div>
+                                         </div>
+                                       </div>
+                                       <div className="flex flex-col gap-2  w-full">
+                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                           <p>* કાર્યપ્રણાલી</p>
+                                         </div>
+                                         <div className="pl-2 w-full">
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                             <p>(1) કસરત</p>
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• ચાલવું</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="walk"
+                                                 checked={
+                                                   formData_1.walk == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.walk == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="walk_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={
+                                                       formData_1.walk_how
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="walk_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.walk_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• દોડવું</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="run"
+                                                 checked={
+                                                   formData_1.run == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.run == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="run_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={formData_1.run_how}
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="run_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.run_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• યોગાસન</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="yoga"
+                                                 checked={
+                                                   formData_1.yoga == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.yoga == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="yoga_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={
+                                                       formData_1.yoga_how
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="yoga_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.yoga_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• સ્વીમીંગ</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="swe"
+                                                 id=""
+                                                 checked={
+                                                   formData_1.swe == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.swe == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="swe_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={formData_1.swe_how}
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="swe_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.swe_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• સાયકલીંગ</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="cyc"
+                                                 checked={
+                                                   formData_1.cyc == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.cyc == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="cyc_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={formData_1.cyc_how}
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="cyc_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.cyc_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• મશીન પર ચાલવું</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="machine"
+                                                 checked={
+                                                   formData_1.machine == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.machine == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="machine_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={
+                                                       formData_1.machine_how
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="machine_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={
+                                                       formData_1.machine_when
+                                                     }
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+                                           <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                               <div>
+                                                 <p>• અન્ય</p>
+                                               </div>
+                                               <input
+                                                 className="h-4 w-4 "
+                                                 type="checkbox"
+                                                 name="o"
+                                                 checked={
+                                                   formData_1.o == 1
+                                                     ? true
+                                                     : false
+                                                 }
+                                                 onChange={handleInputChange_1}
+                                               />
+                                             </div>
+                                             {formData_1.o == 1 && (
+                                               <>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="o_how"
+                                                     placeholder="કેટલું ?"
+                                                     value={formData_1.o_how}
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                                 <div className="w-full">
+                                                   <input
+                                                     className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                     type="text"
+                                                     name="o_when"
+                                                     placeholder="ક્યા સમયે ?"
+                                                     value={formData_1.o_when}
+                                                     onChange={
+                                                       handleInputChange_1
+                                                     }
+                                                     required
+                                                   />
+                                                 </div>
+                                               </>
+                                             )}
+                                           </div>
+
+                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
+                                             <p>(2) રૂટીન એકટીવિટી</p>
+                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                                 <div>
+                                                   <p>• દાદર ચડવું/ઉતરવું </p>
+                                                 </div>
+                                                 <input
+                                                   className="h-4 w-4 "
+                                                   type="checkbox"
+                                                   name="dada"
+                                                   checked={
+                                                     formData_1.dada == 1
+                                                       ? true
+                                                       : false
+                                                   }
+                                                   onChange={
+                                                     handleInputChange_1
+                                                   }
+                                                 />
+                                               </div>
+                                               {formData_1.dada == 1 && (
+                                                 <>
+                                                   <div className="w-full">
+                                                     <input
+                                                       className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                       type="text"
+                                                       name="dada_how"
+                                                       placeholder="કેટલું ?"
+                                                       value={
+                                                         formData_1.dada_how
+                                                       }
+                                                       onChange={
+                                                         handleInputChange_1
+                                                       }
+                                                       required
+                                                     />
+                                                   </div>
+                                                   <div className="w-full">
+                                                     <input
+                                                       className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                       type="text"
+                                                       name="dada_when"
+                                                       placeholder="ક્યા સમયે ?"
+                                                       value={
+                                                         formData_1.dada_when
+                                                       }
+                                                       onChange={
+                                                         handleInputChange_1
+                                                       }
+                                                       required
+                                                     />
+                                                   </div>
+                                                 </>
+                                               )}
+                                             </div>
+                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
+                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
+                                                 <div>
+                                                   <p>• ઘર નું કામ</p>
+                                                 </div>
+                                                 <input
+                                                   className="h-4 w-4 "
+                                                   type="checkbox"
+                                                   name="work"
+                                                   checked={
+                                                     formData_1.work == 1
+                                                       ? true
+                                                       : false
+                                                   }
+                                                   onChange={
+                                                     handleInputChange_1
+                                                   }
+                                                 />
+                                               </div>
+                                               {formData_1.work == 1 && (
+                                                 <>
+                                                   <div className="w-full">
+                                                     <input
+                                                       className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                       type="text"
+                                                       name="work_how"
+                                                       placeholder="કેટલું ?"
+                                                       value={
+                                                         formData_1.work_how
+                                                       }
+                                                       onChange={
+                                                         handleInputChange_1
+                                                       }
+                                                       required
+                                                     />
+                                                   </div>
+                                                   <div className="w-full">
+                                                     <input
+                                                       className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
+                                                       type="text"
+                                                       name="work_when"
+                                                       placeholder="ક્યા સમયે ?"
+                                                       value={
+                                                         formData_1.work_when
+                                                       }
+                                                       onChange={
+                                                         handleInputChange_1
+                                                       }
+                                                       required
+                                                     />
+                                                   </div>
+                                                 </>
+                                               )}
+                                             </div>
+                                           </div>
+                                         </div>
+                                       </div>
+                                     </div>
+                                     <div className="flex flex-col pt-3 gap-2 pb-1 w-full">
+                                       <div className="text-left text-sm  text-gray-500 uppercase flex flex-col gap-3  justify-between  tracking-wider w-full ">
+                                         <div>
+                                           <p>Remark</p>
+                                         </div>
+                                         <div className="w-full">
+                                         <textarea
+                                           className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                           name="remark"
+                                           placeholder="remark"
+                                           required
+                                           onChange={handleInputChange_1}
+                                           value={formData_1.remark}
+                                         ></textarea>
                                           </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                                              <p>WEIGHT</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="weight"
-                                                placeholder="WEIGHT"
-                                                required
-                                                onChange={handleInputChange}
-                                                value={formData.weight}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                                              <p>OCCUPATION</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="occupation"
-                                                placeholder="OCCUPATION"
-                                                required
-                                                onChange={handleInputChange}
-                                                value={formData.occupation}
-                                              />
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="col-span-2  flex flex-col gap-2 ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>ADDRESS</p>
-                                          </div>
-                                          <div className="">
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="address"
-                                              placeholder="ADDRESS"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.address}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-2 ">
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>evaluation</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="evaluation"
-                                              placeholder="evaluation"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.evaluation}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>history</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="history"
-                                              placeholder="history"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.history}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>chief_complaint</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="chief_complaint"
-                                              placeholder="chief_complaint"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.chief_complaint}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>observation</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="observation"
-                                              placeholder="observation"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.observation}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>radiological_findings </p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="radiological_findings"
-                                              placeholder="radiological_findings"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={
-                                                formData.radiological_findings
-                                              }
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p> diagnosis</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="diagnosis"
-                                              placeholder="diagnosis"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.diagnosis}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className=" col-span-2 flex flex-col gap-2 w-full ">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>treatment</p>
-                                          </div>
-                                          <div>
-                                            <textarea
-                                              className="w-full p-2 rounded-md text-cyan-950 font-medium shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="treatment"
-                                              placeholder="treatment"
-                                              required
-                                              onChange={handleInputChange}
-                                              value={formData.treatment}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                        <div className="col-span-2 flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>IMAGE</p>
-                                          </div>
-                                          <div className="grid grid-flow-row grid-cols-10 pt-1">
-                                            <input
-                                              className="w-full"
-                                              name="images[]"
-                                              type="file"
-                                              multiple
-                                              accept="image/*"
-                                              onChange={handleFileChange}
-                                            />
-                                            {selectedImages.map(
-                                              (image, index) => (
-                                                <div
-                                                  key={index}
-                                                  style={{
-                                                    position: "relative",
-                                                    display: "inline-block",
-                                                    margin: "5px",
-                                                  }}
-                                                >
-                                                  <img
-                                                    src={image.src || `https://arpanhospital.online/${image}`}
-                                                    alt={`Image ${index + 1}`}
-                                                    style={{
-                                                      width: "100%",
-                                                      height: "100px",
-                                                      marginRight: "5px",
-                                                      cursor: 'pointer'
-                                                    }}
-                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
-                                                  />
-                                                  <MdClose
-                                                    style={{
-                                                      position: "absolute",
-                                                      top: "-5",
-                                                      right: "-5",
-                                                      cursor: "pointer",
-                                                      background: "gray",
-                                                      borderRadius: "50%",
-                                                      padding: "3px",
-                                                    }}
-                                                    onClick={() =>
-                                                      handleRemoveImage(index)
-                                                    }
-                                                  />
-                                                </div>
-                                              )
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className="flex flex-row justify-end gap-3 font-serif uppercase mt-5">
-                                        <div>
-                                          <button
-                                            className="bg-cyan-950 text-white py-2 px-3 rounded-md uppercase"
-                                            type="submit"
-                                          >
-                                            {button ? "SUBMIT" : "UPDATE"}
-                                          </button>
-                                        </div>
-                                        <div>
-                                          <button
-                                            className="bg-red-600 text-white py-2 px-3 rounded-md uppercase"
-                                            type="reset"
-                                          >
-                                            reset
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
+                                       </div>
+                                     </div>
+                                     <div className=" flex flex-col gap-2 w-full">
+                                       <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
+                                         <p>IMAGE</p>
+                                       </div>
+                                       <div className="grid grid-flow-row grid-cols-10 pt-1">
+                                         <input
+                                           className="w-full"
+                                           name="images[]"
+                                           type="file"
+                                           multiple
+                                           accept="image/*"
+                                           onChange={handleFileChange}
+                                         />
+                                         {selectedImages.map(
+                                           (image, index) => (
+                                             <div
+                                               key={index}
+                                               style={{
+                                                 position: "relative",
+                                                 display: "inline-block",
+                                                 margin: "5px",
+                                               }}
+                                             >
+                                               <img
+                                                 src={
+                                                   image.src ||
+                                                   `https://arpanhospital.online/${image}`
+                                                 }
+                                                 alt={`Image ${index + 1}`}
+                                                 style={{
+                                                   width: "100%",
+                                                   height: "100px",
+                                                   marginRight: "5px",
+                                                   cursor: "pointer",
+                                                 }}
+                                                 onClick={() =>
+                                                   handleImageClick(
+                                                     typeof image === "string"
+                                                       ? `https://arpanhospital.online/${image}`
+                                                       : URL.createObjectURL(
+                                                           image.file
+                                                         )
+                                                   )
+                                                 }
+                                               />
+                                               <MdClose
+                                                 style={{
+                                                   position: "absolute",
+                                                   top: "-5",
+                                                   right: "-5",
+                                                   cursor: "pointer",
+                                                   background: "gray",
+                                                   borderRadius: "50%",
+                                                   padding: "3px",
+                                                 }}
+                                                 onClick={() =>
+                                                   handleRemoveImage(index)
+                                                 }
+                                               />
+                                             </div>
+                                           )
+                                         )}
+                                       </div>
+                                     </div>
+                                     <div className="flex flex-row justify-end gap-3 font-serif uppercase mt-5">
+                                       <div>
+                                         <button
+                                           className="bg-cyan-950 text-white py-2 px-3 rounded-md uppercase"
+                                           type="submit"
+                                         >
+                                           {button ? "SUBMIT" : "UPDATE"}
+                                         </button>
+                                       </div>
+                                       <div>
+                                         <button
+                                           className="bg-red-600 text-white py-2 px-3 rounded-md uppercase"
+                                           type="reset"
+                                         >
+                                           reset
+                                         </button>
+                                       </div>
+                                     </div>
+                                   </form>
+                                 </div>
                                 )}
                                 {selectedDiv === "pain_management" && (
-                                  <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                    <h1 className="text-blue-800 font-serif text-xl">
-                                      PERSONAL INFORMATION
-                                    </h1>
-                                    <form onSubmit={handleSubmit} enctype="multipart/form-data">
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 gap-3 lg:grid-cols-4">
-                                        <div className="col-span-2 flex flex-row  gap-2">
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>જન્મ તારીખ</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="date"
-                                                name="dob"
-                                                id=""
-                                                required
-                                                onChange={handleInputChange_2}
-                                                value={formData_2.dob}
-                                                max={new Date().toISOString().split('T')[0]}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>અભ્યાસ </p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="study"
-                                                placeholder="અભ્યાસ"
-                                                required
-                                                onChange={handleInputChange_2}
-                                                value={formData_2.study}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>વ્યવસાય</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                type="text"
-                                                name="occupation"
-                                                placeholder="વ્યવસાય"
-                                                required
-                                                onChange={handleInputChange_2}
-                                                value={formData_2.occupation}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-col gap-2 w-full ">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>મોબાઈલ નં</p>
-                                            </div>
-                                            <div className="">
-                                              <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                type="tel"
-                                                name="contact"
-                                                placeholder="મોબાઈલ નં"
-                                                required
-                                                pattern="^\d+$"
-                                                value={formData_2.contact}
-                                                onChange={handleInputChange_2}
-                                                minLength={10}
-                                                maxLength={10}
-                                              />
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="col-span-2  flex flex-col gap-2 ">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>સરનામું</p>
-                                          </div>
-                                          <div className="">
-                                            <textarea
-                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
-                                              name="address"
-                                              placeholder="સરનામું"
-                                              required
-                                              onChange={handleInputChange_2}
-                                              value={formData_2.address}
-                                            ></textarea>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 ">
-                                        <div className="flex flex-col gap-2">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>* મેડીકલ હીસ્ટરી</p>
-                                          </div>
-                                          <div className="flex flex-col gap-2 items-center ">
-                                            <div className="flex flex-row gap-2 w-full items-center justify-around">
-                                              <div
-                                                className="text-left text-sm font-extrabold text-red-500 uppercase w-full  tracking-wider "
-                                                onClick={handleInputChange_2}
-                                              >
-                                                <p>(1) લોહીનું ઉંચુ દબાણ</p>
-                                              </div>
-                                              <div className="text-center w-full">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="blood"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.blood == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 w-full items-center justify-evenly">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(2) એસીડીટી</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="acidity"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.acidity == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(3) કબજીયાત</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="kabajiyat"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.kabajiyat == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(4) હૃદય રોગ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="heart"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.heart == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(5) થાયરોઈડ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="thairoid"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.thairoid == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(6) ડાયાબીટીસ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="dayabitis"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.dayabitis == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row gap-2 items-center justify-evenly w-full">
-                                              <div className="text-left w-full text-sm font-extrabold text-red-500 uppercase  tracking-wider">
-                                                <p>(7) બીજી કોઈ તકલીફ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="other_p"
-                                                  checked={
-                                                    formData_2.other_p == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            </div>
-                                            {formData_2.other_p == 1 && (
-                                              <div>
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="other_p_value"
-                                                  value={
-                                                    setFormData_2.other_p_value
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* તમારે શું કરવું છે ?</p>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (1) તંદુરસ્તી સારી કરવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="health"
-                                                checked={
-                                                  formData_2.health == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (2) શારીરિક ક્ષમતા વધારવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fitness"
-                                                checked={
-                                                  formData_2.fitness == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (3) શરીરનો દેખાવ સુધારવો છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="phy"
-                                                checked={
-                                                  formData_2.phy == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (4) જો કોઈ બીમારી હોય તો તેને
-                                                સારી કરવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="dia"
-                                                checked={
-                                                  formData_2.dia == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(5) વજન વધારવું છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight__up"
-                                                checked={
-                                                  formData_2.weight__up == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(6) ચરબી ઘટાડવી છે?</p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss"
-                                                checked={
-                                                  formData_2.fact_loss == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (7) પેટ પર ની ચરબી ઘટાડવી છે?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss_2"
-                                                checked={
-                                                  formData_2.fact_loss_2 == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(8) વજન ઘટાડવું છે ? </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight_down"
-                                                checked={
-                                                  formData_2.weight_down == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center w-full justify-center">
-                                            {formData_2.weight_down == 1 && (
-                                              <>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_count"
-                                                    value={formData_2.w_d_count}
-                                                    onChange={
-                                                      handleInputChange_2
-                                                    }
-                                                    placeholder="કેટલું ઘટાડવું છે ?"
-                                                    required
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_time"
-                                                    value={formData_2.w_d_time}
-                                                    placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
-                                                    onChange={
-                                                      handleInputChange_2
-                                                    }
-                                                    required
-                                                  />
-                                                </div>
-                                              </>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* અત્યારની સ્થિતિ</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) ખોરાક</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સવારનો નાસ્તો</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_2.m_time}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="m_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_2.m_what}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• બપોરનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_2.l_time}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="l_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_2.l_what}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સાંજનું ભોજન</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_2.d_time}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="d_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_2.d_what}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>
-                                                  • ત્રણ ભોજનની વચ્ચે શું લો છો
-                                                </p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_time"
-                                                  placeholder="ક્યારે ?"
-                                                  value={formData_2.o_time}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="o_what"
-                                                  placeholder="શું લો છો ?"
-                                                  value={formData_2.o_what}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) પાણી</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• પાણી</p>
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif placeholder:text-[11px]  text-md w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_time"
-                                                  placeholder="કેટલા ગ્લાસ પાણી પીવો છો?"
-                                                  value={formData_2.w_time}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                              <div className="w-full">
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md placeholder:text-[11px]  w-full text-cyan-950"
-                                                  type="text"
-                                                  name="w_what"
-                                                  placeholder="ક્યા સમયે કેટલા ગ્લાસ પાણી પીવો છો ?"
-                                                  value={formData_2.w_what}
-                                                  onChange={handleInputChange_2}
-                                                  required
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="flex flex-col gap-2  w-full">
-                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* કાર્યપ્રણાલી</p>
-                                          </div>
-                                          <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) કસરત</p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="walk"
-                                                  checked={
-                                                    formData_2.walk == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.walk == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_2.walk_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.walk_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• દોડવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="run"
-                                                  checked={
-                                                    formData_2.run == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.run == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_2.run_how}
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.run_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• યોગાસન</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="yoga"
-                                                  checked={
-                                                    formData_2.yoga == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.yoga == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_2.yoga_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.yoga_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સ્વીમીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="swe"
-                                                  id=""
-                                                  checked={
-                                                    formData_2.swe == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.swe == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_2.swe_how}
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.swe_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• સાયકલીંગ</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="cyc"
-                                                  checked={
-                                                    formData_2.cyc == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.cyc == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_2.cyc_how}
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.cyc_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• મશીન પર ચાલવું</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="machine"
-                                                  checked={
-                                                    formData_2.machine == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.machine == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_2.machine_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_2.machine_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-                                            <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                <div>
-                                                  <p>• અન્ય</p>
-                                                </div>
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="o"
-                                                  checked={
-                                                    formData_2.o == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_2}
-                                                />
-                                              </div>
-                                              {formData_2.o == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_2.o_how}
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={formData_2.o_when}
-                                                      onChange={
-                                                        handleInputChange_2
-                                                      }
-                                                      required
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
-                                            </div>
-
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) રૂટીન એકટીવિટી</p>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• દાદર ચડવું/ઉતરવું </p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="dada"
-                                                    checked={
-                                                      formData_2.dada == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_2
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_2.dada == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_2.dada_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_2
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_2.dada_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_2
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                              <div className="flex flex-row items-center gap-2 pb-1 w-full">
-                                                <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
-                                                  <div>
-                                                    <p>• ઘર નું કામ</p>
-                                                  </div>
-                                                  <input
-                                                    className="h-4 w-4 "
-                                                    type="checkbox"
-                                                    name="work"
-                                                    checked={
-                                                      formData_2.work == 1
-                                                        ? true
-                                                        : false
-                                                    }
-                                                    onChange={
-                                                      handleInputChange_2
-                                                    }
-                                                  />
-                                                </div>
-                                                {formData_2.work == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_2.work_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_2
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_2.work_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_2
-                                                        }
-                                                        required
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div className=" flex flex-col gap-2 w-full">
-                                          <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                            <p>IMAGE</p>
-                                          </div>
-                                          <div className="grid grid-flow-row grid-cols-10 pt-1">
-                                            <input
-                                              className="w-full"
-                                              name="images[]"
-                                              type="file"
-                                              multiple
-                                              accept="image/*"
-                                              onChange={handleFileChange}
-                                            />
-                                            {selectedImages.map(
-                                              (image, index) => (
-                                                <div
-                                                  key={index}
-                                                  style={{
-                                                    position: "relative",
-                                                    display: "inline-block",
-                                                    margin: "5px",
-                                                  }}
-                                                >
-                                                  <img
-                                                    src={image.src || `https://arpanhospital.online/${image}`}
-                                                    alt={`Image ${index + 1}`}
-                                                    style={{
-                                                      width: "100%",
-                                                      height: "100px",
-                                                      marginRight: "5px",
-                                                      cursor: 'pointer'
-                                                    }}
-                                                    onClick={() => handleImageClick(typeof image === "string" ? `https://arpanhospital.online/${image}` : URL.createObjectURL(image.file))}
-                                                  />
-                                                  <MdClose
-                                                    style={{
-                                                      position: "absolute",
-                                                      top: "-5",
-                                                      right: "-5",
-                                                      cursor: "pointer",
-                                                      background: "gray",
-                                                      borderRadius: "50%",
-                                                      padding: "3px",
-                                                    }}
-                                                    onClick={() =>
-                                                      handleRemoveImage(index)
-                                                    }
-                                                  />
-                                                </div>
-                                              )
-                                            )}
-                                          </div>
-                                        </div>
-                                      <div className="flex flex-row justify-end gap-3 font-serif uppercase mt-5">
-                                        <div>
-                                          <button
-                                            className="bg-cyan-950 text-white py-2 px-3 rounded-md uppercase"
-                                            type="submit"
-                                          >
-                                            {button ? "SUBMIT" : "UPDATE"}
-                                          </button>
-                                        </div>
-                                        <div>
-                                          <button
-                                            className="bg-red-600 text-white py-2 px-3 rounded-md uppercase"
-                                            type="reset"
-                                          >
-                                            reset
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </div>
+                                  <></>
                                 )}
                               </div>
                             </>
