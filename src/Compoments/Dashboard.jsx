@@ -19,6 +19,7 @@ import image2 from "../element/Weight Loss Icon.jpeg";
 import pain_managment from "../element/pain.jpeg";
 import jsPDF from "jspdf";
 import pdf from "../element/pdf.jpg";
+import { Form } from "react-bootstrap";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ export default function Dashboard() {
     gender: '',
     occupation: '',
     address: '',
-    domSide: '',
+    domSide: "",
     chfCmp: '',
     hyperTense: 0,
     diabetes: 0,
@@ -81,14 +82,14 @@ export default function Dashboard() {
     numb: 0,
     tingling: 0,
     freqNature: '',
-    duration: '',
+    duration: 'acute',
     painAgrFact: '',
     painRelFact: '',
     intensity: '',
     observation: '',
     tend: 0,
     crepitus: 0,
-    scar: '',
+    scar: 'heal',
     swelling: 0,
     palpOthers: 0,
     examination: '',
@@ -106,17 +107,12 @@ export default function Dashboard() {
     address: "",
     contact: "",
     cyc: "",
-    cyc_how: "",
-    cyc_when: "",
     d_time: "",
     d_what: "",
     dada: "",
-    dada_how: "",
-    dada_when: "",
     dia: "",
     dob: "",
     fact_loss: "",
-    fact_loss_2: "",
     fitness: "",
     gender: "",
     health: "",
@@ -128,41 +124,24 @@ export default function Dashboard() {
     m_time: "",
     m_what: "",
     machine: "",
-    machine_how: "",
-    machine_when: "",
     name: "",
     o: "",
-    o_how: "",
     o_time: "",
     o_what: "",
-    o_when: "",
     occupation: "",
-    other_p: "",
     other_p_value: "",
     phy: "",
     run: "",
-    run_how: "",
-    run_when: "",
     study: "",
     swe: "",
-    swe_how: "",
-    swe_when: "",
     thairoid: "",
-    w_d_count: "",
-    w_d_time: "",
     w_time: "",
     w_what: "",
     walk: "",
-    walk_how: "",
-    walk_when: "",
     weight__up: "",
     weight_down: "",
     work: "",
-    work_how: "",
-    work_when: "",
     yoga: "",
-    yoga_how: "",
-    yoga_when: "",
     dayabitis: "",
     remark: "",
   });
@@ -193,14 +172,14 @@ export default function Dashboard() {
     numb: 0,
     tingling: 0,
     freqNature: '',
-    duration: '',
+    duration: 'acute',
     painAgrFact: '',
     painRelFact: '',
     intensity: '',
     observation: '',
     tend: 0,
     crepitus: 0,
-    scar: '',
+    scar: 'heal',
     swelling: 0,
     palpOthers: 0,
     examination: '',
@@ -240,14 +219,14 @@ export default function Dashboard() {
     numb: 0,
     tingling: 0,
     freqNature: '',
-    duration: '',
+    duration: 'acute',
     painAgrFact: '',
     painRelFact: '',
     intensity: '',
     observation: '',
     tend: 0,
     crepitus: 0,
-    scar: '',
+    scar: 'heal',
     swelling: 0,
     palpOthers: 0,
     examination: '',
@@ -350,17 +329,12 @@ export default function Dashboard() {
       address: "",
       contact: "",
       cyc: "",
-      cyc_how: "",
-      cyc_when: "",
       d_time: "",
       d_what: "",
       dada: "",
-      dada_how: "",
-      dada_when: "",
       dia: "",
       dob: "",
       fact_loss: "",
-      fact_loss_2: "",
       fitness: "",
       gender: "",
       health: "",
@@ -372,41 +346,24 @@ export default function Dashboard() {
       m_time: "",
       m_what: "",
       machine: "",
-      machine_how: "",
-      machine_when: "",
       name: "",
       o: "",
-      o_how: "",
       o_time: "",
       o_what: "",
-      o_when: "",
       occupation: "",
-      other_p: "",
       other_p_value: "",
       phy: "",
       run: "",
-      run_how: "",
-      run_when: "",
       study: "",
       swe: "",
-      swe_how: "",
-      swe_when: "",
       thairoid: "",
-      w_d_count: "",
-      w_d_time: "",
       w_time: "",
       w_what: "",
       walk: "",
-      walk_how: "",
-      walk_when: "",
       weight__up: "",
       weight_down: "",
       work: "",
-      work_how: "",
-      work_when: "",
       yoga: "",
-      yoga_how: "",
-      yoga_when: "",
       dayabitis: "",
       remark: "",
     });
@@ -512,7 +469,6 @@ export default function Dashboard() {
     const labels = [];
     const chartData = [];
 
-    // Calculate the total count of appointments for all categories
     let totalCount = 0;
     if (count.appointments_today) {
       Object.values(count.appointments_today).forEach((count) => {
@@ -520,15 +476,11 @@ export default function Dashboard() {
       });
     }
 
-    // Iterate over the entries of count.appointments_today
     if (count.appointments_today) {
       Object.entries(count.appointments_today).forEach(([category, count]) => {
-        // Calculate the percentage of appointments for the current category
         const percentage = (count / totalCount) * 100;
-
-        // Push category names (labels) and percentages to the respective arrays
         labels.push(category);
-        chartData.push(percentage.toFixed(2)); // Round percentage to 2 decimal places
+        chartData.push(percentage.toFixed(2));
       });
     }
 
@@ -713,17 +665,12 @@ export default function Dashboard() {
           contact: appointmentData.contact,
           blood: appointmentData.blood,
           cyc: appointmentData.cyc,
-          cyc_how: appointmentData.cyc_how,
-          cyc_when: appointmentData.cyc_when,
           d_time: appointmentData.d_time,
           d_what: appointmentData.d_what,
           dada: appointmentData.dada,
-          dada_how: appointmentData.dada_how,
-          dada_when: appointmentData.dada_when,
           dia: appointmentData.dia,
           dob: appointmentData.dob,
           fact_loss: appointmentData.fact_loss,
-          fact_loss_2: appointmentData.fact_loss_2,
           fitness: appointmentData.fitness,
           gender: appointmentData.gender,
           health: appointmentData.health,
@@ -734,28 +681,17 @@ export default function Dashboard() {
           m_time: appointmentData.m_time,
           m_what: appointmentData.m_what,
           machine: appointmentData.machine,
-          machine_how: appointmentData.machine_how,
-          machine_when: appointmentData.machine_when,
           name: appointmentData.name,
           o: appointmentData.o,
-          o_how: appointmentData.o_how,
           o_time: appointmentData.o_time,
           o_what: appointmentData.o_what,
-          o_when: appointmentData.o_when,
           occupation: appointmentData.occupation,
-          other_p: appointmentData.other_p,
           other_p_value: appointmentData.other_p_value,
           phy: appointmentData.phy,
           run: appointmentData.run,
-          run_how: appointmentData.run_how,
-          run_when: appointmentData.run_when,
           study: appointmentData.study,
           swe: appointmentData.swe,
-          swe_how: appointmentData.swe_how,
-          swe_when: appointmentData.swe_when,
           thairoid: appointmentData.thairoid,
-          w_d_count: appointmentData.w_d_count,
-          w_d_time: appointmentData.w_d_time,
           w_time: appointmentData.w_time,
           w_what: appointmentData.w_what,
           walk: appointmentData.walk,
@@ -764,11 +700,7 @@ export default function Dashboard() {
           weight__up: appointmentData.weight__up,
           weight_down: appointmentData.weight_down,
           work: appointmentData.work,
-          work_how: appointmentData.work_how,
-          work_when: appointmentData.work_when,
           yoga: appointmentData.yoga,
-          yoga_how: appointmentData.yoga_how,
-          yoga_when: appointmentData.yoga_when,
           name: appointmentData.name,
           dayabitis: appointmentData.dayabitis,
           remark: appointmentData.remark,
@@ -857,7 +789,7 @@ export default function Dashboard() {
           setButton(true);
           return;
         }
-        setFormData({
+        setFormData_2({
           name: appointmentData.name,
           age: appointmentData.age,
           gender: appointmentData.gender,
@@ -924,7 +856,7 @@ export default function Dashboard() {
           setButton(true);
           return;
         }
-        setFormData({
+        setFormData_3({
           name: appointmentData.name,
           age: appointmentData.age,
           gender: appointmentData.gender,
@@ -991,7 +923,7 @@ export default function Dashboard() {
       try {
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* Patient Report *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
         doc.setTextColor(255, 0, 0); // Set text color to red (RGB: 255, 0, 0)
@@ -1072,7 +1004,7 @@ export default function Dashboard() {
           },
           { title: "* History", titleX: 90, titleY: y + 29 },
           {
-            label: "1)Acidity",
+            label: "1)Asthma",
             value: formData_1.acidity == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 35,
@@ -1080,142 +1012,121 @@ export default function Dashboard() {
             valueY: y + 35,
           },
           {
-            label: "2)Dayabitis",
-            value: formData_1.dayabitis == 1 ? "Yes" : "No",
+            label: "2)dliatetes",
+            value: formData_1.kabajiyat == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 42,
             valueX: 55,
             valueY: y + 42,
+           
           },
           {
-            label: "3)Kabajiyat",
-            value: formData_1.kabajiyat == 1 ? "Yes" : "No",
+            label: "3)Heart Disease",
+            value: formData_1.heart == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 49,
             valueX: 55,
             valueY: y + 49,
+           
           },
           {
-            label: "4)Heart",
-            value: formData_1.heart == 1 ? "Yes" : "No",
+            label: "4)Hypertension",
+            value: formData_1.blood == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 56,
             valueX: 55,
             valueY: y + 56,
+           
           },
           {
-            label: "5)Blood",
-            value: formData_1.blood == 1 ? "Yes" : "No",
+            label: "5)Thairoid",
+            value: formData_1.thairoid == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 63,
             valueX: 55,
             valueY: y + 63,
+          
           },
           {
-            label: "6)Thairoid",
-            value: formData_1.thairoid == 1 ? "Yes" : "No",
+            label: "6)Dayabitis",
+            value: formData_1.dayabitis!== "" ? formData_1.dayabitis : " --- ",
             labelX: 10,
             labelY: y + 70,
             valueX: 55,
             valueY: y + 70,
           },
           {
-            label: "7)Other_Problem",
-            value: formData_1.other_p == 1 ? "Yes" : "No",
+            label: "7)Other Problem",
+            value:
+              formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- ",
             labelX: 10,
             labelY: y + 77,
             valueX: 55,
             valueY: y + 77,
           },
-          {
-            label: "i)Problem",
-            value:
-              formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- ",
-            labelX: 65,
-            labelY: y + 77,
-            valueX: 95,
-            valueY: y + 77,
-          },
           { title: "* Need", titleX: 90, titleY: y + 84 },
           {
-            label: "1)Fact Loss",
+            label: "1)Fat Loss",
             value: formData_1.fact_loss == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 90,
-            valueX: 80,
+            valueX: 55,
             valueY: y + 90,
           },
           {
-            label: "2)Fact Loss 2",
-            value: formData_1.fact_loss_2 == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 97,
-            valueX: 80,
-            valueY: y + 97,
-          },
-          {
-            label: "3)Fitness",
+            label: "2)Fitness",
             value: formData_1.fitness == 1 ? "Yes" : "No",
             labelX: 10,
-            labelY: y + 104,
-            valueX: 80,
-            valueY: y + 104,
+            labelY: y + 97,
+            valueX: 55,
+            valueY: y + 97,
+           
           },
           {
-            label: "4)Health",
+            label: "3)Health",
             value: formData_1.health == 1 ? "Yes" : "No",
             labelX: 10,
-            labelY: y + 111,
-            valueX: 80,
-            valueY: y + 111,
+            labelY: y + 104,
+            valueX: 55,
+            valueY: y + 104,
+           
           },
           {
-            label: "5)Physique",
+            label: "4)Physique",
             value: formData_1.phy == 1 ? "Yes" : "No",
             labelX: 10,
-            labelY: y + 118,
-            valueX: 80,
-            valueY: y + 118,
+            labelY: y + 111,
+            valueX: 55,
+            valueY: y + 111,
+           
           },
           {
-            label: "6)Found Problem",
-            value: formData_1.dia == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 125,
-            valueX: 80,
-            valueY: y + 125,
-          },
-          {
-            label: "7)Weight Gain",
+            label: "5)Weight Gain",
             value: formData_1.weight__up == 1 ? "Yes" : "No",
             labelX: 10,
-            labelY: y + 132,
-            valueX: 80,
-            valueY: y + 132,
+            labelY: y + 118,
+            valueX: 55,
+            valueY: y + 118,
+          
+            
           },
           {
-            label: "8)Weight loss",
+            label: "6)Weight loss",
             value: formData_1.weight_down == 1 ? "Yes" : "No",
             labelX: 10,
-            labelY: y + 139,
-            valueX: 80,
-            valueY: y + 139,
+            labelY: y + 125,
+            valueX: 55,
+            valueY: y + 125,
+           
           },
           {
-            label: "how many",
-            value: formData_1.w_d_count !== "" ? formData_1.w_d_count : " --- ",
-            labelX: 90,
-            labelY: y + 139,
-            valueX: 117,
-            valueY: y + 139,
-          },
-          {
-            label: "Time",
-            value: formData_1.w_d_time !== "" ? formData_1.w_d_time : " --- ",
-            labelX: 170,
-            labelY: y + 139,
-            valueX: 185,
-            valueY: y + 139,
+            label: "7)Other Problem",
+            value: formData_1.dia !== "" ? formData_1.dia : " --- ",
+            labelX: 10,
+            labelY: y + 132,
+            valueX: 55,
+            valueY: y + 132,
+           
           },
           { title: "* Diet History", titleX: 80, titleY: y + 147 },
           { title: "Diet", titleX: 10, titleY: y + 154 },
@@ -1279,147 +1190,60 @@ export default function Dashboard() {
           { title: "* Extra/routine Activities", titleX: 70, titleY: y + 198 },
           { title: "Activity", titleX: 10, titleY: y + 204 },
           { title: "yes/no", titleX: 50, titleY: y + 204 },
-          { title: "how much", titleX: 100, titleY: y + 204 },
-          { title: "When", titleX: 170, titleY: y + 204 },
           { label: "Cycleling", labelX: 10, labelY: y + 211 },
           {
             value: formData_1.cyc == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 211,
           },
-          {
-            value: formData_1.cyc_how !== "" ? formData_1.cyc_how : " --- ",
-            valueX: 100,
-            valueY: y + 211,
-          },
-          {
-            value: formData_1.cyc_when !== "" ? formData_1.cyc_when : " --- ",
-            valueX: 170,
-            valueY: y + 211,
-          },
+         
           { label: "Walking", labelX: 10, labelY: y + 218 },
           {
             value: formData_1.walk == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 218,
           },
-          {
-            value: formData_1.walk_how !== "" ? formData_1.walk_how : " --- ",
-            valueX: 100,
-            valueY: y + 218,
-          },
-          {
-            value: formData_1.walk_when !== "" ? formData_1.walk_when : " --- ",
-            valueX: 170,
-            valueY: y + 218,
-          },
+         
           { label: "Yoga", labelX: 10, labelY: y + 225 },
           {
             value: formData_1.yoga == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 225,
           },
-          {
-            value: formData_1.yoga_how !== "" ? formData_1.yoga_how : " --- ",
-            valueX: 100,
-            valueY: y + 225,
-          },
-          {
-            value: formData_1.yoga_when !== "" ? formData_1.yoga_when : " --- ",
-            valueX: 170,
-            valueY: y + 225,
-          },
+         
           { label: "Swimming", labelX: 10, labelY: y + 232 },
           {
             value: formData_1.swe == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 232,
           },
-          {
-            value: formData_1.swe_how !== "" ? formData_1.swe_how : " --- ",
-            valueX: 100,
-            valueY: y + 232,
-          },
-          {
-            value: formData_1.swe_when !== "" ? formData_1.swe_when : " --- ",
-            valueX: 170,
-            valueY: y + 232,
-          },
+          
           { label: "Running", labelX: 10, labelY: y + 239 },
           {
             value: formData_1.run == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 239,
           },
-          {
-            value: formData_1.run_how !== "" ? formData_1.run_how : " --- ",
-            valueX: 100,
-            valueY: y + 239,
-          },
-          {
-            value: formData_1.run_when !== "" ? formData_1.run_when : " --- ",
-            valueX: 170,
-            valueY: y + 239,
-          },
+        
           { label: "Machine_Run", labelX: 10, labelY: y + 246 },
           {
             value: formData_1.machine == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 246,
           },
-          {
-            value: formData_1.machine_how !== "" ? formData_1.machine_how : " --- ",
-            valueX: 100,
-            valueY: y + 246,
-          },
-          {
-            value:
-              formData_1.machine_when !== "" ? formData_1.machine_when : " --- ",
-            valueX: 170,
-            valueY: y + 246,
-          },
+        
           { label: "Other", labelX: 10, labelY: y + 253 },
           { value: formData_1.o == 1 ? "Yes" : "No", valueX: 50, valueY: y + 253 },
-          {
-            value: formData_1.o_how !== "" ? formData_1.o_how : " --- ",
-            valueX: 100,
-            valueY: y + 253,
-          },
-          {
-            value: formData_1.o_when !== "" ? formData_1.o_when : " --- ",
-            valueX: 170,
-            valueY: y + 253,
-          },
           { label: "climb stairs", labelX: 10, labelY: y + 260 },
           {
             value: formData_1.dada == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 260,
           },
-          {
-            value: formData_1.dada_how !== "" ? formData_1.dada_how : " --- ",
-            valueX: 100,
-            valueY: y + 260,
-          },
-          {
-            value: formData_1.dada_when !== "" ? formData_1.dada_when : " --- ",
-            valueX: 170,
-            valueY: y + 260,
-          },
           { label: "Household work", labelX: 10, labelY: y + 267 },
           {
             value: formData_1.work == 1 ? "Yes" : "No",
             valueX: 50,
-            valueY: y + 267,
-          },
-          {
-            value: formData_1.work_how !== "" ? formData_1.work_how : " --- ",
-            valueX: 100,
-            valueY: y + 267,
-          },
-          {
-            value: formData_1.work_when !== "" ? formData_1.work_when : " --- ",
-            valueX: 170,
             valueY: y + 267,
           },
         ];
@@ -1455,17 +1279,15 @@ export default function Dashboard() {
         formDataObject.append("address", formData_1.address);
         formDataObject.append("dayabitis", formData_1.dayabitis);
         formDataObject.append("cyc", formData_1.cyc);
-        formDataObject.append("cyc_how", formData_1.cyc_how);
-        formDataObject.append("cyc_when", formData_1.cyc_when);
+       
         formDataObject.append("d_time", formData_1.d_time);
         formDataObject.append("d_what", formData_1.d_what);
         formDataObject.append("dada", formData_1.dada);
-        formDataObject.append("dada_how", formData_1.dada_how);
-        formDataObject.append("dada_when", formData_1.dada_when);
+       
         formDataObject.append("dia", formData_1.dia);
         formDataObject.append("dob", formData_1.dob);
         formDataObject.append("fact_loss", formData_1.fact_loss);
-        formDataObject.append("fact_loss_2", formData_1.fact_loss_2);
+     
         formDataObject.append("fitness", formData_1.fitness);
         formDataObject.append("health", formData_1.health);
         formDataObject.append("blood", formData_1.blood);
@@ -1476,39 +1298,29 @@ export default function Dashboard() {
         formDataObject.append("m_time", formData_1.m_time);
         formDataObject.append("m_what", formData_1.m_what);
         formDataObject.append("machine", formData_1.machine);
-        formDataObject.append("machine_how", formData_1.machine_how);
-        formDataObject.append("machine_when", formData_1.machine_when);
+     
         formDataObject.append("o", formData_1.o);
-        formDataObject.append("o_how", formData_1.o_how);
+   
         formDataObject.append("o_time", formData_1.o_time);
         formDataObject.append("o_what", formData_1.o_what);
-        formDataObject.append("o_when", formData_1.o_when);
-        formDataObject.append("other_p", formData_1.other_p);
+
         formDataObject.append("other_p_value", formData_1.other_p_value);
         formDataObject.append("phy", formData_1.phy);
         formDataObject.append("run", formData_1.run);
-        formDataObject.append("run_how", formData_1.run_how);
-        formDataObject.append("run_when", formData_1.run_when);
+      
         formDataObject.append("study", formData_1.study);
         formDataObject.append("swe", formData_1.swe);
-        formDataObject.append("swe_how", formData_1.swe_how);
-        formDataObject.append("swe_when", formData_1.swe_when);
+    
         formDataObject.append("thairoid", formData_1.thairoid);
-        formDataObject.append("w_d_count", formData_1.w_d_count);
-        formDataObject.append("w_d_time", formData_1.w_d_time);
+       
         formDataObject.append("w_time", formData_1.w_time);
         formDataObject.append("w_what", formData_1.w_what);
         formDataObject.append("walk", formData_1.walk);
-        formDataObject.append("walk_how", formData_1.walk_how);
-        formDataObject.append("walk_when", formData_1.walk_when);
+       
         formDataObject.append("weight__up", formData_1.weight__up);
         formDataObject.append("weight_down", formData_1.weight_down);
         formDataObject.append("work", formData_1.work);
-        formDataObject.append("work_how", formData_1.work_how);
-        formDataObject.append("work_when", formData_1.work_when);
         formDataObject.append("yoga", formData_1.yoga);
-        formDataObject.append("yoga_how", formData_1.yoga_how);
-        formDataObject.append("yoga_when", formData_1.yoga_when);
         formDataObject.append("remark", formData_1.remark);
         formDataObject.append(
           "report_pdf",
@@ -1529,11 +1341,16 @@ export default function Dashboard() {
         setSelectedImages([]);
         setSelectedPatientId({ patient_id: "", appointment_id: "", name: "", age: "", gender: "", appointment_date: "", appointment_time: "" });
         setFormData_1({
-          acidity: "", address: "", contact: "", cyc: "", cyc_how: "", cyc_when: "", d_time: "", d_what: "", dada: "", dada_how: "", dada_when: "",
+          acidity: "",
+          address: "",
+          contact: "",
+          cyc: "",
+          d_time: "",
+          d_what: "",
+          dada: "",
           dia: "",
           dob: "",
           fact_loss: "",
-          fact_loss_2: "",
           fitness: "",
           gender: "",
           health: "",
@@ -1545,41 +1362,24 @@ export default function Dashboard() {
           m_time: "",
           m_what: "",
           machine: "",
-          machine_how: "",
-          machine_when: "",
           name: "",
           o: "",
-          o_how: "",
           o_time: "",
           o_what: "",
-          o_when: "",
           occupation: "",
-          other_p: "",
           other_p_value: "",
           phy: "",
           run: "",
-          run_how: "",
-          run_when: "",
           study: "",
           swe: "",
-          swe_how: "",
-          swe_when: "",
           thairoid: "",
-          w_d_count: "",
-          w_d_time: "",
           w_time: "",
           w_what: "",
           walk: "",
-          walk_how: "",
-          walk_when: "",
           weight__up: "",
           weight_down: "",
           work: "",
-          work_how: "",
-          work_when: "",
           yoga: "",
-          yoga_how: "",
-          yoga_when: "",
           dayabitis: "",
           remark: "",
         });
@@ -1595,10 +1395,10 @@ export default function Dashboard() {
       try {
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* Patient Report *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
-        doc.setTextColor(255, 0, 0); // Set text color to red (RGB: 255, 0, 0)
+        doc.setTextColor(255, 0, 0); 
         doc.text(
           moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
           190,
@@ -1651,6 +1451,14 @@ export default function Dashboard() {
             valueY: y + 7,
           },
           {
+            label: "Dob",
+            value: moment(formData.dob).format('DD-MM-YYYY'),
+            labelX: 138,
+            labelY: y,
+            valueX: 138,
+            valueY: y + 7,
+          },
+          {
             label: "Occupation",
             value: formData.occupation,
             labelX: 174,
@@ -1658,17 +1466,333 @@ export default function Dashboard() {
             valueX: 174,
             valueY: y + 7,
           },
+          
           {
-            label: "Address",
-            value: formData.address,
+            label: "* Address",
+            value: `=> ${formData.address}`,
             labelX: 10,
-            labelY: y + 15,
+            labelY: y + 14,
             valueX: 10,
-            valueY: y + 22,
+            valueY: y + 19,
+          },
+          {
+            label: "* Dominant Side",
+            value: `=> ${formData.domSide}`,
+            labelX: 10,
+            labelY: y + 26,
+            valueX: 10,
+            valueY: y + 31,
+          },
+          {
+            label: "* Chief Complaint",
+            value: `=> ${formData.chfCmp}`,
+            labelX: 10,
+            labelY: y + 38,
+            valueX: 10,
+            valueY: y + 43,
+          },
+          { title: "* History", titleX: 90, titleY: y + 50},
+          {
+            label: "1)Asthma",
+            value: formData.asthama == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 56,
+            valueX: 55,
+            valueY: y + 56,
+          },
+          {
+            label: "2)dliatetes",
+            value: formData.diabetes == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 63,
+            valueX: 55,
+            valueY: y + 63,
+           
+          },
+          {
+            label: "3)Thayroid",
+            value: formData.thyroid == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 70,
+            valueX: 55,
+            valueY: y + 70,
+           
+          },
+          {
+            label: "4)Hypertension",
+            value: formData.hyperTense == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 77,
+            valueX: 55,
+            valueY: y + 77,
+          },
+          {
+            label: "5)Other History",
+            value: formData.other_p_value!== "" ? formData.other_p_value : " --- ",
+            labelX: 10,
+            labelY: y + 84,
+            valueX: 55,
+            valueY: y + 84,
+          },
+          {
+            label: "6)Past History",
+            value: formData.pastSurg!== "" ? formData.pastSurg : " --- ",
+            labelX: 10,
+            labelY: y + 91,
+            valueX: 55,
+            valueY: y + 91,
+          },
+          {
+            label: "7)Present History",
+            value: formData.presentSurg!== "" ? formData.presentSurg : " --- ",
+            labelX: 10,
+            labelY: y + 98,
+            valueX: 55,
+            valueY: y + 98,
+          },
+          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
+          {
+            label: "* Site/Location",
+            value: formData.siteLoca!== "" ? `=> ${formData.siteLoca}` : " --- ",
+            labelX: 10,
+            labelY: y + 111,
+            valueX: 10,
+            valueY: y + 116,
+          },
+          {
+            label: "* Side",
+            value: formData.side!== "" ? `=> ${formData.side}` : " --- ",
+            labelX: 10,
+            labelY: y + 123,
+            valueX: 10,
+            valueY: y + 128,
+          },
+          {
+            label: "* Frequency/Nature",
+            value: formData.freqNature!== "" ? `=> ${formData.freqNature}` : " --- ",
+            labelX: 10,
+            labelY: y + 135,
+            valueX: 10,
+            valueY: y + 140,
+          },
+          {
+            label: "* Pain Aggravating Factor",
+            value: formData.painAgrFact!== "" ? `=> ${formData.painAgrFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 147,
+            valueX: 10,
+            valueY: y + 152,
+          },
+          {
+            label: "* Pain Relieving Factor",
+            value: formData.painRelFact!== "" ? `=> ${formData.painRelFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 159,
+            valueX: 10,
+            valueY: y + 164,
+          },
+          {
+            label: "* Intensity(NPRS)",
+            value: formData.intensity!== "" ? `=> ${formData.intensity
+
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 171,
+            valueX: 10,
+            valueY: y + 176,
+          },
+          {label: "* Type", labelX: 10, labelY: y + 183},
+          {
+            label: "1)Dullaaying",
+            value: formData.dull== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 189,
+            valueX: 55,
+            valueY: y + 189,
+          },
+          {
+            label: "2)Cramping",
+            value: formData.cramp== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 196,
+            valueX: 55,
+            valueY: y + 196,
+          },
+          {
+            label: "3)Sharp Shooting",
+            value: formData.sharpShoot== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 203,
+            valueX: 55,
+            valueY: y + 203,
+          },
+          {
+            label: "4)Burning ",
+            value: formData.burn== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 210,
+            valueX: 55,
+            valueY: y + 210,
+          },
+          {
+            label: "5)Throbbing",
+            value: formData.throb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 217,
+            valueX: 55,
+            valueY: y + 217,
+          },
+          {
+            label: "6)Numbness",
+            value: formData.numb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 225,
+            valueX: 55,
+            valueY: y + 225,
+          },
+          {
+            label: "7)Tingling",
+            value: formData.tingling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 232,
+            valueX: 55,
+            valueY: y + 232,
+          },
+          {
+            label: "8)Other",
+            value: formData.other_p_value_3!== "" ? `${formData.other_p_value_3
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 239,
+            valueX: 55,
+            valueY: y + 239,
+          },
+          {
+            label: "* Duaration",
+            value: formData.duration!== "" ? `${formData.duration
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 246,
+            valueX: 55,
+            valueY: y + 246,
+          },
+          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
+          {
+            label: "* Observation",
+            value: formData.observation!== "" ? `=> ${formData.observation
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 260,
+            valueX: 10,
+            valueY: y + 265,
+          },
+          { label: "* Palpation", labelX: 10, labelY: y},
+          {
+            label: "1)Tenderness",
+            value: formData.tend== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 7,
+            valueX: 55,
+            valueY: y + 7,
+          },
+          {
+            label: "2)Crepitus",
+            value: formData.crepitus== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 14,
+            valueX: 55,
+            valueY: y + 14,
+          },
+          {
+            label: "3)Scar",
+            value: formData.scar!== "" ? `${formData.scar
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 21,
+            valueX: 55,
+            valueY: y + 21,
+          },
+          {
+            label: "4)Swelling ",
+            value: formData.swelling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 28,
+            valueX: 55,
+            valueY: y + 28,
+          },
+          {
+            label: "5)other_p_value_2",
+            value: formData.other_p_value_2!== "" ? `=> ${formData.other_p_value_2
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +35,
+            valueX: 55,
+            valueY: y + 35,
+          },
+          {
+            label: "* Examination",
+            value: formData.examination!== "" ? `=> ${formData.examination
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +42,
+            valueX: 10,
+            valueY: y + 47,
+          },
+          {
+            label: "* Innestigation/Radiological Findings",
+            value: formData.investRadioFinding!== "" ? `=> ${formData.investRadioFinding
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +54,
+            valueX: 10,
+            valueY: y + 59,
+          },
+          {
+            label: "* Medical Diagnosis",
+            value: formData.medDiagno!== "" ? `=> ${formData.medDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +66,
+            valueX: 10,
+            valueY: y + 71,
+          },
+          {
+            label: "* Physiotherapy Diagnosis",
+            value: formData.phyDiagno!== "" ? `=> ${formData.phyDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +78,
+            valueX: 10,
+            valueY: y + 84,
+          },
+          {
+            label: "* Treatment",
+            value: formData.ObjTreatment!== "" ? `=> ${formData.ObjTreatment
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +91,
+            valueX: 10,
+            valueY: y + 96,
+          },
+          {
+            label: "* Remark",
+            value: formData.remark!== "" ? `=> ${formData.remark
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +103,
+            valueX: 10,
+            valueY: y + 108,
           },
         ];
-
-        fields.forEach((field) => {
+        let addToNextPage = false;
+        fields.forEach((field,index) => {
+          if (addToNextPage) {
+            // Start a new page for all fields after * Observation
+            doc.addPage();
+            addPageBorder();
+            y = 20; // Reset y-coordinate
+            addToNextPage = false; // Reset flag to avoid multiple page additions
+          }
           addPageBorder();
           if (field.title !== undefined) {
             doc.setTextColor(21, 94, 117);
@@ -1676,11 +1800,15 @@ export default function Dashboard() {
           }
           if (field.label !== undefined) {
             doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 16);
+            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            addText(field.value, field.valueX, field.valueY, "normal", 14);
+            // field.valueY = checkYValueAndAddPage(field.valueY);
+            addText(field.value, field.valueX, field.valueY, "normal", 13);
+          }
+          if (field.label === "* Observation") {
+            addToNextPage = true;
           }
         });
         const pdfBlob = doc.output("blob");
@@ -1812,10 +1940,10 @@ export default function Dashboard() {
       try {
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* Patient Report *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
-        doc.setTextColor(255, 0, 0); // Set text color to red (RGB: 255, 0, 0)
+        doc.setTextColor(255, 0, 0); 
         doc.text(
           moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
           190,
@@ -1824,13 +1952,13 @@ export default function Dashboard() {
         );
         doc.setTextColor(0, 0, 0);
         let y = 20;
-
+        
         function addText(text, x, y, fontStyle, fontSize) {
           doc.setFont(fontStyle);
           doc.setFontSize(fontSize);
           doc.text(text, x, y);
         }
-
+        
         function addPageBorder() {
           doc.setDrawColor(0); // Border color (black)
           doc.setLineWidth(0.5); // Border line width
@@ -1841,7 +1969,7 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
-
+        
         const fields = [
           {
             label: "Name",
@@ -1868,6 +1996,14 @@ export default function Dashboard() {
             valueY: y + 7,
           },
           {
+            label: "Dob",
+            value: moment(formData_2.dob).format('DD-MM-YYYY'),
+            labelX: 138,
+            labelY: y,
+            valueX: 138,
+            valueY: y + 7,
+          },
+          {
             label: "Occupation",
             value: formData_2.occupation,
             labelX: 174,
@@ -1875,17 +2011,332 @@ export default function Dashboard() {
             valueX: 174,
             valueY: y + 7,
           },
+          
           {
-            label: "Address",
-            value: formData_2.address,
+            label: "* Address",
+            value: `=> ${formData_2.address}`,
             labelX: 10,
-            labelY: y + 15,
+            labelY: y + 14,
             valueX: 10,
-            valueY: y + 22,
+            valueY: y + 19,
+          },
+          {
+            label: "* Dominant Side",
+            value: `=> ${formData_2.domSide}`,
+            labelX: 10,
+            labelY: y + 26,
+            valueX: 10,
+            valueY: y + 31,
+          },
+          {
+            label: "* Chief Complaint",
+            value: `=> ${formData_2.chfCmp}`,
+            labelX: 10,
+            labelY: y + 38,
+            valueX: 10,
+            valueY: y + 43,
+          },
+          { title: "* History", titleX: 90, titleY: y + 50},
+          {
+            label: "1)Asthma",
+            value: formData_2.asthama == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 56,
+            valueX: 55,
+            valueY: y + 56,
+          },
+          {
+            label: "2)dliatetes",
+            value: formData_2.diabetes == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 63,
+            valueX: 55,
+            valueY: y + 63,
+           
+          },
+          {
+            label: "3)Thayroid",
+            value: formData_2.thyroid == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 70,
+            valueX: 55,
+            valueY: y + 70,
+           
+          },
+          {
+            label: "4)Hypertension",
+            value: formData_2.hyperTense == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 77,
+            valueX: 55,
+            valueY: y + 77,
+          },
+          {
+            label: "5)Other History",
+            value: formData_2.other_p_value!== "" ? formData_2.other_p_value : " --- ",
+            labelX: 10,
+            labelY: y + 84,
+            valueX: 55,
+            valueY: y + 84,
+          },
+          {
+            label: "6)Past History",
+            value: formData_2.pastSurg!== "" ? formData_2.pastSurg : " --- ",
+            labelX: 10,
+            labelY: y + 91,
+            valueX: 55,
+            valueY: y + 91,
+          },
+          {
+            label: "7)Present History",
+            value: formData_2.presentSurg!== "" ? formData_2.presentSurg : " --- ",
+            labelX: 10,
+            labelY: y + 98,
+            valueX: 55,
+            valueY: y + 98,
+          },
+          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
+          {
+            label: "* Site/Location",
+            value: formData_2.siteLoca!== "" ? `=> ${formData_2.siteLoca}` : " --- ",
+            labelX: 10,
+            labelY: y + 111,
+            valueX: 10,
+            valueY: y + 116,
+          },
+          {
+            label: "* Side",
+            value: formData_2.side!== "" ? `=> ${formData_2.side}` : " --- ",
+            labelX: 10,
+            labelY: y + 123,
+            valueX: 10,
+            valueY: y + 128,
+          },
+          {
+            label: "* Frequency/Nature",
+            value: formData_2.freqNature!== "" ? `=> ${formData_2.freqNature}` : " --- ",
+            labelX: 10,
+            labelY: y + 135,
+            valueX: 10,
+            valueY: y + 140,
+          },
+          {
+            label: "* Pain Aggravating Factor",
+            value: formData_2.painAgrFact!== "" ? `=> ${formData_2.painAgrFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 147,
+            valueX: 10,
+            valueY: y + 152,
+          },
+          {
+            label: "* Pain Relieving Factor",
+            value: formData_2.painRelFact!== "" ? `=> ${formData_2.painRelFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 159,
+            valueX: 10,
+            valueY: y + 164,
+          },
+          {
+            label: "* Intensity(NPRS)",
+            value: formData_2.intensity!== "" ? `=> ${formData_2.intensity
+        
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 171,
+            valueX: 10,
+            valueY: y + 176,
+          },
+          {label: "* Type", labelX: 10, labelY: y + 183},
+          {
+            label: "1)Dullaaying",
+            value: formData_2.dull== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 189,
+            valueX: 55,
+            valueY: y + 189,
+          },
+          {
+            label: "2)Cramping",
+            value: formData_2.cramp== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 196,
+            valueX: 55,
+            valueY: y + 196,
+          },
+          {
+            label: "3)Sharp Shooting",
+            value: formData_2.sharpShoot== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 203,
+            valueX: 55,
+            valueY: y + 203,
+          },
+          {
+            label: "4)Burning ",
+            value: formData_2.burn== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 210,
+            valueX: 55,
+            valueY: y + 210,
+          },
+          {
+            label: "5)Throbbing",
+            value: formData_2.throb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 217,
+            valueX: 55,
+            valueY: y + 217,
+          },
+          {
+            label: "6)Numbness",
+            value: formData_2.numb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 225,
+            valueX: 55,
+            valueY: y + 225,
+          },
+          {
+            label: "7)Tingling",
+            value: formData_2.tingling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 232,
+            valueX: 55,
+            valueY: y + 232,
+          },
+          {
+            label: "8)Other",
+            value: formData_2.other_p_value_3!== "" ? `${formData_2.other_p_value_3
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 239,
+            valueX: 55,
+            valueY: y + 239,
+          },
+          {
+            label: "* Duaration",
+            value: formData_2.duration== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 246,
+            valueX: 55,
+            valueY: y + 246,
+          },
+          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
+          {
+            label: "* Observation",
+            value: formData_2.observation!== "" ? `=> ${formData_2.observation
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 260,
+            valueX: 10,
+            valueY: y + 265,
+          },
+          { label: "* Palpation", labelX: 10, labelY: y},
+          {
+            label: "1)Tenderness",
+            value: formData_2.tend== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 7,
+            valueX: 55,
+            valueY: y + 7,
+          },
+          {
+            label: "2)Crepitus",
+            value: formData_2.crepitus== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 14,
+            valueX: 55,
+            valueY: y + 14,
+          },
+          {
+            label: "3)Scar",
+            value: formData_2.scar!== "" ? `${formData_2.scar
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 21,
+            valueX: 55,
+            valueY: y + 21,
+          },
+          {
+            label: "4)Swelling ",
+            value: formData_2.swelling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 28,
+            valueX: 55,
+            valueY: y + 28,
+          },
+          {
+            label: "5)other_p_value_2",
+            value: formData_2.other_p_value_2!== "" ? `=> ${formData_2.other_p_value_2
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +35,
+            valueX: 55,
+            valueY: y + 35,
+          },
+          {
+            label: "* Examination",
+            value: formData_2.examination!== "" ? `=> ${formData_2.examination
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +42,
+            valueX: 10,
+            valueY: y + 47,
+          },
+          {
+            label: "* Innestigation/Radiological Findings",
+            value: formData_2.investRadioFinding!== "" ? `=> ${formData_2.investRadioFinding
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +54,
+            valueX: 10,
+            valueY: y + 59,
+          },
+          {
+            label: "* Medical Diagnosis",
+            value: formData_2.medDiagno!== "" ? `=> ${formData_2.medDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +66,
+            valueX: 10,
+            valueY: y + 71,
+          },
+          {
+            label: "* Physiotherapy Diagnosis",
+            value: formData_2.phyDiagno!== "" ? `=> ${formData_2.phyDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +78,
+            valueX: 10,
+            valueY: y + 84,
+          },
+          {
+            label: "* Treatment",
+            value: formData_2.ObjTreatment!== "" ? `=> ${formData_2.ObjTreatment
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +91,
+            valueX: 10,
+            valueY: y + 96,
+          },
+          {
+            label: "* Remark",
+            value: formData_2.remark!== "" ? `=> ${formData_2.remark
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +103,
+            valueX: 10,
+            valueY: y + 108,
           },
         ];
-
-        fields.forEach((field) => {
+        let addToNextPage = false;
+        fields.forEach((field,index) => {
+          if (addToNextPage) {
+            // Start a new page for all fields after * Observation
+            doc.addPage();
+            addPageBorder();
+            y = 20; // Reset y-coordinate
+            addToNextPage = false; // Reset flag to avoid multiple page additions
+          }
           addPageBorder();
           if (field.title !== undefined) {
             doc.setTextColor(21, 94, 117);
@@ -1893,14 +2344,19 @@ export default function Dashboard() {
           }
           if (field.label !== undefined) {
             doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 16);
+            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            addText(field.value, field.valueX, field.valueY, "normal", 14);
+            // field.valueY = checkYValueAndAddPage(field.valueY);
+            addText(field.value, field.valueX, field.valueY, "normal", 13);
+          }
+          if (field.label === "* Observation") {
+            addToNextPage = true;
           }
         });
         const pdfBlob = doc.output("blob");
+        
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -2030,10 +2486,10 @@ export default function Dashboard() {
       try {
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* Patient Report *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
-        doc.setTextColor(255, 0, 0); // Set text color to red (RGB: 255, 0, 0)
+        doc.setTextColor(255, 0, 0); 
         doc.text(
           moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
           190,
@@ -2042,13 +2498,13 @@ export default function Dashboard() {
         );
         doc.setTextColor(0, 0, 0);
         let y = 20;
-
+        
         function addText(text, x, y, fontStyle, fontSize) {
           doc.setFont(fontStyle);
           doc.setFontSize(fontSize);
           doc.text(text, x, y);
         }
-
+        
         function addPageBorder() {
           doc.setDrawColor(0); // Border color (black)
           doc.setLineWidth(0.5); // Border line width
@@ -2059,7 +2515,7 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
-
+        
         const fields = [
           {
             label: "Name",
@@ -2086,8 +2542,8 @@ export default function Dashboard() {
             valueY: y + 7,
           },
           {
-            label: "Contact",
-            value: formData_1.contact,
+            label: "Dob",
+            value: moment(formData_3.dob).format('DD-MM-YYYY'),
             labelX: 138,
             labelY: y,
             valueX: 138,
@@ -2095,23 +2551,338 @@ export default function Dashboard() {
           },
           {
             label: "Occupation",
-            value: formData_1.occupation,
+            value: formData_3.occupation,
             labelX: 174,
             labelY: y,
             valueX: 174,
             valueY: y + 7,
           },
+          
           {
-            label: "Address",
-            value: formData_1.address,
+            label: "* Address",
+            value: `=> ${formData_3.address}`,
             labelX: 10,
-            labelY: y + 15,
+            labelY: y + 14,
             valueX: 10,
-            valueY: y + 22,
+            valueY: y + 19,
+          },
+          {
+            label: "* Dominant Side",
+            value: `=> ${formData_3.domSide}`,
+            labelX: 10,
+            labelY: y + 26,
+            valueX: 10,
+            valueY: y + 31,
+          },
+          {
+            label: "* Chief Complaint",
+            value: `=> ${formData_3.chfCmp}`,
+            labelX: 10,
+            labelY: y + 38,
+            valueX: 10,
+            valueY: y + 43,
+          },
+          { title: "* History", titleX: 90, titleY: y + 50},
+          {
+            label: "1)Asthma",
+            value: formData_3.asthama == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 56,
+            valueX: 55,
+            valueY: y + 56,
+          },
+          {
+            label: "2)dliatetes",
+            value: formData_3.diabetes == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 63,
+            valueX: 55,
+            valueY: y + 63,
+           
+          },
+          {
+            label: "3)Thayroid",
+            value: formData_3.thyroid == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 70,
+            valueX: 55,
+            valueY: y + 70,
+           
+          },
+          {
+            label: "4)Hypertension",
+            value: formData_3.hyperTense == 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 77,
+            valueX: 55,
+            valueY: y + 77,
+          },
+          {
+            label: "5)Other History",
+            value: formData_3.other_p_value!== "" ? formData_3.other_p_value : " --- ",
+            labelX: 10,
+            labelY: y + 84,
+            valueX: 55,
+            valueY: y + 84,
+          },
+          {
+            label: "6)Past History",
+            value: formData_3.pastSurg!== "" ? formData_3.pastSurg : " --- ",
+            labelX: 10,
+            labelY: y + 91,
+            valueX: 55,
+            valueY: y + 91,
+          },
+          {
+            label: "7)Present History",
+            value: formData_3.presentSurg!== "" ? formData_3.presentSurg : " --- ",
+            labelX: 10,
+            labelY: y + 98,
+            valueX: 55,
+            valueY: y + 98,
+          },
+          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
+          {
+            label: "* Site/Location",
+            value: formData_3.siteLoca!== "" ? `=> ${formData_3.siteLoca}` : " --- ",
+            labelX: 10,
+            labelY: y + 111,
+            valueX: 10,
+            valueY: y + 116,
+          },
+          {
+            label: "* Side",
+            value: formData_3.side!== "" ? `=> ${formData_3.side}` : " --- ",
+            labelX: 10,
+            labelY: y + 123,
+            valueX: 10,
+            valueY: y + 128,
+          },
+          {
+            label: "* Frequency/Nature",
+            value: formData_3.freqNature!== "" ? `=> ${formData_3.freqNature}` : " --- ",
+            labelX: 10,
+            labelY: y + 135,
+            valueX: 10,
+            valueY: y + 140,
+          },
+          {
+            label: "* Pain Aggravating Factor",
+            value: formData_3.painAgrFact!== "" ? `=> ${formData_3.painAgrFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 147,
+            valueX: 10,
+            valueY: y + 152,
+          },
+          {
+            label: "* Pain Relieving Factor",
+            value: formData_3.painRelFact!== "" ? `=> ${formData_3.painRelFact}` : " --- ",
+            labelX: 10,
+            labelY: y + 159,
+            valueX: 10,
+            valueY: y + 164,
+          },
+          {
+            label: "* Intensity(NPRS)",
+            value: formData_3.intensity!== "" ? `=> ${formData_3.intensity
+        
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 171,
+            valueX: 10,
+            valueY: y + 176,
+          },
+          {label: "* Type", labelX: 10, labelY: y + 183},
+          {
+            label: "1)Dullaaying",
+            value: formData_3.dull== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 189,
+            valueX: 55,
+            valueY: y + 189,
+          },
+          {
+            label: "2)Cramping",
+            value: formData_3.cramp== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 196,
+            valueX: 55,
+            valueY: y + 196,
+          },
+          {
+            label: "3)Sharp Shooting",
+            value: formData_3.sharpShoot== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 203,
+            valueX: 55,
+            valueY: y + 203,
+          },
+          {
+            label: "4)Burning ",
+            value: formData_3.burn== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 210,
+            valueX: 55,
+            valueY: y + 210,
+          },
+          {
+            label: "5)Throbbing",
+            value: formData_3.throb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 217,
+            valueX: 55,
+            valueY: y + 217,
+          },
+          {
+            label: "6)Numbness",
+            value: formData_3.numb== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 225,
+            valueX: 55,
+            valueY: y + 225,
+          },
+          {
+            label: "7)Tingling",
+            value: formData_3.tingling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 232,
+            valueX: 55,
+            valueY: y + 232,
+          },
+          {
+            label: "8)Other",
+            value: formData_3.other_p_value_3!== "" ? `${formData_3.other_p_value_3
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 239,
+            valueX: 55,
+            valueY: y + 239,
+          },
+          {
+            label: "* Duaration",
+            value: formData_3.duration== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 246,
+            valueX: 55,
+            valueY: y + 246,
+          },
+          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
+          {
+            label: "* Observation",
+            value: formData_3.observation!== "" ? `=> ${formData_3.observation
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 260,
+            valueX: 10,
+            valueY: y + 265,
+          },
+          { label: "* Palpation", labelX: 10, labelY: y},
+          {
+            label: "1)Tenderness",
+            value: formData_3.tend== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 7,
+            valueX: 55,
+            valueY: y + 7,
+          },
+          {
+            label: "2)Crepitus",
+            value: formData_3.crepitus== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 14,
+            valueX: 55,
+            valueY: y + 14,
+          },
+          {
+            label: "3)Scar",
+            value: formData_3.scar!== "" ? `${formData_3.scar
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 21,
+            valueX: 55,
+            valueY: y + 21,
+          },
+          {
+            label: "4)Swelling ",
+            value: formData_3.swelling== 1 ? "Yes" : "No",
+            labelX: 10,
+            labelY: y + 28,
+            valueX: 55,
+            valueY: y + 28,
+          },
+          {
+            label: "5)other_p_value_2",
+            value: formData_3.other_p_value_2!== "" ? `=> ${formData_3.other_p_value_2
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +35,
+            valueX: 55,
+            valueY: y + 35,
+          },
+          {
+            label: "* Examination",
+            value: formData_3.examination!== "" ? `=> ${formData_3.examination
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +42,
+            valueX: 10,
+            valueY: y + 47,
+          },
+          {
+            label: "* Innestigation/Radiological Findings",
+            value: formData_3.investRadioFinding!== "" ? `=> ${formData_3.investRadioFinding
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +54,
+            valueX: 10,
+            valueY: y + 59,
+          },
+          {
+            label: "* Medical Diagnosis",
+            value: formData_3.medDiagno!== "" ? `=> ${formData_3.medDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +66,
+            valueX: 10,
+            valueY: y + 71,
+          },
+          {
+            label: "* Physiotherapy Diagnosis",
+            value: formData_3.phyDiagno!== "" ? `=> ${formData_3.phyDiagno
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +78,
+            valueX: 10,
+            valueY: y + 84,
+          },
+          {
+            label: "* Treatment",
+            value: formData_3.ObjTreatment!== "" ? `=> ${formData_3.ObjTreatment
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +91,
+            valueX: 10,
+            valueY: y + 96,
+          },
+          {
+            label: "* Remark",
+            value: formData_3.remark!== "" ? `=> ${formData_3.remark
+            }` : " --- ",
+            labelX: 10,
+            labelY: y +103,
+            valueX: 10,
+            valueY: y + 108,
           },
         ];
-
-        fields.forEach((field) => {
+        let addToNextPage = false;
+        fields.forEach((field,index) => {
+          if (addToNextPage) {
+            // Start a new page for all fields after * Observation
+            doc.addPage();
+            addPageBorder();
+            y = 20; // Reset y-coordinate
+            addToNextPage = false; // Reset flag to avoid multiple page additions
+          }
           addPageBorder();
           if (field.title !== undefined) {
             doc.setTextColor(21, 94, 117);
@@ -2119,14 +2890,18 @@ export default function Dashboard() {
           }
           if (field.label !== undefined) {
             doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 16);
+            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            addText(field.value, field.valueX, field.valueY, "normal", 14);
+            // field.valueY = checkYValueAndAddPage(field.valueY);
+            addText(field.value, field.valueX, field.valueY, "normal", 13);
+          }
+          if (field.label === "* Observation") {
+            addToNextPage = true;
           }
         });
-        const pdfBlob = doc.output("blob");
+        const pdfBlob = doc.output("blob");        
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -2136,7 +2911,6 @@ export default function Dashboard() {
         formDataObject.append("name", selectedPatientId.name);
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
-        formDataObject.append("contact", formData_3.contact);
         formDataObject.append("occupation", formData_3.occupation);
         formDataObject.append("address", formData_3.address);
         formDataObject.append("domSide", formData_3.domSide);
@@ -2149,8 +2923,8 @@ export default function Dashboard() {
         formDataObject.append("dob", formData_3.dob);
         formDataObject.append("other_p_value", formData_3.other_p_value);
         formDataObject.append("other_p_value_2", formData_3.other_p_value_2);
-        formDataObject.append("other_p_value_3", formData.other_p_value_3);
-        formDataObject.append("typeother", formData.typeother);
+        formDataObject.append("other_p_value_3", formData_3.other_p_value_3);
+        formDataObject.append("typeother", formData_3.typeother);
         formDataObject.append("pastSurg", formData_3.pastSurg);
         formDataObject.append("presentSurg", formData_3.presentSurg);
         formDataObject.append("siteLoca", formData_3.siteLoca);
@@ -2192,7 +2966,7 @@ export default function Dashboard() {
           }
         });
         const response = await axios.post(
-          "https://arpanhospital.online/appointment_book_pain.php",
+          "https://arpanhospital.online/appointment_book_fitness.php",
           formDataObject
         );
         setSelectedImages([]);
@@ -2335,6 +3109,11 @@ export default function Dashboard() {
 
   const handleCheckboxChange = (event) => {
     setButtonEnabled(event.target.checked);
+  };
+  const extractDate = (filename) => {
+    const pattern = /\d{4}-\d{2}-\d{2}/;
+    const match = filename.match(pattern);
+    return match ? match[0] : null;
   };
 
   return (
@@ -3168,10 +3947,10 @@ export default function Dashboard() {
                                               <p>Duration</p>
                                             </div>
                                             <div className="">
-                                              <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange} value={formData.duration}>
-                                                <option value="acute" selected>acute</option>
-                                                <option value="subacute">subacute</option>
-                                                <option value="chrowic">chrowic</option>
+                                              <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange} value={formData.duration} required>
+                                                <option value="acute" selected={formData.duration==="acute"}>acute</option>
+                                                <option value="subacute" selected={formData.duration==="subacute"}>subacute</option>
+                                                <option value="chrowic"selected={formData.duration==="chrowic"}>chrowic</option>
                                               </select>
                                           </div>
                                           </div>
@@ -3240,7 +4019,7 @@ export default function Dashboard() {
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                               <p>PALPATION</p>
                                             </div>
-                                            <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 w-full">
+                                            <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6  w-full">
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
                                                   className="h-4 w-4"
@@ -3287,21 +4066,7 @@ export default function Dashboard() {
                                                 />
                                                 <label className="text-red-600 uppercase font-serif" htmlFor="">swelling</label>
                                                 </div>
-                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                  <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="throb"
-                                                  id=""
-                                                  checked={
-                                                    formData.throb == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange}
-                                                />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">throbbing</label>
-                                                </div>
+                                               
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
                                                   className="h-4 w-4"
@@ -3330,24 +4095,9 @@ export default function Dashboard() {
                                                 />
                                               </div>
                                             )}
-                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                  <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="tingling"
-                                                  id=""
-                                                  checked={
-                                                    formData.tingling == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange}
-                                                />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">tingling</label>
-                                                </div>
+                                               
                                                 <div>
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} >
-                                                <option selected disabled hidden>----SELECT----</option>
+                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} required>
                                                 <option value="acute" selected={formData.scar === 'acute'}>heal</option>
                                                 <option value="subacute"selected={ formData.scar === 'subacute'}>nonheal</option>
                                               </select>
@@ -3509,21 +4259,19 @@ export default function Dashboard() {
                                           )}
                                         </div>
                                       </div>
-                                      <div className="grid grid-flow-row w-full grid-cols-11 gap-5 rounded-lg pt-5">
-                                        {pdfFiles && pdfFiles.length>0 && pdfFiles.map((fileName, index) => (
-                                          <div className="w-full">
-                                            <img
-                                              className="w-full cursor-pointer rounded-md"
-                                              src={pdf}
-                                              alt=""
-                                              srcset=""
-                                              onClick={() => {
-                                                openPdfInNewTab(fileName);
-                                              }}
-                                            />
-                                          </div>
-                                        ))}
-                                      </div>
+                                      <div className="grid grid-flow-row w-full md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5 rounded-lg pt-5">
+                                    {pdfFiles && pdfFiles.length > 0 && pdfFiles.map((fileName, index) => {
+        const extractedDate = extractDate(fileName);
+        return (
+          <div className="w-full inline-flex gap-1 items-center border-2 rounded-md p-2 bg-cyan-900 font-sans font-bold text-center" key={index} onClick={() => openPdfInNewTab(fileName)}>
+            <img className="w-5 rounded-sm h-5" src={pdf} alt="" srcset="" />
+            <h1 className="cursor-pointer ">
+              {extractedDate ? moment(extractedDate).format('DD-MM-YYYY') : "No date found"}
+            </h1>
+          </div>
+        );
+      })}
+                                    </div>
                                       <div className="flex flex-row justify-between gap-3 font-serif uppercase mt-5">
                                         <div>
                                           <input
@@ -3961,11 +4709,11 @@ export default function Dashboard() {
                                              <p>Duration</p>
                                            </div>
                                            <div className="">
-                                             <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_3} value={formData_3.duration}>
-                                               <option value="acute" selected>acute</option>
-                                               <option value="subacute">subacute</option>
-                                               <option value="chrowic">chrowic</option>
-                                             </select>
+                                           <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_3} value={formData_3.duration} required>
+                                                <option value="acute" selected={formData_3.duration==="acute"}>acute</option>
+                                                <option value="subacute" selected={formData_3.duration==="subacute"}>subacute</option>
+                                                <option value="chrowic"selected={formData_3.duration==="chrowic"}>chrowic</option>
+                                              </select>
                                          </div>
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
@@ -4033,7 +4781,7 @@ export default function Dashboard() {
                                          <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                              <p>PALPATION</p>
                                            </div>
-                                           <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 w-full">
+                                           <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 w-full">
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
                                                  className="h-4 w-4"
@@ -4080,21 +4828,7 @@ export default function Dashboard() {
                                                />
                                                <label className="text-red-600 uppercase font-serif" htmlFor="">swelling</label>
                                                </div>
-                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                 <input
-                                                 className="h-4 w-4"
-                                                 type="checkbox"
-                                                 name="throb"
-                                                 id=""
-                                                 checked={
-                                                   formData_3.throb == 1
-                                                     ? true
-                                                     : false
-                                                 }
-                                                 onChange={handleInputChange_3}
-                                               />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">throbbing</label>
-                                               </div>
+                                             
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
                                                  className="h-4 w-4"
@@ -4123,24 +4857,10 @@ export default function Dashboard() {
                                                />
                                              </div>
                                            )}
-                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                 <input
-                                                 className="h-4 w-4"
-                                                 type="checkbox"
-                                                 name="tingling"
-                                                 id=""
-                                                 checked={
-                                                   formData_3.tingling == 1
-                                                     ? true
-                                                     : false
-                                                 }
-                                                 onChange={handleInputChange_3}
-                                               />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">tingling</label>
-                                               </div>
+                                               
                                                <div>
                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_3} value={formData_3.scar} >
-                                               <option selected disabled hidden>----SELECT----</option>
+                                            
                                                <option value="acute" selected={formData_3.scar === 'acute'}>heal</option>
                                                <option value="subacute"selected={ formData_3.scar === 'subacute'}>nonheal</option>
                                              </select>
@@ -4302,21 +5022,19 @@ export default function Dashboard() {
                                          )}
                                        </div>
                                      </div>
-                                     <div className="grid grid-flow-row w-full grid-cols-11 gap-5 rounded-lg pt-5">
-                                       {pdfFiles && pdfFiles.length>0 && pdfFiles.map((fileName, index) => (
-                                         <div className="w-full">
-                                           <img
-                                             className="w-full cursor-pointer rounded-md"
-                                             src={pdf}
-                                             alt=""
-                                             srcset=""
-                                             onClick={() => {
-                                               openPdfInNewTab(fileName);
-                                             }}
-                                           />
-                                         </div>
-                                       ))}
-                                     </div>
+                                     <div className="grid grid-flow-row w-full md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5 rounded-lg pt-5">
+                                    {pdfFiles && pdfFiles.length > 0 && pdfFiles.map((fileName, index) => {
+        const extractedDate = extractDate(fileName);
+        return (
+          <div className="w-full inline-flex gap-1 items-center border-2 rounded-md p-2 bg-cyan-900 font-sans font-bold text-center" key={index} onClick={() => openPdfInNewTab(fileName)}>
+            <img className="w-5 rounded-sm h-5" src={pdf} alt="" srcset="" />
+            <h1 className="cursor-pointer ">
+              {extractedDate ? moment(extractedDate).format('DD-MM-YYYY') : "No date found"}
+            </h1>
+          </div>
+        );
+      })}
+                                    </div>
                                      <div className="flex flex-row justify-between gap-3 font-serif uppercase mt-5">
                                        <div>
                                          <input
@@ -4356,15 +5074,13 @@ export default function Dashboard() {
                                         <div className="col-span-2 flex flex-row  gap-2">
                                           <div className="flex flex-col gap-2 w-full ">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>જન્મ તારીખ</p>
+                                              <p>DOB</p>
                                             </div>
                                             <div className="">
                                               <input
                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
                                                 type="date"
                                                 name="dob"
-                                                id=""
-                                                
                                                 onChange={handleInputChange_1}
                                                 value={formData_1.dob}
                                                 max={
@@ -4377,15 +5093,14 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-col gap-2 w-full ">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>અભ્યાસ </p>
+                                              <p>EDUCATION</p>
                                             </div>
                                             <div className="">
                                               <input
                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950  font-mono text-md uppercase w-full text-cyan-950"
                                                 type="text"
                                                 name="study"
-                                                placeholder="અભ્યાસ"
-                                                
+                                                placeholder="education"
                                                 onChange={handleInputChange_1}
                                                 value={formData_1.study}
                                               />
@@ -4393,15 +5108,14 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-col gap-2 w-full ">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>વ્યવસાય</p>
+                                              <p>Occupation</p>
                                             </div>
                                             <div className="">
                                               <input
                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                 type="text"
                                                 name="occupation"
-                                                placeholder="વ્યવસાય"
-                                                
+                                                placeholder="Occupation"
                                                 onChange={handleInputChange_1}
                                                 value={formData_1.occupation}
                                               />
@@ -4409,15 +5123,14 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-col gap-2 w-full ">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>મોબાઈલ નં</p>
+                                              <p>Phone Number</p>
                                             </div>
                                             <div className="">
                                               <input
                                                 className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
                                                 type="tel"
                                                 name="contact"
-                                                placeholder="મોબાઈલ નં"
-                                                
+                                                placeholder="phone number"
                                                 pattern="^\d+$"
                                                 value={formData_1.contact}
                                                 onChange={handleInputChange_1}
@@ -4429,14 +5142,13 @@ export default function Dashboard() {
                                         </div>
                                         <div className="col-span-2  flex flex-col gap-2 ">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>સરનામું</p>
+                                            <p>address</p>
                                           </div>
                                           <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="address"
-                                              placeholder="સરનામું"
-                                              
+                                              placeholder="address"
                                               onChange={handleInputChange_1}
                                               value={formData_1.address}
                                             ></textarea>
@@ -4446,24 +5158,23 @@ export default function Dashboard() {
                                       <h1 className="text-blue-800 font-serif text-xl pt-5">
                                         PATIENT INFORMATION
                                       </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 ">
+                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-4">
                                         <div className="flex flex-col gap-2">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
-                                            <p>* મેડીકલ હીસ્ટરી</p>
+                                            <p>* Medical History  </p>
                                           </div>
                                           <div className="flex flex-col gap-2 items-center ">
                                             <div className="flex flex-row gap-2 w-full items-center justify-around">
                                               <div
                                                 className="text-left text-sm font-extrabold text-red-500 uppercase w-full  tracking-wider "
                                               >
-                                                <p>(1) લોહીનું ઉંચુ દબાણ</p>
+                                                <p>(1) hypertension</p>
                                               </div>
-                                              <div className="text-center w-full">
+                                              <div className="text-end w-full">
                                                 <input
                                                   className="h-4 w-4"
                                                   type="checkbox"
                                                   name="blood"
-                                                  id=""
                                                   checked={
                                                     formData_1.blood == 1
                                                       ? true
@@ -4475,14 +5186,13 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row gap-2 w-full items-center justify-evenly">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(2) એસીડીટી</p>
+                                                <p>(2) Asthma</p>
                                               </div>
-                                              <div className="w-full text-center">
+                                              <div className="w-full text-end">
                                                 <input
                                                   className="h-4 w-4"
                                                   type="checkbox"
                                                   name="acidity"
-                                                  id=""
                                                   checked={
                                                     formData_1.acidity == 1
                                                       ? true
@@ -4494,9 +5204,9 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row gap-2 items-center justify-around w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(3) કબજીયાત</p>
+                                                <p>(3) Dialetes</p>
                                               </div>
-                                              <div className="w-full text-center">
+                                              <div className="w-full text-end">
                                                 <input
                                                   className="h-4 w-4"
                                                   type="checkbox"
@@ -4513,9 +5223,9 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row gap-2 items-center justify-around w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(4) હૃદય રોગ</p>
+                                                <p>(4) heart disease</p>
                                               </div>
-                                              <div className="w-full text-center">
+                                              <div className="w-full text-end">
                                                 <input
                                                   className="h-4 w-4"
                                                   type="checkbox"
@@ -4530,11 +5240,11 @@ export default function Dashboard() {
                                                 />
                                               </div>
                                             </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
+                                            <div className="flex flex-row gap-2 items-center justify-between  w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(5) થાયરોઈડ</p>
+                                                <p>(5) thyroid</p>
                                               </div>
-                                              <div className="w-full text-center">
+                                              <div className="w-full text-end">
                                                 <input
                                                   className="h-4 w-4"
                                                   type="checkbox"
@@ -4549,66 +5259,40 @@ export default function Dashboard() {
                                                 />
                                               </div>
                                             </div>
-                                            <div className="flex flex-row gap-2 items-center justify-around w-full">
-                                              <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(6) ડાયાબીટીસ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4"
-                                                  type="checkbox"
-                                                  name="dayabitis"
-                                                  id=""
-                                                  checked={
-                                                    formData_1.dayabitis == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div className="flex flex-row gap-2 w-full">
+                                              <div className="w-full">
+                                            <textarea
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="dayabitis"
+                                              placeholder="Enter past History"
+                                              onChange={handleInputChange_1}
+                                              value={formData_1.dayabitis}
+                                            ></textarea>
                                             </div>
-                                            <div className="flex flex-row gap-2 items-center justify-evenly w-full">
-                                              <div className="text-left w-full text-sm font-extrabold text-red-500 uppercase  tracking-wider">
-                                                <p>(7) બીજી કોઈ તકલીફ</p>
-                                              </div>
-                                              <div className="w-full text-center">
-                                                <input
-                                                  className="h-4 w-4 "
-                                                  type="checkbox"
-                                                  name="other_p"
-                                                  checked={
-                                                    formData_1.other_p == 1
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
+                                            <div className="w-full">
+                                            <textarea
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="other_p_value"
+                                              placeholder="Enter a Other History"
+                                              onChange={handleInputChange_1}
+                                              value={formData_1.other_p_value}
+                                            ></textarea>
                                             </div>
-                                            {formData_1.other_p == 1 && (
-                                              <div>
-                                                <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
-                                                  type="text"
-                                                  name="other_p_value"
-                                                  value={
-                                                    formData_1.other_p_value
-                                                  }
-                                                  onChange={handleInputChange_1}
-                                                />
-                                              </div>
-                                            )}
+                                            </div>
                                           </div>
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* તમારે શું કરવું છે ?</p>
+                                            <p>* need</p>
                                           </div>
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
                                               <p>
-                                                (1) તંદુરસ્તી સારી કરવી છે ?{" "}
+                                                (1) Health
                                               </p>
                                             </div>
                                             <div>
@@ -4628,7 +5312,7 @@ export default function Dashboard() {
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
                                               <p>
-                                                (2) શારીરિક ક્ષમતા વધારવી છે ?
+                                                (2) fitness
                                               </p>
                                             </div>
                                             <div>
@@ -4648,7 +5332,7 @@ export default function Dashboard() {
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
                                               <p>
-                                                (3) શરીરનો દેખાવ સુધારવો છે ?
+                                                (3) physique
                                               </p>
                                             </div>
                                             <div>
@@ -4665,30 +5349,10 @@ export default function Dashboard() {
                                               />
                                             </div>
                                           </div>
+                                         
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (4) જો કોઈ બીમારી હોય તો તેને
-                                                સારી કરવી છે ?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="dia"
-                                                checked={
-                                                  formData_1.dia == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(5) વજન વધારવું છે?</p>
+                                              <p>(4) weight Gain</p>
                                             </div>
                                             <div>
                                               <input
@@ -4706,7 +5370,7 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(6) ચરબી ઘટાડવી છે?</p>
+                                              <p>(5) fat loss</p>
                                             </div>
                                             <div>
                                               <input
@@ -4724,27 +5388,7 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>
-                                                (7) પેટ પર ની ચરબી ઘટાડવી છે?
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="fact_loss_2"
-                                                checked={
-                                                  formData_1.fact_loss_2 == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(8) વજન ઘટાડવું છે ? </p>
+                                              <p>(6) weight loss ? </p>
                                             </div>
                                             <div>
                                               <input
@@ -4760,57 +5404,34 @@ export default function Dashboard() {
                                               />
                                             </div>
                                           </div>
-                                          <div className="flex flex-row gap-3 items-center w-full justify-center">
-                                            {formData_1.weight_down == 1 && (
-                                              <>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_count"
-                                                    value={formData_1.w_d_count}
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                    placeholder="કેટલું ઘટાડવું છે ?"
-                                                    
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <input
-                                                    className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                    type="text"
-                                                    name="w_d_time"
-                                                    value={formData_1.w_d_time}
-                                                    placeholder="કેટલા સમયમાં ઘટાડવું છે ?"
-                                                    onChange={
-                                                      handleInputChange_1
-                                                    }
-                                                    
-                                                  />
-                                                </div>
-                                              </>
-                                            )}
+                                          <div className="w-full">
+                                          <textarea
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="dia"
+                                              placeholder="enter a other need"
+                                              onChange={handleInputChange_1}
+                                              value={formData_1.dia}
+                                            ></textarea>
                                           </div>
                                         </div>
                                         <div className="flex flex-col gap-2  w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* અત્યારની સ્થિતિ</p>
+                                            <p>* Diet History</p>
                                           </div>
                                           <div className="pl-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) ખોરાક</p>
+                                              <p>(1) Food</p>
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સવારનો નાસ્તો</p>
+                                                <p>• breakfast</p>
                                               </div>
                                               <div className="w-full">
                                                 <input
                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="m_time"
-                                                  placeholder="ક્યારે ?"
+                                                  placeholder="time"
                                                   value={formData_1.m_time}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4821,7 +5442,7 @@ export default function Dashboard() {
                                                   className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="m_what"
-                                                  placeholder="શું લો છો ?"
+                                                  placeholder="content"
                                                   value={formData_1.m_what}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4830,14 +5451,14 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• બપોરનું ભોજન</p>
+                                                <p>• lunch</p>
                                               </div>
                                               <div className="w-full">
                                                 <input
                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="l_time"
-                                                  placeholder="ક્યારે ?"
+                                                  placeholder="time"
                                                   value={formData_1.l_time}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4848,7 +5469,7 @@ export default function Dashboard() {
                                                   className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="l_what"
-                                                  placeholder="શું લો છો ?"
+                                                  placeholder="content"
                                                   value={formData_1.l_what}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4857,14 +5478,14 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• સાંજનું ભોજન</p>
+                                                <p>• dinner</p>
                                               </div>
                                               <div className="w-full">
                                                 <input
                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="d_time"
-                                                  placeholder="ક્યારે ?"
+                                                  placeholder="time"
                                                   value={formData_1.d_time}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4875,7 +5496,7 @@ export default function Dashboard() {
                                                   className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="d_what"
-                                                  placeholder="શું લો છો ?"
+                                                  placeholder="content"
                                                   value={formData_1.d_what}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4885,7 +5506,7 @@ export default function Dashboard() {
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
                                                 <p>
-                                                  • ત્રણ ભોજનની વચ્ચે શું લો છો{" "}
+                                                  • in between diet
                                                 </p>
                                               </div>
                                               <div className="w-full">
@@ -4893,7 +5514,7 @@ export default function Dashboard() {
                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="o_time"
-                                                  placeholder="ક્યારે ?"
+                                                  placeholder="time"
                                                   value={formData_1.o_time}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4904,7 +5525,7 @@ export default function Dashboard() {
                                                   className="bg-white px-2 rounded-md py-2 text-left overflow-auto placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                                   type="text"
                                                   name="o_what"
-                                                  placeholder="શું લો છો ?"
+                                                  placeholder="content"
                                                   value={formData_1.o_what}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4912,18 +5533,18 @@ export default function Dashboard() {
                                               </div>
                                             </div>
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) પાણી</p>
+                                              <p>(2) water</p>
                                             </div>
                                             <div className="flex flex-row items-center gap-2 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>• પાણી</p>
+                                                <p>• water</p>
                                               </div>
                                               <div className="w-full">
                                                 <input
-                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif placeholder:text-[11px]  text-md w-full text-cyan-950"
+                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif   text-md w-full text-cyan-950"
                                                   type="text"
                                                   name="w_time"
-                                                  placeholder="કેટલા ગ્લાસ પાણી પીવો છો?"
+                                                  placeholder="how many glasses/day ?"
                                                   value={formData_1.w_time}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4931,10 +5552,10 @@ export default function Dashboard() {
                                               </div>
                                               <div className="w-full">
                                                 <input
-                                                  className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md placeholder:text-[11px]  w-full text-cyan-950"
+                                                  className="bg-white px-2 rounded-md py-2 text-left  placeholder:text-center shadow-lg h-10 shadow-slate-950 font-serif text-md   w-full text-cyan-950"
                                                   type="text"
                                                   name="w_what"
-                                                  placeholder="ક્યા સમયે કેટલા ગ્લાસ પાણી પીવો છો ?"
+                                                  placeholder="at what time?"
                                                   value={formData_1.w_what}
                                                   onChange={handleInputChange_1}
                                                   
@@ -4945,16 +5566,16 @@ export default function Dashboard() {
                                         </div>
                                         <div className="flex flex-col gap-2  w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                            <p>* કાર્યપ્રણાલી</p>
+                                            <p>* Activities</p>
                                           </div>
                                           <div className="pl-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) કસરત</p>
+                                              <p>(1) Extra Activities</p>
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• ચાલવું</p>
+                                                  <p>• Walking</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -4968,45 +5589,11 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.walk == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.walk_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="walk_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.walk_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• દોડવું</p>
+                                                  <p>• running</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5020,43 +5607,12 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.run == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.run_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="run_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.run_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• યોગાસન</p>
+                                                  <p>• yoga</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5070,45 +5626,12 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.yoga == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.yoga_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="yoga_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.yoga_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+                                              
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• સ્વીમીંગ</p>
+                                                  <p>• swimming</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5123,43 +5646,12 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.swe == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.swe_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="swe_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.swe_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+                                              
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• સાયકલીંગ</p>
+                                                  <p>• Cycleling</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5173,43 +5665,12 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.cyc == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.cyc_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="cyc_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.cyc_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+                                          
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• મશીન પર ચાલવું</p>
+                                                  <p>• Aerobiks</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5223,45 +5684,12 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.machine == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={
-                                                        formData_1.machine_how
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="machine_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={
-                                                        formData_1.machine_when
-                                                      }
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+                                            
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• અન્ય</p>
+                                                  <p>• gym/treadmill</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5275,44 +5703,14 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                              {formData_1.o == 1 && (
-                                                <>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_how"
-                                                      placeholder="કેટલું ?"
-                                                      value={formData_1.o_how}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                  <div className="w-full">
-                                                    <input
-                                                      className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                      type="text"
-                                                      name="o_when"
-                                                      placeholder="ક્યા સમયે ?"
-                                                      value={formData_1.o_when}
-                                                      onChange={
-                                                        handleInputChange_1
-                                                      }
-                                                      
-                                                    />
-                                                  </div>
-                                                </>
-                                              )}
+                                             
                                             </div>
-
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) રૂટીન એકટીવિટી</p>
+                                              <p>(2) routine activities</p>
                                               <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                                 <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                   <div>
-                                                    <p>• દાદર ચડવું/ઉતરવું </p>
+                                                    <p>• stair climing </p>
                                                   </div>
                                                   <input
                                                     className="h-4 w-4 "
@@ -5328,45 +5726,12 @@ export default function Dashboard() {
                                                     }
                                                   />
                                                 </div>
-                                                {formData_1.dada == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_1.dada_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="dada_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_1.dada_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
+                                               
                                               </div>
                                               <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                                 <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                   <div>
-                                                    <p>• ઘર નું કામ</p>
+                                                    <p>• household work</p>
                                                   </div>
                                                   <input
                                                     className="h-4 w-4 "
@@ -5382,49 +5747,16 @@ export default function Dashboard() {
                                                     }
                                                   />
                                                 </div>
-                                                {formData_1.work == 1 && (
-                                                  <>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_how"
-                                                        placeholder="કેટલું ?"
-                                                        value={
-                                                          formData_1.work_how
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        
-                                                      />
-                                                    </div>
-                                                    <div className="w-full">
-                                                      <input
-                                                        className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
-                                                        type="text"
-                                                        name="work_when"
-                                                        placeholder="ક્યા સમયે ?"
-                                                        value={
-                                                          formData_1.work_when
-                                                        }
-                                                        onChange={
-                                                          handleInputChange_1
-                                                        }
-                                                        
-                                                      />
-                                                    </div>
-                                                  </>
-                                                )}
+                                               
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
                                       <div className="flex flex-col pt-3 gap-2 pb-1 w-full">
-                                        <div className="text-left text-sm  text-gray-500 uppercase flex flex-col gap-3  justify-between  tracking-wider w-full ">
+                                        <div className="text-left text-sm font-extrabold text-gray-500 uppercase flex flex-col gap-3  justify-between  tracking-wider w-full ">
                                           <div>
-                                            <p>Remark</p>
+                                            <p>* Remark</p>
                                           </div>
                                           <div className="w-full">
                                             <textarea
@@ -5439,8 +5771,8 @@ export default function Dashboard() {
                                         </div>
                                       </div>
                                       <div className=" flex flex-col gap-2 w-full">
-                                        <div className="text-left text-sm font-medium text-gray-500 uppercase  tracking-wider">
-                                          <p>IMAGE</p>
+                                        <div className="text-left text-sm font-extrbold font-medium text-gray-500 uppercase  tracking-wider">
+                                          <p>* IMAGE</p>
                                         </div>
                                         <div className="grid grid-flow-row grid-cols-10 pt-1">
                                           <input
@@ -5502,21 +5834,19 @@ export default function Dashboard() {
                                           )}
                                         </div>
                                       </div>
-                                      <div className="grid grid-flow-row w-full grid-cols-11 gap-5 rounded-lg pt-5">
-                                        {pdfFiles && pdfFiles.length>0 && pdfFiles.map((fileName, index) => (
-                                          <div className="w-full">
-                                            <img
-                                              className="w-full cursor-pointer rounded-md"
-                                              src={pdf}
-                                              alt=""
-                                              srcset=""
-                                              onClick={() => {
-                                                openPdfInNewTab(fileName);
-                                              }}
-                                            />
-                                          </div>
-                                        ))}
-                                      </div>
+                                      <div className="grid grid-flow-row w-full md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5 rounded-lg pt-5">
+                                    {pdfFiles && pdfFiles.length > 0 && pdfFiles.map((fileName, index) => {
+        const extractedDate = extractDate(fileName);
+        return (
+          <div className="w-full inline-flex gap-1 items-center border-2 rounded-md p-2 bg-cyan-900 font-sans font-bold text-center" key={index} onClick={() => openPdfInNewTab(fileName)}>
+            <img className="w-5 rounded-sm h-5" src={pdf} alt="" srcset="" />
+            <h1 className="cursor-pointer ">
+              {extractedDate ? moment(extractedDate).format('DD-MM-YYYY') : "No date found"}
+            </h1>
+          </div>
+        );
+      })}
+                                    </div>
                                       <div className="flex flex-row justify-between gap-3 font-serif uppercase mt-5">
                                         <div>
                                           <input
@@ -6025,7 +6355,7 @@ export default function Dashboard() {
                                         <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                             <p>PALPATION</p>
                                           </div>
-                                          <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 w-full">
+                                          <div className="grid grid-flow-row gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6  w-full">
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
                                                 className="h-4 w-4"
@@ -6072,24 +6402,10 @@ export default function Dashboard() {
                                               />
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">swelling</label>
                                               </div>
+                                              
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="throb"
-                                                id=""
-                                                checked={
-                                                  formData_2.throb == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">throbbing</label>
-                                              </div>
-                                              <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                <input
-                                                className="h-4 w-4"
+                                                className="h-4 w-4 "
                                                 type="checkbox"
                                                 name="palpOthers"
                                                 id=""
@@ -6105,7 +6421,7 @@ export default function Dashboard() {
                                               {formData_2.palpOthers == 1 && (
                                             <div className="w-full">
                                               <input
-                                                className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
+                                                className=" bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
                                                 type="text"
                                                 name="other_p_value"
                                                 value={
@@ -6115,24 +6431,10 @@ export default function Dashboard() {
                                               />
                                             </div>
                                           )}
-                                              <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
-                                                <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="tingling"
-                                                id=""
-                                                checked={
-                                                  formData_2.tingling == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}
-                                              />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">tingling</label>
-                                              </div>
-                                              <div>
+                                             
+                                              <div className="w-full">
                                               <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_2} value={formData_2.scar} >
-                                              <option selected disabled hidden>----SELECT----</option>
+                
                                               <option value="acute" selected={formData_2.scar === 'acute'}>heal</option>
                                               <option value="subacute"selected={ formData_2.scar === 'subacute'}>nonheal</option>
                                             </select>
@@ -6294,20 +6596,18 @@ export default function Dashboard() {
                                         )}
                                       </div>
                                     </div>
-                                    <div className="grid grid-flow-row w-full grid-cols-11 gap-5 rounded-lg pt-5">
-                                      {pdfFiles && pdfFiles.length>0 && pdfFiles.map((fileName, index) => (
-                                        <div className="w-full">
-                                          <img
-                                            className="w-full cursor-pointer rounded-md"
-                                            src={pdf}
-                                            alt=""
-                                            srcset=""
-                                            onClick={() => {
-                                              openPdfInNewTab(fileName);
-                                            }}
-                                          />
-                                        </div>
-                                      ))}
+                                    <div className="grid grid-flow-row w-full md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5 rounded-lg pt-5">
+                                    {pdfFiles && pdfFiles.length > 0 && pdfFiles.map((fileName, index) => {
+        const extractedDate = extractDate(fileName);
+        return (
+          <div className="w-full inline-flex gap-1 items-center border-2 rounded-md p-2 bg-cyan-900 font-sans font-bold text-center" key={index} onClick={() => openPdfInNewTab(fileName)}>
+            <img className="w-5 rounded-sm h-5" src={pdf} alt="" srcset="" />
+            <h1 className="cursor-pointer ">
+              {extractedDate ? moment(extractedDate).format('DD-MM-YYYY') : "No date found"}
+            </h1>
+          </div>
+        );
+      })}
                                     </div>
                                     <div className="flex flex-row justify-between gap-3 font-serif uppercase mt-5">
                                       <div>

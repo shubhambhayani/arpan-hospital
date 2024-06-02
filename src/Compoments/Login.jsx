@@ -5,6 +5,7 @@ import { BiUser, BiLock } from "react-icons/bi";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Loading from "./Loading";
+import { Link} from 'react-router-dom';
 
 
 
@@ -61,7 +62,7 @@ const Login = () => {
 
   return (
     <>
-     <div className="h-screen flex justify-center items-center">
+     <div className="h-screen bg-slate-200 flex justify-center items-center">
   <div className="shadow-xl w-96 rounded-md p-6 bg-white">
     <div className="text-center bg-cyan-950 px-4 py-2 text-white rounded-t-md">
       <h2 className="font-serif text-xl">ADMIN LOGIN</h2>
@@ -105,6 +106,7 @@ const Login = () => {
     </form>
   </div>
 </div>
+
     </>
   );
 };
