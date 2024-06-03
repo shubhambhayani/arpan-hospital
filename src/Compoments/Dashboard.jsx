@@ -144,6 +144,8 @@ export default function Dashboard() {
     yoga: "",
     dayabitis: "",
     remark: "",
+    other_p:"",
+    other_p_1:""
   });
   const [formData_2, setFormData_2] = useState({
     name: '',
@@ -366,6 +368,8 @@ export default function Dashboard() {
       yoga: "",
       dayabitis: "",
       remark: "",
+      other_p:"",
+      other_p_1:""
     });
     setFormData_2({
       name: '',
@@ -671,6 +675,8 @@ export default function Dashboard() {
           dia: appointmentData.dia,
           dob: appointmentData.dob,
           fact_loss: appointmentData.fact_loss,
+          other_p: appointmentData.other_p,
+          other_p_1: appointmentData.other_p_1,
           fitness: appointmentData.fitness,
           gender: appointmentData.gender,
           health: appointmentData.health,
@@ -919,8 +925,10 @@ export default function Dashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoad1(true);
+    const MAX_TEXT_WIDTH = 550;
     if (selectedDiv == "weight_loss") {
       try {
+       
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
         doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
@@ -952,6 +960,21 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
+
+        const truncateText = (text) => {
+          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+            let truncatedText = '';
+            for (let i = 0; i < text.length; i++) {
+              truncatedText += text[i];
+              if (doc.getStringUnitWidth(truncatedText + '...') * 14 > MAX_TEXT_WIDTH) {
+                truncatedText = truncatedText.slice(0, -1) + '...';
+                break;
+              }
+            }
+            return truncatedText;
+          }
+          return text;
+        };
 
         const fields = [
           {
@@ -1225,33 +1248,56 @@ export default function Dashboard() {
             valueY: y + 239,
           },
         
-          { label: "Machine_Run", labelX: 10, labelY: y + 246 },
+          { label: "Aerobiks", labelX: 10, labelY: y + 246 },
           {
             value: formData_1.machine == 1 ? "Yes" : "No",
             valueX: 50,
             valueY: y + 246,
           },
-        
-          { label: "Other", labelX: 10, labelY: y + 253 },
-          { value: formData_1.o == 1 ? "Yes" : "No", valueX: 50, valueY: y + 253 },
-          { label: "climb stairs", labelX: 10, labelY: y + 260 },
+          { label: "Gym/Tredmill", labelX: 10, labelY: y + 253},
           {
-            value: formData_1.dada == 1 ? "Yes" : "No",
+            value: formData_1.o == 1 ? "Yes" : "No",
             valueX: 50,
-            valueY: y + 260,
+            valueY: y + 253,
           },
-          { label: "Household work", labelX: 10, labelY: y + 267 },
+          { label: "Other_Extra_Activities", labelX: 10, labelY: y+260},
           {
-            value: formData_1.work == 1 ? "Yes" : "No",
-            valueX: 50,
+            value:  formData_1.other_p!== "" ?`=> ${formData_1.other_p}` : " --- ",
+            valueX: 10,
             valueY: y + 267,
           },
-        ];
+          { label: "_", labelX:0, labelY: y+266},
+          { label: "Stair Climing", labelX: 10, labelY: y },
+          {
+            value: formData_1.dada== 1 ? "Yes" : "No",
+            valueX: 55,
+            valueY: y ,
+          },
+          { label: "Household Work", labelX: 10, labelY: y+7},
+          {
+            value: formData_1.work== 1 ? "Yes" : "No",
+            valueX: 55,
+            valueY: y +7,
+          },
+          { label: "Other_Routine_Activities", labelX: 10, labelY: y+14},
+          {
+            value: formData_1.other_p_1!== "" ?`=> ${formData_1.other_p_1}` : " --- ",
+            valueX: 10,
+            valueY: y + 21,
+          },];
+        let addToNextPage = false;
 
         fields.forEach((field) => {
+          if (addToNextPage) {
+            doc.addPage();
+            addPageBorder();
+            y = 20; // Reset y-coordinate
+            addToNextPage = false; // Reset flag to avoid multiple page additions
+          }
           addPageBorder();
           if (field.title !== undefined) {
             doc.setTextColor(21, 94, 117);
+            
             addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
           }
           if (field.label !== undefined) {
@@ -1260,7 +1306,11 @@ export default function Dashboard() {
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            addText(field.value, field.valueX, field.valueY, "normal", 14);
+            const truncatedText = truncateText(field.value);
+            addText(truncatedText, field.valueX, field.valueY, "normal", 14);
+          }
+          if (field.label === "_") {
+            addToNextPage = true;
           }
         });
         const pdfBlob = doc.output("blob");
@@ -1287,7 +1337,8 @@ export default function Dashboard() {
         formDataObject.append("dia", formData_1.dia);
         formDataObject.append("dob", formData_1.dob);
         formDataObject.append("fact_loss", formData_1.fact_loss);
-     
+        formDataObject.append("other_p", formData_1.other_p);
+        formDataObject.append("other_P_1", formData_1.other_p_1);
         formDataObject.append("fitness", formData_1.fitness);
         formDataObject.append("health", formData_1.health);
         formDataObject.append("blood", formData_1.blood);
@@ -1382,6 +1433,8 @@ export default function Dashboard() {
           yoga: "",
           dayabitis: "",
           remark: "",
+          other_p:"",
+          other_p_1:""
         });
         setButtonEnabled(false);
         setPdfFiles([]);
@@ -1424,6 +1477,16 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
+
+        const truncateText = (text) => {
+          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
+              text = text.slice(0, -1);
+            }
+            text += '...';
+          }
+          return text;
+        };
 
         const fields = [
           {
@@ -1804,8 +1867,8 @@ export default function Dashboard() {
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            // field.valueY = checkYValueAndAddPage(field.valueY);
-            addText(field.value, field.valueX, field.valueY, "normal", 13);
+            const truncatedText = truncateText(field.value);
+            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
           }
           if (field.label === "* Observation") {
             addToNextPage = true;
@@ -1969,6 +2032,15 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
+        const truncateText = (text) => {
+          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
+              text = text.slice(0, -1);
+            }
+            text += '...';
+          }
+          return text;
+        };
         
         const fields = [
           {
@@ -2348,8 +2420,8 @@ export default function Dashboard() {
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            // field.valueY = checkYValueAndAddPage(field.valueY);
-            addText(field.value, field.valueX, field.valueY, "normal", 13);
+            const truncatedText = truncateText(field.value);
+            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
           }
           if (field.label === "* Observation") {
             addToNextPage = true;
@@ -2515,6 +2587,15 @@ export default function Dashboard() {
             doc.internal.pageSize.getHeight() - 10
           ); // Add a border around the page
         }
+        const truncateText = (text) => {
+          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
+              text = text.slice(0, -1);
+            }
+            text += '...';
+          }
+          return text;
+        };
         
         const fields = [
           {
@@ -2894,8 +2975,8 @@ export default function Dashboard() {
           }
           if (field.value !== undefined) {
             doc.setTextColor(0);
-            // field.valueY = checkYValueAndAddPage(field.valueY);
-            addText(field.value, field.valueX, field.valueY, "normal", 13);
+            const truncatedText = truncateText(field.value);
+            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
           }
           if (field.label === "* Observation") {
             addToNextPage = true;
@@ -3537,12 +3618,13 @@ export default function Dashboard() {
                                 </div>
                                 {selectedDiv === "physiotherapy" && (
                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                    <h1 className="text-blue-800 font-serif text-xl">
-                                      PERSONAL INFORMATION
-                                    </h1>
+                                    
                                     <form
                                       onSubmit={handleSubmit}
                                       enctype="multipart/form-data">
+                                      <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
+                                        (A) Subjective Assessment
+                                      </h1>
                                       <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
                                       <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
@@ -3596,10 +3678,8 @@ export default function Dashboard() {
                                           </div>
                                           </div>
                                       </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full ">
+                                     
+                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full pt-2">
                                       <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                               <p>Chief Complaint</p>
@@ -3984,22 +4064,25 @@ export default function Dashboard() {
                                             ></textarea>
                                           </div>
                                           </div>
-                                          <div className="flex flex-col gap-2 w-full">
+                                          <div className="col-span-2 flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                               <p>intensity</p>
                                             </div>
-                                            <div className="">
+                                            <div className="w-full">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="intensity"
-                                              placeholder="intensity"
+                                              placeholder="Numerical Pain Rating Scale(NPRS)"
                                               
                                               onChange={handleInputChange}
                                               value={formData.intensity}
                                             ></textarea>
                                           </div>
                                           </div>
-                                          <div className="flex flex-col gap-2 w-full">
+                                          <h1 className="text-blue-800 font-serif uppercase text-xl pt-3">
+                                     (B) Objective Assessment
+                                      </h1>
+                                          <div className="col-span-2 flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                               <p>observation</p>
                                             </div>
@@ -4050,7 +4133,13 @@ export default function Dashboard() {
                                                 />
                                                 <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                                 </div>
-                                                
+                                                <div>
+                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} required>
+                                                <option hidden selected >SCAR</option>
+                                                <option value="acute" selected={formData.scar === 'acute'}>heal</option>
+                                                <option value="subacute"selected={ formData.scar === 'subacute'}>nonheal</option>
+                                              </select>
+                                                </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
                                                   className="h-4 w-4"
@@ -4096,12 +4185,7 @@ export default function Dashboard() {
                                               </div>
                                             )}
                                                
-                                                <div>
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} required>
-                                                <option value="acute" selected={formData.scar === 'acute'}>heal</option>
-                                                <option value="subacute"selected={ formData.scar === 'subacute'}>nonheal</option>
-                                              </select>
-                                                </div>
+                                               
                                             </div>
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
@@ -4299,12 +4383,13 @@ export default function Dashboard() {
                                 )}
                                 {selectedDiv === "fitness" && (
                                    <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                   <h1 className="text-blue-800 font-serif text-xl">
-                                     PERSONAL INFORMATION
-                                   </h1>
+                                  
                                    <form
                                      onSubmit={handleSubmit}
                                      enctype="multipart/form-data">
+                                       <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
+                                        (A) Subjective Assessment
+                                      </h1>
                                      <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
                                      <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
@@ -4358,10 +4443,8 @@ export default function Dashboard() {
                                          </div>
                                          </div>
                                      </div>
-                                     <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                       PATIENT INFORMATION
-                                     </h1>
-                                     <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full ">
+                                    
+                                     <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full pt-2">
                                      <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                              <p>Chief Complaint</p>
@@ -4746,7 +4829,7 @@ export default function Dashboard() {
                                            ></textarea>
                                          </div>
                                          </div>
-                                         <div className="flex flex-col gap-2 w-full">
+                                         <div className="col-span-2 flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                              <p>intensity</p>
                                            </div>
@@ -4754,14 +4837,17 @@ export default function Dashboard() {
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="intensity"
-                                             placeholder="intensity"
+                                             placeholder="Numerical Pain Rating Scale(NPRS)"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.intensity}
                                            ></textarea>
                                          </div>
                                          </div>
-                                         <div className="flex flex-col gap-2 w-full">
+                                         <h1 className="text-blue-800 font-serif uppercase text-xl pt-3">
+                                     (B) Objective Assessment
+                                      </h1>
+                                         <div className="col-span-2 flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                              <p>observation</p>
                                            </div>
@@ -4812,7 +4898,13 @@ export default function Dashboard() {
                                                />
                                                <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                                </div>
-                                               
+                                               <div>
+                                               <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_3} value={formData_3.scar} >
+                                                <option hidden selected >SCAR</option>
+                                               <option value="acute" selected={formData_3.scar === 'acute'}>heal</option>
+                                               <option value="subacute"selected={ formData_3.scar === 'subacute'}>nonheal</option>
+                                             </select>
+                                               </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
                                                  className="h-4 w-4"
@@ -4858,13 +4950,7 @@ export default function Dashboard() {
                                              </div>
                                            )}
                                                
-                                               <div>
-                                               <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_3} value={formData_3.scar} >
-                                            
-                                               <option value="acute" selected={formData_3.scar === 'acute'}>heal</option>
-                                               <option value="subacute"selected={ formData_3.scar === 'subacute'}>nonheal</option>
-                                             </select>
-                                               </div>
+                                              
                                            </div>
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
@@ -5155,10 +5241,8 @@ export default function Dashboard() {
                                           </div>
                                         </div>
                                       </div>
-                                      <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                        PATIENT INFORMATION
-                                      </h1>
-                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-4">
+                                     
+                                      <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 pt-2 gap-4">
                                         <div className="flex flex-col gap-2">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider">
                                             <p>* Medical History  </p>
@@ -5349,10 +5433,27 @@ export default function Dashboard() {
                                               />
                                             </div>
                                           </div>
-                                         
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(4) weight Gain</p>
+                                              <p>(4) weight loss </p>
+                                            </div>
+                                            <div>
+                                              <input
+                                                className="h-4 w-4"
+                                                type="checkbox"
+                                                name="weight_down"
+                                                checked={
+                                                  formData_1.weight_down == 1
+                                                    ? true
+                                                    : false
+                                                }
+                                                onChange={handleInputChange_1}
+                                              />
+                                            </div>
+                                          </div>
+                                          <div className="flex flex-row gap-3 items-center">
+                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
+                                              <p>(5) weight Gain</p>
                                             </div>
                                             <div>
                                               <input
@@ -5370,7 +5471,7 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-row gap-3 items-center">
                                             <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(5) fat loss</p>
+                                              <p>(6) fat loss</p>
                                             </div>
                                             <div>
                                               <input
@@ -5386,24 +5487,7 @@ export default function Dashboard() {
                                               />
                                             </div>
                                           </div>
-                                          <div className="flex flex-row gap-3 items-center">
-                                            <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                              <p>(6) weight loss ? </p>
-                                            </div>
-                                            <div>
-                                              <input
-                                                className="h-4 w-4"
-                                                type="checkbox"
-                                                name="weight_down"
-                                                checked={
-                                                  formData_1.weight_down == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_1}
-                                              />
-                                            </div>
-                                          </div>
+                                         
                                           <div className="w-full">
                                           <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
@@ -5703,8 +5787,16 @@ export default function Dashboard() {
                                                   onChange={handleInputChange_1}
                                                 />
                                               </div>
-                                             
                                             </div>
+                                            <div className="w-full">
+                                          <textarea
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="other_p"
+                                              placeholder="enter a Extra Activities"
+                                              onChange={handleInputChange_1}
+                                              value={formData_1.other_p}
+                                            ></textarea>
+                                          </div>
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
                                               <p>(2) routine activities</p>
                                               <div className="flex flex-row items-center gap-2 pb-1 w-full">
@@ -5749,6 +5841,15 @@ export default function Dashboard() {
                                                 </div>
                                                
                                               </div>
+                                              <div className="w-full">
+                                          <textarea
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="other_p_1"
+                                              placeholder="enter a other routine Activities"
+                                              onChange={handleInputChange_1}
+                                              value={formData_1.other_p_1}
+                                            ></textarea>
+                                          </div>
                                             </div>
                                           </div>
                                         </div>
@@ -5874,12 +5975,13 @@ export default function Dashboard() {
                                 )}
                                 {selectedDiv === "pain_management" && (
                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
-                                  <h1 className="text-blue-800 font-serif text-xl">
-                                    PERSONAL INFORMATION
-                                  </h1>
+                                
                                   <form
                                     onSubmit={handleSubmit}
                                     enctype="multipart/form-data">
+                                       <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
+                                        (A) Subjective Assessment
+                                      </h1>
                                     <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
                                     <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
@@ -5932,10 +6034,8 @@ export default function Dashboard() {
                                         </div>
                                         </div>
                                     </div>
-                                    <h1 className="text-blue-800 font-serif text-xl pt-5">
-                                      PATIENT INFORMATION
-                                    </h1>
-                                    <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full ">
+                                
+                                    <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2  gap-2 w-full pt-2">
                                     <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>Chief Complaint</p>
@@ -6320,22 +6420,25 @@ export default function Dashboard() {
                                           ></textarea>
                                         </div>
                                         </div>
-                                        <div className="flex flex-col gap-2 w-full">
+                                        <div className="col-span-2 flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                             <p>intensity</p>
                                           </div>
                                           <div className="">
                                           <textarea
-                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            className="col-span-2 w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="intensity"
-                                            placeholder="intensity"
+                                            placeholder="Numerical Pain Rating Scale(NPRS)"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.intensity}
                                           ></textarea>
                                         </div>
                                         </div>
-                                        <div className="flex flex-col gap-2 w-full">
+                                      <h1 className="text-blue-800 font-serif uppercase text-xl pt-3">
+                                     (B) Objective Assessment
+                                      </h1>
+                                        <div className="col-span-2 flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                             <p>observation</p>
                                           </div>
@@ -6386,7 +6489,13 @@ export default function Dashboard() {
                                               />
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                               </div>
-                                              
+                                              <div className="w-full">
+                                              <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_2} value={formData_2.scar} >
+                                              <option hidden selected >SCAR</option>
+                                              <option value="acute" selected={formData_2.scar === 'acute'}>heal</option>
+                                              <option value="subacute"selected={ formData_2.scar === 'subacute'}>nonheal</option>
+                                            </select>
+                                              </div>
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
                                                 className="h-4 w-4"
@@ -6432,13 +6541,7 @@ export default function Dashboard() {
                                             </div>
                                           )}
                                              
-                                              <div className="w-full">
-                                              <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_2} value={formData_2.scar} >
-                
-                                              <option value="acute" selected={formData_2.scar === 'acute'}>heal</option>
-                                              <option value="subacute"selected={ formData_2.scar === 'subacute'}>nonheal</option>
-                                            </select>
-                                              </div>
+                                            
                                           </div>
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">

@@ -43,7 +43,7 @@ export default function Navbar({onSearch}) {
         </Link>
           </div>
           <div className=''>
-          <h1 class="lg:text-2xl md:text-xl bg-gradient-to-r font-extrabold from-cyan-950 to-cyan-600 text-transparent bg-clip-text ">ARPAN MULTISPECIALIST HOSPITAL</h1>
+          <h1 class="lg:text-2xl md:text-xl bg-gradient-to-r font-extrabold from-cyan-950 to-cyan-600 text-transparent bg-clip-text ">Arpan Advanced Physiotherapy & Fitness Center</h1>
           </div>
         </div>
         <div className=" flex flex-row gap-5 items-center">
