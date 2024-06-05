@@ -18,8 +18,9 @@ import physiotherapy from "../element/phy.jpeg";
 import image2 from "../element/Weight Loss Icon.jpeg";
 import pain_managment from "../element/pain.jpeg";
 import jsPDF from "jspdf";
+import 'jspdf-autotable';
 import pdf from "../element/pdf.jpg";
-import { Form } from "react-bootstrap";
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -954,395 +955,151 @@ export default function Dashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoad1(true);
-    const MAX_TEXT_WIDTH = 550;
     if (selectedDiv == "weight_loss") {
       try {
-       
-        const doc = new jsPDF();
-        doc.setTextColor(255, 0, 0);
-        doc.text("* WEIGHT_LOSS *", doc.internal.pageSize.getWidth() / 2, 12, {
-          align: "center",
-        });
-        doc.setTextColor(255, 0, 0); 
-        doc.text(
-          moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-          190,
-          12,
-          { align: "center" }
-        );
-        doc.setTextColor(0, 0, 0);
-        let y = 20;
-
-        function addText(text, x, y, fontStyle, fontSize) {
-          doc.setFont(fontStyle);
-          doc.setFontSize(fontSize);
-          doc.text(text, x, y);
-        }
-
-        function addPageBorder() {
-          doc.setDrawColor(0); // Border color (black)
-          doc.setLineWidth(0.5); // Border line width
-          doc.rect(
-            5,
-            5,
-            doc.internal.pageSize.getWidth() - 10,
-            doc.internal.pageSize.getHeight() - 10
-          ); // Add a border around the page
-        }
-
-        const truncateText = (text) => {
-          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-            let truncatedText = '';
-            for (let i = 0; i < text.length; i++) {
-              truncatedText += text[i];
-              if (doc.getStringUnitWidth(truncatedText + '...') * 14 > MAX_TEXT_WIDTH) {
-                truncatedText = truncatedText.slice(0, -1) + '...';
-                break;
-              }
-            }
-            return truncatedText;
-          }
-          return text;
-        };
-
-        const fields = [
-          {
-            label: "Name",
-            value: selectedPatientId.name,
-            labelX: 10,
-            labelY: y,
-            valueX: 10,
-            valueY: y + 7,
-          },
-          {
-            label: "Age",
-            value: selectedPatientId.age,
-            labelX: 80,
-            labelY: y,
-            valueX: 80,
-            valueY: y + 7,
-          },
-          {
-            label: "Gender",
-            value: selectedPatientId.gender,
-            labelX: 102,
-            labelY: y,
-            valueX: 102,
-            valueY: y + 7,
-          },
-          {
-            label: "Contact",
-            value: formData_1.contact,
-            labelX: 138,
-            labelY: y,
-            valueX: 138,
-            valueY: y + 7,
-          },
-          {
-            label: "Occupation",
-            value: formData_1.occupation,
-            labelX: 174,
-            labelY: y,
-            valueX: 174,
-            valueY: y + 7,
-          },
-          {
-            label: "Address",
-            value: formData_1.address,
-            labelX: 10,
-            labelY: y + 15,
-            valueX: 10,
-            valueY: y + 22,
-          },
-          { title: "* History", titleX: 90, titleY: y + 29 },
-          {
-            label: "1)Asthma",
-            value: formData_1.acidity == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 35,
-            valueX: 55,
-            valueY: y + 35,
-          },
-          {
-            label: "2)dliatetes",
-            value: formData_1.kabajiyat == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 42,
-            valueX: 55,
-            valueY: y + 42,
-           
-          },
-          {
-            label: "3)Heart Disease",
-            value: formData_1.heart == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 49,
-            valueX: 55,
-            valueY: y + 49,
-           
-          },
-          {
-            label: "4)Hypertension",
-            value: formData_1.blood == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 56,
-            valueX: 55,
-            valueY: y + 56,
-           
-          },
-          {
-            label: "5)Thairoid",
-            value: formData_1.thairoid == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 63,
-            valueX: 55,
-            valueY: y + 63,
-          
-          },
-          {
-            label: "6)Dayabitis",
-            value: formData_1.dayabitis!== "" ? formData_1.dayabitis : " --- ",
-            labelX: 10,
-            labelY: y + 70,
-            valueX: 55,
-            valueY: y + 70,
-          },
-          {
-            label: "7)Other Problem",
-            value:
-              formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- ",
-            labelX: 10,
-            labelY: y + 77,
-            valueX: 55,
-            valueY: y + 77,
-          },
-          { title: "* Need", titleX: 90, titleY: y + 84 },
-          {
-            label: "1)Fat Loss",
-            value: formData_1.fact_loss == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 90,
-            valueX: 55,
-            valueY: y + 90,
-          },
-          {
-            label: "2)Fitness",
-            value: formData_1.fitness == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 97,
-            valueX: 55,
-            valueY: y + 97,
-           
-          },
-          {
-            label: "3)Health",
-            value: formData_1.health == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 104,
-            valueX: 55,
-            valueY: y + 104,
-           
-          },
-          {
-            label: "4)Physique",
-            value: formData_1.phy == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 111,
-            valueX: 55,
-            valueY: y + 111,
-           
-          },
-          {
-            label: "5)Weight Gain",
-            value: formData_1.weight__up == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 118,
-            valueX: 55,
-            valueY: y + 118,
-          
-            
-          },
-          {
-            label: "6)Weight loss",
-            value: formData_1.weight_down == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 125,
-            valueX: 55,
-            valueY: y + 125,
-           
-          },
-          {
-            label: "7)Other Problem",
-            value: formData_1.dia !== "" ? formData_1.dia : " --- ",
-            labelX: 10,
-            labelY: y + 132,
-            valueX: 55,
-            valueY: y + 132,
-           
-          },
-          { title: "* Diet History", titleX: 80, titleY: y + 147 },
-          { title: "Diet", titleX: 10, titleY: y + 154 },
-          { title: "What", titleX: 50, titleY: y + 154 },
-          { title: "Time", titleX: 160, titleY: y + 154 },
-          { label: "Breakfast", labelX: 10, labelY: y + 162 },
-          {
-            value: formData_1.m_what !== "" ? formData_1.m_what : " --- ",
-            valueX: 50,
-            valueY: y + 162,
-          },
-          {
-            value: formData_1.m_time !== "" ? formData_1.m_time : " --- ",
-            valueX: 160,
-            valueY: y + 162,
-          },
-          { label: "Lunch", labelX: 10, labelY: y + 169 },
-          {
-            value: formData_1.l_what !== "" ? formData_1.l_what : " --- ",
-            valueX: 50,
-            valueY: y + 169,
-          },
-          {
-            value: formData_1.l_time !== "" ? formData_1.l_time : " --- ",
-            valueX: 160,
-            valueY: y + 169,
-          },
-          { label: "Dinner", labelX: 10, labelY: y + 176 },
-          {
-            value: formData_1.d_what !== "" ? formData_1.d_what : " --- ",
-            valueX: 50,
-            valueY: y + 176,
-          },
-          {
-            value: formData_1.d_time !== "" ? formData_1.d_time : " --- ",
-            valueX: 160,
-            valueY: y + 176,
-          },
-          { label: "In beetween diet", labelX: 10, labelY: y + 183 },
-          {
-            value: formData_1.o_what !== "" ? formData_1.o_what : " --- ",
-            valueX: 50,
-            valueY: y + 183,
-          },
-          {
-            value: formData_1.o_time !== "" ? formData_1.o_time : " --- ",
-            valueX: 160,
-            valueY: y + 183,
-          },
-          { label: "Water", labelX: 10, labelY: y + 190 },
-          {
-            value: formData_1.w_what !== "" ? formData_1.w_what : " --- ",
-            valueX: 50,
-            valueY: y + 190,
-          },
-          {
-            value: formData_1.w_time !== "" ? formData_1.w_time : " --- ",
-            valueX: 160,
-            valueY: y + 190,
-          },
-          { title: "* Extra/routine Activities", titleX: 70, titleY: y + 198 },
-          { title: "Activity", titleX: 10, titleY: y + 204 },
-          { title: "yes/no", titleX: 50, titleY: y + 204 },
-          { label: "Cycleling", labelX: 10, labelY: y + 211 },
-          {
-            value: formData_1.cyc == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 211,
-          },
-         
-          { label: "Walking", labelX: 10, labelY: y + 218 },
-          {
-            value: formData_1.walk == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 218,
-          },
-         
-          { label: "Yoga", labelX: 10, labelY: y + 225 },
-          {
-            value: formData_1.yoga == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 225,
-          },
-         
-          { label: "Swimming", labelX: 10, labelY: y + 232 },
-          {
-            value: formData_1.swe == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 232,
-          },
-          
-          { label: "Running", labelX: 10, labelY: y + 239 },
-          {
-            value: formData_1.run == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 239,
-          },
+        // const doc = new jsPDF();
+        // doc.setFontSize(13);
+        // const pageWidth = doc.internal.pageSize.getWidth();
+        // const pageHeight = doc.internal.pageSize.getHeight();
+        // doc.setTextColor(22, 78, 99);
         
-          { label: "Aerobics", labelX: 10, labelY: y + 246 },
-          {
-            value: formData_1.machine == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 246,
-          },
-          { label: "Gym/Tredmill", labelX: 10, labelY: y + 253},
-          {
-            value: formData_1.o == 1 ? "Yes" : "No",
-            valueX: 50,
-            valueY: y + 253,
-          },
-          { label: "Other_Extra_Activities", labelX: 10, labelY: y+260},
-          {
-            value:  formData_1.other_p!== "" ?`=> ${formData_1.other_p}` : " --- ",
-            valueX: 10,
-            valueY: y + 267,
-          },
-          { label: "_", labelX:0, labelY: y+266},
-          { label: "Stair Climing", labelX: 10, labelY: y },
-          {
-            value: formData_1.dada== 1 ? "Yes" : "No",
-            valueX: 55,
-            valueY: y ,
-          },
-          { label: "Household Work", labelX: 10, labelY: y+7},
-          {
-            value: formData_1.work== 1 ? "Yes" : "No",
-            valueX: 55,
-            valueY: y +7,
-          },
-          { label: "Other_Routine_Activities", labelX: 10, labelY: y+14},
-          {
-            value: formData_1.other_p_1!== "" ?`=> ${formData_1.other_p_1}` : " --- ",
-            valueX: 10,
-            valueY: y + 21,
-          },];
-        let addToNextPage = false;
+        // // Centered title
+        // doc.text("WEIGHT_LOSS", pageWidth / 2, 12, { align: "center" });
+        
+        // const fields = [
+        //     { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
+        //     { label: "Name", value: selectedPatientId.name },
+        //     { label: "Age", value: selectedPatientId.age },
+        //     { label: "Dob", value: moment(formData.dob).format("DD/MM/YYYY") },
+        //     { label: "Gender", value: selectedPatientId.gender },
+        //     { label: "Contact", value: formData.contact },
+        //     { label: "Education", value: formData.contact },
+        //     { label: "Occupation", value: formData.occupation },
+        //     { label: "Address", value: formData.address },
+        //     { title: "MEDICAL HISTORY", colSpan: 2 },
+        //     { label: "1) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
+        //     { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
+        //     { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
+        //     { label: "4) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
+        //     { label: "5) Heart Disease", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
+        //     { label: "6) Other History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
+        //     { label: "7) Past History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
+        //     { title: "NEED", colSpan: 2 },
+        //     { label: "1) Health", value: formData.asthama == 1 ? "Yes" : "No" },
+        //     { label: "2) Fitness", value: formData.diabetes == 1 ? "Yes" : "No" },
+        //     { label: "3) Physique", value: formData.thyroid == 1 ? "Yes" : "No" },
+        //     { label: "4) Weight Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
+        //     { label: "5) Weight Gain", value: formData.hyperTense == 1 ? "Yes" : "No" },
+        //     { label: "6) Fat Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
+        //     { label: "7) Other Need", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
+        //     { title: "DIET HISTORY", colSpan: 2 },
+        //     { label: "Breakfast", value: formData.other_p_value !== "" ? formData.other_p_value : " --- ", value2: formData.other_p_value_2 !== "" ? formData.other_p_value_2 : " --- " },
 
-        fields.forEach((field) => {
-          if (addToNextPage) {
-            doc.addPage();
-            addPageBorder();
-            y = 20; // Reset y-coordinate
-            addToNextPage = false; // Reset flag to avoid multiple page additions
-          }
-          addPageBorder();
-          if (field.title !== undefined) {
-            doc.setTextColor(21, 94, 117);
-            
-            addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-          }
-          if (field.label !== undefined) {
-            doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 16);
-          }
-          if (field.value !== undefined) {
-            doc.setTextColor(0);
-            const truncatedText = truncateText(field.value);
-            addText(truncatedText, field.valueX, field.valueY, "normal", 14);
-          }
-          if (field.label === "_") {
-            addToNextPage = true;
-          }
-        });
-        const pdfBlob = doc.output("blob");
+        // ];
+        
+        // const tableRowsFirstPage = [];
+        
+        // fields.forEach(field => {
+        //     if (field.title) {
+        //         const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: [50, 50, 255], halign: 'center' } }];
+        //         tableRowsFirstPage.push(row);
+        //     }else if (field.value2 !== undefined) {
+        //       const row = [field.label, field.value];
+        //       tableRowsFirstPage.push(row);
+        //       const row2 = ["", field.value2];
+        //       tableRowsFirstPage.push(row2);
+        //   } else {
+        //       const row = [field.label, field.value];
+        //       tableRowsFirstPage.push(row);
+        //   }
+        // });
+        
+        // // Add border to the first page
+        // doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+        
+        // // Add the content for the first page
+        // doc.autoTable({
+        //     head: [],
+        //     body: tableRowsFirstPage,
+        //     startY: 20,
+        //     theme: 'grid',
+        //     styles: { overflow: 'linebreak', cellPadding: 2 },
+        //     columnStyles: {
+        //         0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+        //         1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+        //     }
+        // });
+        
+        // const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+        // const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
+        const doc = new jsPDF();
+doc.setFontSize(13);
+const pageWidth = doc.internal.pageSize.getWidth();
+const pageHeight = doc.internal.pageSize.getHeight();
+doc.setTextColor(22, 78, 99);
+
+// Centered title
+doc.text("WEIGHT_LOSS", pageWidth / 2, 12, { align: "center" });
+
+const fields = [
+    { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
+    { label: "Name", value: selectedPatientId.name },
+    { label: "Age", value: selectedPatientId.age },
+    { label: "Dob", value: moment(formData.dob).format("DD/MM/YYYY") },
+    { label: "Gender", value: selectedPatientId.gender },
+    { label: "Contact", value: formData.contact },
+    { label: "Education", value: formData.study },
+    { label: "Occupation", value: formData.occupation },
+    { label: "Address", value: formData.address },
+    { title: "MEDICAL HISTORY", colSpan: 3 },
+    { label: "1) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
+    { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
+    { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
+    { label: "4) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
+    { label: "5) Heart Disease", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
+    { label: "6) Other History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
+    { label: "7) Past History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
+    { title: "NEED", colSpan: 3 },
+    { label: "1) Health", value: formData.asthama == 1 ? "Yes" : "No" },
+    { label: "2) Fitness", value: formData.diabetes == 1 ? "Yes" : "No" },
+    { label: "3) Physique", value: formData.thyroid == 1 ? "Yes" : "No" },
+    { label: "4) Weight Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
+    { label: "5) Weight Gain", value: formData.hyperTense == 1 ? "Yes" : "No" },
+    { label: "6) Fat Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
+    { label: "7) Other Need", value: formData.other_p_value !== "" ? formData.other_p_value : " --- ", value2: formData.other_p_value !== "" ? formData.other_p_value: " --- " },
+];
+
+const tableRows = [];
+
+// Process the fields and add rows based on the presence of value2
+fields.forEach(field => {
+    if (field.title) {
+        const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: [50, 50, 255], halign: 'center' } }];
+        tableRows.push(row);
+    }else {
+        const row = [field.label, field.value];
+        tableRows.push(row);
+    }
+});
+
+// Add border to the first page
+doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+// Add the content for the first page
+doc.autoTable({
+    head: [],
+    body: tableRows,
+    startY: 25,
+    theme: 'grid',
+    styles: { overflow: 'linebreak', cellPadding: 2 },
+    columnStyles: {
+        0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+        1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] },
+    }
+});
+
+const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
+      
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -1418,55 +1175,6 @@ export default function Dashboard() {
           "https://arpanhospital.online/appointment_book.php",
           formDataObject
         );
-        setSelectedImages([]);
-        setSelectedPatientId({ patient_id: "", appointment_id: "", name: "", age: "", gender: "", appointment_date: "", appointment_time: "" });
-        setFormData_1({
-          acidity: "",
-          address: "",
-          contact: "",
-          cyc: "",
-          d_time: "",
-          d_what: "",
-          dada: "",
-          dia: "",
-          dob: "",
-          fact_loss: "",
-          fitness: "",
-          gender: "",
-          health: "",
-          blood: "",
-          heart: "",
-          kabajiyat: "",
-          l_time: "",
-          l_what: "",
-          m_time: "",
-          m_what: "",
-          machine: "",
-          name: "",
-          o: "",
-          o_time: "",
-          o_what: "",
-          occupation: "",
-          other_p_value: "",
-          phy: "",
-          run: "",
-          study: "",
-          swe: "",
-          thairoid: "",
-          w_time: "",
-          w_what: "",
-          walk: "",
-          weight__up: "",
-          weight_down: "",
-          work: "",
-          yoga: "",
-          dayabitis: "",
-          remark: "",
-          other_p:"",
-          other_p_1:""
-        });
-        setButtonEnabled(false);
-        setPdfFiles([]);
         closeModal();
         toast.success(response.data.message);
       } catch (error) {
@@ -1476,450 +1184,130 @@ export default function Dashboard() {
     else if (selectedDiv == "physiotherapy") {
       try {
         const doc = new jsPDF();
+        doc.setFontSize(13);
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        doc.setTextColor(22, 78, 99);
+        
+        // Centered title
+        doc.text("PHYSIOTHERAPY", pageWidth / 2, 12, { align: "center" });
+        
+        // Centered subtitle
         doc.setTextColor(255, 0, 0);
-        doc.text("* PHYSIOTHERAPY *", doc.internal.pageSize.getWidth() / 2, 12, {
-          align: "center",
-        });
-        doc.setTextColor(255, 0, 0); 
-        doc.text(
-          moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-          190,
-          12,
-          { align: "center" }
-        );
-        doc.text(
-         formData.contact,
-          10,
-          12,
-          { align: "center" }
-        );
-        doc.setTextColor(0, 0, 0);
-        let y = 20;
-
-        function addText(text, x, y, fontStyle, fontSize) {
-          doc.setFont(fontStyle);
-          doc.setFontSize(fontSize);
-          doc.text(text, x, y);
-        }
-
-        function addPageBorder() {
-          doc.setDrawColor(0); // Border color (black)
-          doc.setLineWidth(0.5); // Border line width
-          doc.rect(
-            5,
-            5,
-            doc.internal.pageSize.getWidth() - 10,
-            doc.internal.pageSize.getHeight() - 10
-          ); // Add a border around the page
-        }
-
-        const truncateText = (text) => {
-          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
-              text = text.slice(0, -1);
-            }
-            text += '...';
-          }
-          return text;
-        };
-
+        doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
+        
         const fields = [
-          {
-            label: "Name",
-            value: selectedPatientId.name,
-            labelX: 10,
-            labelY: y,
-            valueX: 10,
-            valueY: y + 7,
-          },
-          {
-            label: "Age",
-            value: selectedPatientId.age,
-            labelX: 80,
-            labelY: y,
-            valueX: 80,
-            valueY: y + 7,
-          },
-          {
-            label: "Gender",
-            value: selectedPatientId.gender,
-            labelX: 102,
-            labelY: y,
-            valueX: 102,
-            valueY: y + 7,
-          },
-          {
-            label: "Dob",
-            value: moment(formData.dob).format('DD-MM-YYYY'),
-            labelX: 138,
-            labelY: y,
-            valueX: 138,
-            valueY: y + 7,
-          },
-          {
-            label: "Occupation",
-            value: formData.occupation,
-            labelX: 174,
-            labelY: y,
-            valueX: 174,
-            valueY: y + 7,
-          },
-          
-          {
-            label: "* Address",
-            value: `=> ${formData.address}`,
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 10,
-            valueY: y + 19,
-          },
-          {
-            label: "* Dominant Side",
-            value: `=> ${formData.domSide}`,
-            labelX: 10,
-            labelY: y + 26,
-            valueX: 10,
-            valueY: y + 31,
-          },
-          {
-            label: "* Chief Complaint",
-            value: `=> ${formData.chfCmp}`,
-            labelX: 10,
-            labelY: y + 38,
-            valueX: 10,
-            valueY: y + 43,
-          },
-          { title: "* History", titleX: 90, titleY: y + 50},
-          {
-            label: "1)Asthma",
-            value: formData.asthama == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 56,
-            valueX: 55,
-            valueY: y + 56,
-          },
-          {
-            label: "2)DIABETES",
-            value: formData.diabetes == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 63,
-            valueX: 55,
-            valueY: y + 63,
-           
-          },
-          {
-            label: "3)Thayroid",
-            value: formData.thyroid == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 70,
-            valueX: 55,
-            valueY: y + 70,
-           
-          },
-          {
-            label: "4)Hypertension",
-            value: formData.hyperTense == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 77,
-            valueX: 55,
-            valueY: y + 77,
-          },
-          {
-            label: "5)Other History",
-            value: formData.other_p_value!== "" ? formData.other_p_value : " --- ",
-            labelX: 10,
-            labelY: y + 84,
-            valueX: 55,
-            valueY: y + 84,
-          },
-          {
-            label: "6)Past History",
-            value: formData.pastSurg!== "" ? formData.pastSurg : " --- ",
-            labelX: 10,
-            labelY: y + 91,
-            valueX: 55,
-            valueY: y + 91,
-          },
-          {
-            label: "7)Present History",
-            value: formData.presentSurg!== "" ? formData.presentSurg : " --- ",
-            labelX: 10,
-            labelY: y + 98,
-            valueX: 55,
-            valueY: y + 98,
-          },
-          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
-          {
-            label: "* Site/Location",
-            value: formData.siteLoca!== "" ? `=> ${formData.siteLoca}` : " --- ",
-            labelX: 10,
-            labelY: y + 111,
-            valueX: 10,
-            valueY: y + 116,
-          },
-          {
-            label: "* Side",
-            value: formData.side!== "" ? `=> ${formData.side}` : " --- ",
-            labelX: 10,
-            labelY: y + 123,
-            valueX: 10,
-            valueY: y + 128,
-          },
-          {
-            label: "* Frequency/Nature",
-            value: formData.freqNature!== "" ? `=> ${formData.freqNature}` : " --- ",
-            labelX: 10,
-            labelY: y + 135,
-            valueX: 10,
-            valueY: y + 140,
-          },
-          {
-            label: "* Pain Aggravating Factor",
-            value: formData.painAgrFact!== "" ? `=> ${formData.painAgrFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 147,
-            valueX: 10,
-            valueY: y + 152,
-          },
-          {
-            label: "* Pain Relieving Factor",
-            value: formData.painRelFact!== "" ? `=> ${formData.painRelFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 159,
-            valueX: 10,
-            valueY: y + 164,
-          },
-          {
-            label: "* Intensity",
-            value: formData.intensity!== "" ? `=> ${formData.intensity
-
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 171,
-            valueX: 10,
-            valueY: y + 176,
-          },
-          {label: "* Type", labelX: 10, labelY: y + 183},
-          {
-            label: "1)Duallaching",
-            value: formData.dull== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 189,
-            valueX: 55,
-            valueY: y + 189,
-          },
-          {
-            label: "2)Cramping",
-            value: formData.cramp== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 196,
-            valueX: 55,
-            valueY: y + 196,
-          },
-          {
-            label: "3)Sharp Shooting",
-            value: formData.sharpShoot== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 203,
-            valueX: 55,
-            valueY: y + 203,
-          },
-          {
-            label: "4)Burning ",
-            value: formData.burn== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 210,
-            valueX: 55,
-            valueY: y + 210,
-          },
-          {
-            label: "5)Throbbing",
-            value: formData.throb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 217,
-            valueX: 55,
-            valueY: y + 217,
-          },
-          {
-            label: "6)Numbness",
-            value: formData.numb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 225,
-            valueX: 55,
-            valueY: y + 225,
-          },
-          {
-            label: "7)Tingling",
-            value: formData.tingling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 232,
-            valueX: 55,
-            valueY: y + 232,
-          },
-          {
-            label: "8)Other",
-            value: formData.other_p_value_3!== "" ? `${formData.other_p_value_3
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 239,
-            valueX: 55,
-            valueY: y + 239,
-          },
-          {
-            label: "* Duaration",
-            value: formData.duration!== "" ? `${formData.duration
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 246,
-            valueX: 55,
-            valueY: y + 246,
-          },
-          {
-            label: "* Numerical Pain Rating Scale(NPRS)",
-            value: formData.nprs!== "" ? `=> ${formData.nprs
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 253,
-            valueX: 10,
-            valueY: y + 260,
-          },
-          { title: "*", titleX: 196, titleY: y+280},
-          { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
-          { label: "* Palpation", labelX: 10, labelY: y},
-          {
-            label: "1)Tenderness",
-            value: formData.tend== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 7,
-            valueX: 55,
-            valueY: y + 7,
-          },
-          {
-            label: "2)Crepitus",
-            value: formData.crepitus== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 55,
-            valueY: y + 14,
-          },
-          {
-            label: "3)Scar:heal/nonheal",
-            value: `${formData.scar== 1 ? "Yes" : "No"}/${formData.nonh== 1 ? "Yes" : "No"}`,
-            labelX: 10,
-            labelY: y + 21,
-            valueX: 55,
-            valueY: y + 21,
-          },
-          {
-            label: "4)Swelling ",
-            value: formData.swelling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 28,
-            valueX: 55,
-            valueY: y + 28,
-          },
-          {
-            label: "5)other_p_value_2",
-            value: formData.other_p_value_2!== "" ? `=> ${formData.other_p_value_2
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +35,
-            valueX: 55,
-            valueY: y + 35,
-          },
-          {
-            label: "* Examination",
-            value: formData.examination!== "" ? `=> ${formData.examination
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +42,
-            valueX: 10,
-            valueY: y + 47,
-          },
-          {
-            label: "* Innestigation/Radiological Findings",
-            value: formData.investRadioFinding!== "" ? `=> ${formData.investRadioFinding
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +54,
-            valueX: 10,
-            valueY: y + 59,
-          },
-          {
-            label: "* Medical Diagnosis",
-            value: formData.medDiagno!== "" ? `=> ${formData.medDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +66,
-            valueX: 10,
-            valueY: y + 71,
-          },
-          {
-            label: "* Physiotherapy Diagnosis",
-            value: formData.phyDiagno!== "" ? `=> ${formData.phyDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +78,
-            valueX: 10,
-            valueY: y + 84,
-          },
-          {
-            label: "* Treatment",
-            value: formData.ObjTreatment!== "" ? `=> ${formData.ObjTreatment
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +91,
-            valueX: 10,
-            valueY: y + 96,
-          },
-         
-          {
-            label: "* Observation",
-            value: formData.observation!== "" ? `=> ${formData.observation
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 103,
-            valueX: 10,
-            valueY: y + 108,
-          },
-          {
-            label: "* Remark",
-            value: formData.remark!== "" ? `=> ${formData.remark
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +115,
-            valueX: 10,
-            valueY: y + 120,
-          },
+            { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
+            { label: "Name", value: selectedPatientId.name },
+            { label: "Age", value: selectedPatientId.age },
+            { label: "Dob", value: moment(formData.dob).format("DD/MM/YYYY") },
+            { label: "Gender", value: selectedPatientId.gender },
+            { label: "Contact", value: formData.contact },
+            { label: "Occupation", value: formData.occupation },
+            { label: "Address", value: formData.address },
+            { label: "Dominant Side", value: formData.domSide },
+            { label: "Chief Complaint", value: formData.chfCmp },
+            { title: "HISTORY", colSpan: 2 },
+            { label: "1) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
+            { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
+            { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
+            { label: "4) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
+            { label: "5) Other History", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
+            { label: "6) Past History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
+            { label: "7) Present History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
+            { title: "PAIN EVALUATION", colSpan: 2 },
+            { label: "Site/Location", value: formData.siteLoca !== "" ? formData.siteLoca : " --- " },
+            { label: "Side", value: formData.side !== "" ? formData.side : " --- " },
+            { label: "Frequency/Nature", value: formData.freqNature !== "" ? formData.freqNature : " --- " },
+            { label: "Pain Aggravating Factor", value: formData.painAgrFact !== "" ? formData.painAgrFact : " --- " },
+            { label: "Pain Relieving Factor", value: formData.painRelFact !== "" ? formData.painRelFact : " --- " },
+            { label: "Intensity", value: formData.intensity !== "" ? formData.intensity : " --- " },
+            { label: "Nprs", value: formData.nprs !== "" ? formData.nprs : " --- " },
+          { label: "1)Duallaching", value: formData.dull == 1 ? "Yes" : "No"},
+          { label: "2)Cramping", value: formData.cramp == 1 ? "Yes" : "No"},
+          { label: "3)Sharp Shooting", value: formData.sharpShoot == 1 ? "Yes" : "No"},
+          { label: "4)Burning ", value: formData.burn == 1 ? "Yes" : "No"},
+          { label: "5)Throbbing", value: formData.throb == 1 ? "Yes" : "No"},
+          { label: "6)Numbness", value: formData.numb == 1 ? "Yes" : "No"},
+          { label: "7)Tingling", value: formData.tingling == 1 ? "Yes" : "No"},
+          { label: "8)Others Type", value: formData.other_p_value_3 !== "" ? `${formData.other_p_value_3}` : " --- "},
+          { title: "***", colSpan: 2 },
+          { title: "PALPATION",colSpan: 2 },
+          { label: "1)Tenderness", value: formData.tend == 1 ? "Yes" : "No"},
+          { label: "2)Crepitus", value: formData.crepitus == 1 ? "Yes" : "No"},
+          { label: "3)Scar:heal/nonheal", value: `${formData.scar == 1 ? "Yes" : "No"}/${formData.nonh == 1 ? "Yes" : "No"}`},
+          { label: "4)Swelling ", value: formData.swelling == 1 ? "Yes" : "No" },
+          { label: "5)other_Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
+          { label: "Examination", value: formData.examination !== "" ? `${formData.examination}` : " --- "},
+          { label: "Innestigation/Radiological Findings", value: formData.investRadioFinding !== "" ? `${formData.investRadioFinding}` : " --- "},
+          { label: "Medical Diagnosis", value: formData.medDiagno !== "" ? `${formData.medDiagno}` : " --- "},
+          { label: "Physiotherapy Diagnosis", value: formData.phyDiagno !== "" ? `${formData.phyDiagno}` : " --- "},
+          { label: "Treatment", value: formData.ObjTreatment !== "" ? `${formData.ObjTreatment}` : " --- " },
+          { label: "Observation", value: formData.observation !== "" ? `${formData.observation}` : " --- "},
+          { label: "Remark", value: formData.remark !== "" ? `${formData.remark}` : " --- "},
         ];
-        let addToNextPage = false;
-        fields.forEach((field,index) => {
-          if (addToNextPage) {
-            // Start a new page for all fields after * Observation
-            doc.addPage();
-            addPageBorder();
-            y = 20; // Reset y-coordinate
-            addToNextPage = false; // Reset flag to avoid multiple page additions
-          }
-          addPageBorder();
-          if (field.title !== undefined) {
-            doc.setTextColor(21, 94, 117);
-            addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-          }
-          if (field.label !== undefined) {
-            doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
-          }
-          if (field.value !== undefined) {
-            doc.setTextColor(0);
-            const truncatedText = truncateText(field.value);
-            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
-          }
-          if (field.title === "*") {
-            addToNextPage = true;
-          }
+        
+        const tableRowsFirstPage = [];
+        const tableRowsSecondPage = [];
+        let isSecondPage = false;
+        
+        fields.forEach(field => {
+            if (field.title) {
+                const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: field.styles?.textColor || [50, 50, 255], halign: 'center' } }];
+                if (isSecondPage) {
+                    tableRowsSecondPage.push(row);
+                } else {
+                    tableRowsFirstPage.push(row);
+                }
+            } else if (field.label) {
+                const row = [field.label, field.value];
+                if (isSecondPage) {
+                    tableRowsSecondPage.push(row);
+                } else {
+                    tableRowsFirstPage.push(row);
+                }
+            }
+            if (field.title == "***") {
+                isSecondPage = true;
+            }
         });
-        const pdfBlob = doc.output("blob");
+        
+        // Add border to the first page
+        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+        
+        // Add the content for the first page
+        doc.autoTable({
+            head: [],
+            body: tableRowsFirstPage,
+            startY: 25,
+            theme: 'grid',
+            styles: { overflow: 'linebreak', cellPadding: 2 },
+            columnStyles: {
+                0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+                1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+            }
+        });
+        
+        doc.addPage();
+        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+        doc.setTextColor(255, 0, 0);
+        doc.text("(B) OBJECTIVE ASSESSMENT ", pageWidth / 2, 10, { align: "center" });
+        // Add the content for the second page
+        doc.autoTable({
+            head: [],
+            body: tableRowsSecondPage,
+            startY: 15,
+            theme: 'grid',
+            styles: { overflow: 'linebreak', cellPadding: 2 },
+            columnStyles: {
+                0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+                1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+            }
+        });
+        
+        const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+        const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
+
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -1999,450 +1387,129 @@ export default function Dashboard() {
     else if (selectedDiv == "pain_management") {
       try {  
         const doc = new jsPDF();
-doc.setTextColor(255, 0, 0);
-doc.text("* PAIN_MANAGEMENT *", doc.internal.pageSize.getWidth() / 2, 12, {
-  align: "center",
-});
-doc.setTextColor(255, 0, 0); 
-doc.text(
-  moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-  190,
-  12,
-  { align: "center" }
-);
-doc.text(
- formData_2.contact,
-  10,
-  12,
-  { align: "center" }
-);
-doc.setTextColor(0, 0, 0);
-let y = 20;
-
-function addText(text, x, y, fontStyle, fontSize) {
-  doc.setFont(fontStyle);
-  doc.setFontSize(fontSize);
-  doc.text(text, x, y);
-}
-
-function addPageBorder() {
-  doc.setDrawColor(0); // Border color (black)
-  doc.setLineWidth(0.5); // Border line width
-  doc.rect(
-    5,
-    5,
-    doc.internal.pageSize.getWidth() - 10,
-    doc.internal.pageSize.getHeight() - 10
-  ); // Add a border around the page
-}
-
-const truncateText = (text) => {
-  if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-    while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
-      text = text.slice(0, -1);
-    }
-    text += '...';
-  }
-  return text;
-};
-
-const fields = [
-  {
-    label: "Name",
-    value: selectedPatientId.name,
-    labelX: 10,
-    labelY: y,
-    valueX: 10,
-    valueY: y + 7,
-  },
-  {
-    label: "Age",
-    value: selectedPatientId.age,
-    labelX: 80,
-    labelY: y,
-    valueX: 80,
-    valueY: y + 7,
-  },
-  {
-    label: "Gender",
-    value: selectedPatientId.gender,
-    labelX: 102,
-    labelY: y,
-    valueX: 102,
-    valueY: y + 7,
-  },
-  {
-    label: "Dob",
-    value: moment(formData_2.dob).format('DD-MM-YYYY'),
-    labelX: 138,
-    labelY: y,
-    valueX: 138,
-    valueY: y + 7,
-  },
-  {
-    label: "Occupation",
-    value: formData_2.occupation,
-    labelX: 174,
-    labelY: y,
-    valueX: 174,
-    valueY: y + 7,
-  },
-  
-  {
-    label: "* Address",
-    value: `=> ${formData_2.address}`,
-    labelX: 10,
-    labelY: y + 14,
-    valueX: 10,
-    valueY: y + 19,
-  },
-  {
-    label: "* Dominant Side",
-    value: `=> ${formData_2.domSide}`,
-    labelX: 10,
-    labelY: y + 26,
-    valueX: 10,
-    valueY: y + 31,
-  },
-  {
-    label: "* Chief Complaint",
-    value: `=> ${formData_2.chfCmp}`,
-    labelX: 10,
-    labelY: y + 38,
-    valueX: 10,
-    valueY: y + 43,
-  },
-  { title: "* History", titleX: 90, titleY: y + 50},
-  {
-    label: "1)Asthma",
-    value: formData_2.asthama == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 56,
-    valueX: 55,
-    valueY: y + 56,
-  },
-  {
-    label: "2)DIABETES",
-    value: formData_2.diabetes == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 63,
-    valueX: 55,
-    valueY: y + 63,
-   
-  },
-  {
-    label: "3)Thayroid",
-    value: formData_2.thyroid == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 70,
-    valueX: 55,
-    valueY: y + 70,
-   
-  },
-  {
-    label: "4)Hypertension",
-    value: formData_2.hyperTense == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 77,
-    valueX: 55,
-    valueY: y + 77,
-  },
-  {
-    label: "5)Other History",
-    value: formData_2.other_p_value!== "" ? formData_2.other_p_value : " --- ",
-    labelX: 10,
-    labelY: y + 84,
-    valueX: 55,
-    valueY: y + 84,
-  },
-  {
-    label: "6)Past History",
-    value: formData_2.pastSurg!== "" ? formData_2.pastSurg : " --- ",
-    labelX: 10,
-    labelY: y + 91,
-    valueX: 55,
-    valueY: y + 91,
-  },
-  {
-    label: "7)Present History",
-    value: formData_2.presentSurg!== "" ? formData_2.presentSurg : " --- ",
-    labelX: 10,
-    labelY: y + 98,
-    valueX: 55,
-    valueY: y + 98,
-  },
-  { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
-  {
-    label: "* Site/Location",
-    value: formData_2.siteLoca!== "" ? `=> ${formData_2.siteLoca}` : " --- ",
-    labelX: 10,
-    labelY: y + 111,
-    valueX: 10,
-    valueY: y + 116,
-  },
-  {
-    label: "* Side",
-    value: formData_2.side!== "" ? `=> ${formData_2.side}` : " --- ",
-    labelX: 10,
-    labelY: y + 123,
-    valueX: 10,
-    valueY: y + 128,
-  },
-  {
-    label: "* Frequency/Nature",
-    value: formData_2.freqNature!== "" ? `=> ${formData_2.freqNature}` : " --- ",
-    labelX: 10,
-    labelY: y + 135,
-    valueX: 10,
-    valueY: y + 140,
-  },
-  {
-    label: "* Pain Aggravating Factor",
-    value: formData_2.painAgrFact!== "" ? `=> ${formData_2.painAgrFact}` : " --- ",
-    labelX: 10,
-    labelY: y + 147,
-    valueX: 10,
-    valueY: y + 152,
-  },
-  {
-    label: "* Pain Relieving Factor",
-    value: formData_2.painRelFact!== "" ? `=> ${formData_2.painRelFact}` : " --- ",
-    labelX: 10,
-    labelY: y + 159,
-    valueX: 10,
-    valueY: y + 164,
-  },
-  {
-    label: "* Intensity",
-    value: formData_2.intensity!== "" ? `=> ${formData_2.intensity
-
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 171,
-    valueX: 10,
-    valueY: y + 176,
-  },
-  {label: "* Type", labelX: 10, labelY: y + 183},
-  {
-    label: "1)Duallaching",
-    value: formData_2.dull== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 189,
-    valueX: 55,
-    valueY: y + 189,
-  },
-  {
-    label: "2)Cramping",
-    value: formData_2.cramp== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 196,
-    valueX: 55,
-    valueY: y + 196,
-  },
-  {
-    label: "3)Sharp Shooting",
-    value: formData_2.sharpShoot== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 203,
-    valueX: 55,
-    valueY: y + 203,
-  },
-  {
-    label: "4)Burning ",
-    value: formData_2.burn== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 210,
-    valueX: 55,
-    valueY: y + 210,
-  },
-  {
-    label: "5)Throbbing",
-    value: formData_2.throb== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 217,
-    valueX: 55,
-    valueY: y + 217,
-  },
-  {
-    label: "6)Numbness",
-    value: formData_2.numb== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 225,
-    valueX: 55,
-    valueY: y + 225,
-  },
-  {
-    label: "7)Tingling",
-    value: formData_2.tingling== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 232,
-    valueX: 55,
-    valueY: y + 232,
-  },
-  {
-    label: "8)Other",
-    value: formData_2.other_p_value_3!== "" ? `${formData_2.other_p_value_3
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 239,
-    valueX: 55,
-    valueY: y + 239,
-  },
-  {
-    label: "* Duaration",
-    value: formData_2.duration!== "" ? `${formData_2.duration
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 246,
-    valueX: 55,
-    valueY: y + 246,
-  },
-  {
-    label: "* Numerical Pain Rating Scale(NPRS)",
-    value: formData_2.nprs!== "" ? `=> ${formData_2.nprs
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 253,
-    valueX: 10,
-    valueY: y + 260,
-  },
-  { title: "*", titleX: 196, titleY: y+280},
-  { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
-  { label: "* Palpation", labelX: 10, labelY: y},
-  {
-    label: "1)Tenderness",
-    value: formData_2.tend== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 7,
-    valueX: 55,
-    valueY: y + 7,
-  },
-  {
-    label: "2)Crepitus",
-    value: formData_2.crepitus== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 14,
-    valueX: 55,
-    valueY: y + 14,
-  },
-  {
-    label: "3)Scar:heal/nonheal",
-    value: `${formData_2.scar== 1 ? "Yes" : "No"}/${formData_2.nonh== 1 ? "Yes" : "No"}`,
-    labelX: 10,
-    labelY: y + 21,
-    valueX: 55,
-    valueY: y + 21,
-  },
-  {
-    label: "4)Swelling ",
-    value: formData_2.swelling== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 28,
-    valueX: 55,
-    valueY: y + 28,
-  },
-  {
-    label: "5)other_p_value_2",
-    value: formData_2.other_p_value_2!== "" ? `=> ${formData_2.other_p_value_2
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +35,
-    valueX: 55,
-    valueY: y + 35,
-  },
-  {
-    label: "* Examination",
-    value: formData_2.examination!== "" ? `=> ${formData_2.examination
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +42,
-    valueX: 10,
-    valueY: y + 47,
-  },
-  {
-    label: "* Innestigation/Radiological Findings",
-    value: formData_2.investRadioFinding!== "" ? `=> ${formData_2.investRadioFinding
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +54,
-    valueX: 10,
-    valueY: y + 59,
-  },
-  {
-    label: "* Medical Diagnosis",
-    value: formData_2.medDiagno!== "" ? `=> ${formData_2.medDiagno
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +66,
-    valueX: 10,
-    valueY: y + 71,
-  },
-  {
-    label: "* Physiotherapy Diagnosis",
-    value: formData_2.phyDiagno!== "" ? `=> ${formData_2.phyDiagno
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +78,
-    valueX: 10,
-    valueY: y + 84,
-  },
-  {
-    label: "* Treatment",
-    value: formData_2.ObjTreatment!== "" ? `=> ${formData_2.ObjTreatment
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +91,
-    valueX: 10,
-    valueY: y + 96,
-  },
- 
-  {
-    label: "* Observation",
-    value: formData_2.observation!== "" ? `=> ${formData_2.observation
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 103,
-    valueX: 10,
-    valueY: y + 108,
-  },
-  {
-    label: "* Remark",
-    value: formData_2.remark!== "" ? `=> ${formData_2.remark
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +115,
-    valueX: 10,
-    valueY: y + 120,
-  },
-];
-let addToNextPage = false;
-fields.forEach((field,index) => {
-  if (addToNextPage) {
-    // Start a new page for all fields after * Observation
-    doc.addPage();
-    addPageBorder();
-    y = 20; // Reset y-coordinate
-    addToNextPage = false; // Reset flag to avoid multiple page additions
-  }
-  addPageBorder();
-  if (field.title !== undefined) {
-    doc.setTextColor(21, 94, 117);
-    addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-  }
-  if (field.label !== undefined) {
-    doc.setTextColor(97, 3, 22);
-    addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
-  }
-  if (field.value !== undefined) {
-    doc.setTextColor(0);
-    const truncatedText = truncateText(field.value);
-    addText(truncatedText, field.valueX, field.valueY, "normal", 13);
-  }
-  if (field.title === "*") {
-    addToNextPage = true;
-  }
-});
-const pdfBlob = doc.output("blob");
+        doc.setFontSize(13);
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        doc.setTextColor(22, 78, 99);
+        
+        // Centered title
+        doc.text("PAIN_MANAGEMENT", pageWidth / 2, 12, { align: "center" });
+        
+        // Centered subtitle
+        doc.setTextColor(255, 0, 0);
+        doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
+        
+        const fields = [
+            { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
+            { label: "Name", value: selectedPatientId.name },
+            { label: "Age", value: selectedPatientId.age },
+            { label: "Dob", value: moment(formData_2.dob).format("DD/MM/YYYY") },
+            { label: "Gender", value: selectedPatientId.gender },
+            { label: "Contact", value: formData_2.contact },
+            { label: "Occupation", value: formData_2.occupation },
+            { label: "Address", value: formData_2.address },
+            { label: "Dominant Side", value: formData_2.domSide },
+            { label: "Chief Complaint", value: formData_2.chfCmp },
+            { title: "HISTORY", colSpan: 2 },
+            { label: "1) Asthma", value: formData_2.asthama == 1 ? "Yes" : "No" },
+            { label: "2) Diabetes", value: formData_2.diabetes == 1 ? "Yes" : "No" },
+            { label: "3) Thyroid", value: formData_2.thyroid == 1 ? "Yes" : "No" },
+            { label: "4) Hypertension", value: formData_2.hyperTense == 1 ? "Yes" : "No" },
+            { label: "5) Other History", value: formData_2.other_p_value !== "" ? formData_2.other_p_value : " --- " },
+            { label: "6) Past History", value: formData_2.pastSurg !== "" ? formData_2.pastSurg : " --- " },
+            { label: "7) Present History", value: formData_2.presentSurg !== "" ? formData_2.presentSurg : " --- " },
+            { title: "PAIN EVALUATION", colSpan: 2 },
+            { label: "Site/Location", value: formData_2.siteLoca !== "" ? formData_2.siteLoca : " --- " },
+            { label: "Side", value: formData_2.side !== "" ? formData_2.side : " --- " },
+            { label: "Frequency/Nature", value: formData_2.freqNature !== "" ? formData_2.freqNature : " --- " },
+            { label: "Pain Aggravating Factor", value: formData_2.painAgrFact !== "" ? formData_2.painAgrFact : " --- " },
+            { label: "Pain Relieving Factor", value: formData_2.painRelFact !== "" ? formData_2.painRelFact : " --- " },
+            { label: "Intensity", value: formData_2.intensity !== "" ? formData_2.intensity : " --- " },
+            { label: "Nprs", value: formData_2.nprs !== "" ? formData_2.nprs : " --- " },
+          { label: "1)Duallaching", value: formData_2.dull == 1 ? "Yes" : "No"},
+          { label: "2)Cramping", value: formData_2.cramp == 1 ? "Yes" : "No"},
+          { label: "3)Sharp Shooting", value: formData_2.sharpShoot == 1 ? "Yes" : "No"},
+          { label: "4)Burning ", value: formData_2.burn == 1 ? "Yes" : "No"},
+          { label: "5)Throbbing", value: formData_2.throb == 1 ? "Yes" : "No"},
+          { label: "6)Numbness", value: formData_2.numb == 1 ? "Yes" : "No"},
+          { label: "7)Tingling", value: formData_2.tingling == 1 ? "Yes" : "No"},
+          { label: "8)Others Type", value: formData_2.other_p_value_3 !== "" ? `${formData_2.other_p_value_3}` : " --- "},
+          { title: "***", colSpan: 2 },
+          { title: "PALPATION",colSpan: 2 },
+          { label: "1)Tenderness", value: formData_2.tend == 1 ? "Yes" : "No"},
+          { label: "2)Crepitus", value: formData_2.crepitus == 1 ? "Yes" : "No"},
+          { label: "3)Scar:heal/nonheal", value: `${formData_2.scar == 1 ? "Yes" : "No"}/${formData_2.nonh == 1 ? "Yes" : "No"}`},
+          { label: "4)Swelling ", value: formData_2.swelling == 1 ? "Yes" : "No" },
+          { label: "5)other_Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
+          { label: "Examination", value: formData_2.examination !== "" ? `${formData_2.examination}` : " --- "},
+          { label: "Innestigation/Radiological Findings", value: formData_2.investRadioFinding !== "" ? `${formData_2.investRadioFinding}` : " --- "},
+          { label: "Medical Diagnosis", value: formData_2.medDiagno !== "" ? `${formData_2.medDiagno}` : " --- "},
+          { label: "Physiotherapy Diagnosis", value: formData_2.phyDiagno !== "" ? `${formData_2.phyDiagno}` : " --- "},
+          { label: "Treatment", value: formData_2.ObjTreatment !== "" ? `${formData_2.ObjTreatment}` : " --- " },
+          { label: "Observation", value: formData_2.observation !== "" ? `${formData_2.observation}` : " --- "},
+          { label: "Remark", value: formData_2.remark !== "" ? `${formData_2.remark}` : " --- "},
+        ];
+        
+        const tableRowsFirstPage = [];
+        const tableRowsSecondPage = [];
+        let isSecondPage = false;
+        
+        fields.forEach(field => {
+            if (field.title) {
+                const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: field.styles?.textColor || [50, 50, 255], halign: 'center' } }];
+                if (isSecondPage) {
+                    tableRowsSecondPage.push(row);
+                } else {
+                    tableRowsFirstPage.push(row);
+                }
+            } else if (field.label) {
+                const row = [field.label, field.value];
+                if (isSecondPage) {
+                    tableRowsSecondPage.push(row);
+                } else {
+                    tableRowsFirstPage.push(row);
+                }
+            }
+            if (field.title == "***") {
+                isSecondPage = true;
+            }
+        });
+        
+        // Add border to the first page
+        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+        
+        // Add the content for the first page
+        doc.autoTable({
+            head: [],
+            body: tableRowsFirstPage,
+            startY: 25,
+            theme: 'grid',
+            styles: { overflow: 'linebreak', cellPadding: 2 },
+            columnStyles: {
+                0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+                1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+            }
+        });
+        
+        doc.addPage();
+        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+        doc.setTextColor(255, 0, 0);
+        doc.text("(B) OBJECTIVE ASSESSMENT ", pageWidth / 2, 10, { align: "center" });
+        // Add the content for the second page
+        doc.autoTable({
+            head: [],
+            body: tableRowsSecondPage,
+            startY: 15,
+            theme: 'grid',
+            styles: { overflow: 'linebreak', cellPadding: 2 },
+            columnStyles: {
+                0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+                1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+            }
+        });
+        
+        const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+        const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
 
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
@@ -2523,452 +1590,129 @@ const pdfBlob = doc.output("blob");
     }
     else {
       try {
-        const doc = new jsPDF();
+const doc = new jsPDF();
+doc.setFontSize(13);
+const pageWidth = doc.internal.pageSize.getWidth();
+const pageHeight = doc.internal.pageSize.getHeight();
+doc.setTextColor(22, 78, 99);
+
+// Centered title
+doc.text("FITNESS", pageWidth / 2, 12, { align: "center" });
+
+// Centered subtitle
 doc.setTextColor(255, 0, 0);
-doc.text("* PAIN_MANAGEMENT *", doc.internal.pageSize.getWidth() / 2, 12, {
-  align: "center",
-});
-doc.setTextColor(255, 0, 0); 
-doc.text(
-  moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-  190,
-  12,
-  { align: "center" }
-);
-doc.text(`+91 ${
- formData_3.contact}`,
-  30,
-  12,
-  { align: "center" }
-);
-doc.setTextColor(0, 0, 0);
-let y = 20;
-
-function addText(text, x, y, fontStyle, fontSize) {
-  doc.setFont(fontStyle);
-  doc.setFontSize(fontSize);
-  doc.text(text, x, y);
-}
-
-function addPageBorder() {
-  doc.setDrawColor(0); // Border color (black)
-  doc.setLineWidth(0.5); // Border line width
-  doc.rect(
-    5,
-    5,
-    doc.internal.pageSize.getWidth() - 10,
-    doc.internal.pageSize.getHeight() - 10
-  ); // Add a border around the page
-}
-
-const truncateText = (text) => {
-  if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-    while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
-      text = text.slice(0, -1);
-    }
-    text += '...';
-  }
-  return text;
-};
+doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
 
 const fields = [
-  {
-    label: "Name",
-    value: selectedPatientId.name,
-    labelX: 10,
-    labelY: y,
-    valueX: 10,
-    valueY: y + 7,
-  },
-  {
-    label: "Age",
-    value: selectedPatientId.age,
-    labelX: 80,
-    labelY: y,
-    valueX: 80,
-    valueY: y + 7,
-  },
-  {
-    label: "Gender",
-    value: selectedPatientId.gender,
-    labelX: 102,
-    labelY: y,
-    valueX: 102,
-    valueY: y + 7,
-  },
-  {
-    label: "Dob",
-    value: moment(formData_3.dob).format('DD-MM-YYYY'),
-    labelX: 138,
-    labelY: y,
-    valueX: 138,
-    valueY: y + 7,
-  },
-  {
-    label: "Occupation",
-    value: formData_3.occupation,
-    labelX: 174,
-    labelY: y,
-    valueX: 174,
-    valueY: y + 7,
-  },
-  
-  {
-    label: "* Address",
-    value: `=> ${formData_3.address}`,
-    labelX: 10,
-    labelY: y + 14,
-    valueX: 10,
-    valueY: y + 19,
-  },
-  {
-    label: "* Dominant Side",
-    value: `=> ${formData_3.domSide}`,
-    labelX: 10,
-    labelY: y + 26,
-    valueX: 10,
-    valueY: y + 31,
-  },
-  {
-    label: "* Chief Complaint",
-    value: `=> ${formData_3.chfCmp}`,
-    labelX: 10,
-    labelY: y + 38,
-    valueX: 10,
-    valueY: y + 43,
-  },
-  { title: "* History", titleX: 90, titleY: y + 50},
-  {
-    label: "1)Asthma",
-    value: formData_3.asthama == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 56,
-    valueX: 55,
-    valueY: y + 56,
-  },
-  {
-    label: "2)DIABETES",
-    value: formData_3.diabetes == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 63,
-    valueX: 55,
-    valueY: y + 63,
-   
-  },
-  {
-    label: "3)Thayroid",
-    value: formData_3.thyroid == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 70,
-    valueX: 55,
-    valueY: y + 70,
-   
-  },
-  {
-    label: "4)Hypertension",
-    value: formData_3.hyperTense == 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 77,
-    valueX: 55,
-    valueY: y + 77,
-  },
-  {
-    label: "5)Other History",
-    value: formData_3.other_p_value!== "" ? formData_3.other_p_value : " --- ",
-    labelX: 10,
-    labelY: y + 84,
-    valueX: 55,
-    valueY: y + 84,
-  },
-  {
-    label: "6)Past History",
-    value: formData_3.pastSurg!== "" ? formData_3.pastSurg : " --- ",
-    labelX: 10,
-    labelY: y + 91,
-    valueX: 55,
-    valueY: y + 91,
-  },
-  {
-    label: "7)Present History",
-    value: formData_3.presentSurg!== "" ? formData_3.presentSurg : " --- ",
-    labelX: 10,
-    labelY: y + 98,
-    valueX: 55,
-    valueY: y + 98,
-  },
-  { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
-  {
-    label: "* Site/Location",
-    value: formData_3.siteLoca!== "" ? `=> ${formData_3.siteLoca}` : " --- ",
-    labelX: 10,
-    labelY: y + 111,
-    valueX: 10,
-    valueY: y + 116,
-  },
-  {
-    label: "* Side",
-    value: formData_3.side!== "" ? `=> ${formData_3.side}` : " --- ",
-    labelX: 10,
-    labelY: y + 123,
-    valueX: 10,
-    valueY: y + 128,
-  },
-  {
-    label: "* Frequency/Nature",
-    value: formData_3.freqNature!== "" ? `=> ${formData_3.freqNature}` : " --- ",
-    labelX: 10,
-    labelY: y + 135,
-    valueX: 10,
-    valueY: y + 140,
-  },
-  {
-    label: "* Pain Aggravating Factor",
-    value: formData_3.painAgrFact!== "" ? `=> ${formData_3.painAgrFact}` : " --- ",
-    labelX: 10,
-    labelY: y + 147,
-    valueX: 10,
-    valueY: y + 152,
-  },
-  {
-    label: "* Pain Relieving Factor",
-    value: formData_3.painRelFact!== "" ? `=> ${formData_3.painRelFact}` : " --- ",
-    labelX: 10,
-    labelY: y + 159,
-    valueX: 10,
-    valueY: y + 164,
-  },
-  {
-    label: "* Intensity",
-    value: formData_3.intensity!== "" ? `=> ${formData_3.intensity
-
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 171,
-    valueX: 10,
-    valueY: y + 176,
-  },
-  {label: "* Type", labelX: 10, labelY: y + 183},
-  {
-    label: "1)Duallaching",
-    value: formData_3.dull== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 189,
-    valueX: 55,
-    valueY: y + 189,
-  },
-  {
-    label: "2)Cramping",
-    value: formData_3.cramp== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 196,
-    valueX: 55,
-    valueY: y + 196,
-  },
-  {
-    label: "3)Sharp Shooting",
-    value: formData_3.sharpShoot== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 203,
-    valueX: 55,
-    valueY: y + 203,
-  },
-  {
-    label: "4)Burning ",
-    value: formData_3.burn== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 210,
-    valueX: 55,
-    valueY: y + 210,
-  },
-  {
-    label: "5)Throbbing",
-    value: formData_3.throb== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 217,
-    valueX: 55,
-    valueY: y + 217,
-  },
-  {
-    label: "6)Numbness",
-    value: formData_3.numb== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 225,
-    valueX: 55,
-    valueY: y + 225,
-  },
-  {
-    label: "7)Tingling",
-    value: formData_3.tingling== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 232,
-    valueX: 55,
-    valueY: y + 232,
-  },
-  {
-    label: "8)Other",
-    value: formData_3.other_p_value_3!== "" ? `${formData_3.other_p_value_3
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 239,
-    valueX: 55,
-    valueY: y + 239,
-  },
-  {
-    label: "* Duaration",
-    value: formData_3.duration!== "" ? `${formData_3.duration
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 246,
-    valueX: 55,
-    valueY: y + 246,
-  },
-  {
-    label: "* Numerical Pain Rating Scale(NPRS)",
-    value: formData_3.nprs!== "" ? `=> ${formData_3.nprs
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 253,
-    valueX: 10,
-    valueY: y + 260,
-  },
-  { title: "*", titleX: 196, titleY: y+280},
-  { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
-  { label: "* Palpation", labelX: 10, labelY: y},
-  {
-    label: "1)Tenderness",
-    value: formData_3.tend== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 7,
-    valueX: 55,
-    valueY: y + 7,
-  },
-  {
-    label: "2)Crepitus",
-    value: formData_3.crepitus== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 14,
-    valueX: 55,
-    valueY: y + 14,
-  },
-  {
-    label: "3)Scar:heal/nonheal",
-    value: `${formData_3.scar== 1 ? "Yes" : "No"}/${formData_3.nonh== 1 ? "Yes" : "No"}`,
-    labelX: 10,
-    labelY: y + 21,
-    valueX: 55,
-    valueY: y + 21,
-  },
-  {
-    label: "4)Swelling ",
-    value: formData_3.swelling== 1 ? "Yes" : "No",
-    labelX: 10,
-    labelY: y + 28,
-    valueX: 55,
-    valueY: y + 28,
-  },
-  {
-    label: "5)other_p_value_2",
-    value: formData_3.other_p_value_2!== "" ? `=> ${formData_3.other_p_value_2
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +35,
-    valueX: 55,
-    valueY: y + 35,
-  },
-  {
-    label: "* Examination",
-    value: formData_3.examination!== "" ? `=> ${formData_3.examination
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +42,
-    valueX: 10,
-    valueY: y + 47,
-  },
-  {
-    label: "* Innestigation/Radiological Findings",
-    value: formData_3.investRadioFinding!== "" ? `=> ${formData_3.investRadioFinding
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +54,
-    valueX: 10,
-    valueY: y + 59,
-  },
-  {
-    label: "* Medical Diagnosis",
-    value: formData_3.medDiagno!== "" ? `=> ${formData_3.medDiagno
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +66,
-    valueX: 10,
-    valueY: y + 71,
-  },
-  {
-    label: "* Physiotherapy Diagnosis",
-    value: formData_3.phyDiagno!== "" ? `=> ${formData_3.phyDiagno
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +78,
-    valueX: 10,
-    valueY: y + 84,
-  },
-  {
-    label: "* Treatment",
-    value: formData_3.ObjTreatment!== "" ? `=> ${formData_3.ObjTreatment
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +91,
-    valueX: 10,
-    valueY: y + 96,
-  },
- 
-  {
-    label: "* Observation",
-    value: formData_3.observation!== "" ? `=> ${formData_3.observation
-    }` : " --- ",
-    labelX: 10,
-    labelY: y + 103,
-    valueX: 10,
-    valueY: y + 108,
-  },
-  {
-    label: "* Remark",
-    value: formData_3.remark!== "" ? `=> ${formData_3.remark
-    }` : " --- ",
-    labelX: 10,
-    labelY: y +115,
-    valueX: 10,
-    valueY: y + 120,
-  },
+    { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
+    { label: "Name", value: selectedPatientId.name },
+    { label: "Age", value: selectedPatientId.age },
+    { label: "Dob", value: moment(formData_3.dob).format("DD/MM/YYYY") },
+    { label: "Gender", value: selectedPatientId.gender },
+    { label: "Contact", value: formData_3.contact },
+    { label: "Occupation", value: formData_3.occupation },
+    { label: "Address", value: formData_3.address },
+    { label: "Dominant Side", value: formData_3.domSide },
+    { label: "Chief Complaint", value: formData_3.chfCmp },
+    { title: "HISTORY", colSpan: 2 },
+    { label: "1) Asthma", value: formData_3.asthama == 1 ? "Yes" : "No" },
+    { label: "2) Diabetes", value: formData_3.diabetes == 1 ? "Yes" : "No" },
+    { label: "3) Thyroid", value: formData_3.thyroid == 1 ? "Yes" : "No" },
+    { label: "4) Hypertension", value: formData_3.hyperTense == 1 ? "Yes" : "No" },
+    { label: "5) Other History", value: formData_3.other_p_value !== "" ? formData_3.other_p_value : " --- " },
+    { label: "6) Past History", value: formData_3.pastSurg !== "" ? formData_3.pastSurg : " --- " },
+    { label: "7) Present History", value: formData_3.presentSurg !== "" ? formData_3.presentSurg : " --- " },
+    { title: "PAIN EVALUATION", colSpan: 2 },
+    { label: "Site/Location", value: formData_3.siteLoca !== "" ? formData_3.siteLoca : " --- " },
+    { label: "Side", value: formData_3.side !== "" ? formData_3.side : " --- " },
+    { label: "Frequency/Nature", value: formData_3.freqNature !== "" ? formData_3.freqNature : " --- " },
+    { label: "Pain Aggravating Factor", value: formData_3.painAgrFact !== "" ? formData_3.painAgrFact : " --- " },
+    { label: "Pain Relieving Factor", value: formData_3.painRelFact !== "" ? formData_3.painRelFact : " --- " },
+    { label: "Intensity", value: formData_3.intensity !== "" ? formData_3.intensity : " --- " },
+    { label: "Nprs", value: formData_3.nprs !== "" ? formData_3.nprs : " --- " },
+  { label: "1)Duallaching", value: formData_3.dull == 1 ? "Yes" : "No"},
+  { label: "2)Cramping", value: formData_3.cramp == 1 ? "Yes" : "No"},
+  { label: "3)Sharp Shooting", value: formData_3.sharpShoot == 1 ? "Yes" : "No"},
+  { label: "4)Burning ", value: formData_3.burn == 1 ? "Yes" : "No"},
+  { label: "5)Throbbing", value: formData_3.throb == 1 ? "Yes" : "No"},
+  { label: "6)Numbness", value: formData_3.numb == 1 ? "Yes" : "No"},
+  { label: "7)Tingling", value: formData_3.tingling == 1 ? "Yes" : "No"},
+  { label: "8)Others Type", value: formData_3.other_p_value_3 !== "" ? `${formData_3.other_p_value_3}` : " --- "},
+  { title: "***", colSpan: 2 },
+  { title: "PALPATION",colSpan: 2 },
+  { label: "1)Tenderness", value: formData_3.tend == 1 ? "Yes" : "No"},
+  { label: "2)Crepitus", value: formData_3.crepitus == 1 ? "Yes" : "No"},
+  { label: "3)Scar:heal/nonheal", value: `${formData_3.scar == 1 ? "Yes" : "No"}/${formData_3.nonh == 1 ? "Yes" : "No"}`},
+  { label: "4)Swelling ", value: formData_3.swelling == 1 ? "Yes" : "No" },
+  { label: "5)other_Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
+  { label: "Examination", value: formData_3.examination !== "" ? `${formData_3.examination}` : " --- "},
+  { label: "Innestigation/Radiological Findings", value: formData_3.investRadioFinding !== "" ? `${formData_3.investRadioFinding}` : " --- "},
+  { label: "Medical Diagnosis", value: formData_3.medDiagno !== "" ? `${formData_3.medDiagno}` : " --- "},
+  { label: "Physiotherapy Diagnosis", value: formData_3.phyDiagno !== "" ? `${formData_3.phyDiagno}` : " --- "},
+  { label: "Treatment", value: formData_3.ObjTreatment !== "" ? `${formData_3.ObjTreatment}` : " --- " },
+  { label: "Observation", value: formData_3.observation !== "" ? `${formData_3.observation}` : " --- "},
+  { label: "Remark", value: formData_3.remark !== "" ? `${formData_3.remark}` : " --- "},
 ];
-let addToNextPage = false;
-fields.forEach((field,index) => {
-  if (addToNextPage) {
-    // Start a new page for all fields after * Observation
-    doc.addPage();
-    addPageBorder();
-    y = 20; // Reset y-coordinate
-    addToNextPage = false; // Reset flag to avoid multiple page additions
-  }
-  addPageBorder();
-  if (field.title !== undefined) {
-    doc.setTextColor(21, 94, 117);
-    addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-  }
-  if (field.label !== undefined) {
-    doc.setTextColor(97, 3, 22);
-    addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
-  }
-  if (field.value !== undefined) {
-    doc.setTextColor(0);
-    const truncatedText = truncateText(field.value);
-    addText(truncatedText, field.valueX, field.valueY, "normal", 13);
-  }
-  if (field.title === "*") {
-    addToNextPage = true;
-  }
-});
-const pdfBlob = doc.output("blob");
 
+const tableRowsFirstPage = [];
+const tableRowsSecondPage = [];
+let isSecondPage = false;
+
+fields.forEach(field => {
+    if (field.title) {
+        const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: field.styles?.textColor || [50, 50, 255], halign: 'center' } }];
+        if (isSecondPage) {
+            tableRowsSecondPage.push(row);
+        } else {
+            tableRowsFirstPage.push(row);
+        }
+    } else if (field.label) {
+        const row = [field.label, field.value];
+        if (isSecondPage) {
+            tableRowsSecondPage.push(row);
+        } else {
+            tableRowsFirstPage.push(row);
+        }
+    }
+    if (field.title == "***") {
+        isSecondPage = true;
+    }
+});
+
+// Add border to the first page
+doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+
+// Add the content for the first page
+doc.autoTable({
+    head: [],
+    body: tableRowsFirstPage,
+    startY: 25,
+    theme: 'grid',
+    styles: { overflow: 'linebreak', cellPadding: 2 },
+    columnStyles: {
+        0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+        1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+    }
+});
+
+doc.addPage();
+doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+doc.setTextColor(255, 0, 0);
+doc.text("(B) OBJECTIVE ASSESSMENT ", pageWidth / 2, 10, { align: "center" });
+// Add the content for the second page
+doc.autoTable({
+    head: [],
+    body: tableRowsSecondPage,
+    startY: 15,
+    theme: 'grid',
+    styles: { overflow: 'linebreak', cellPadding: 2 },
+    columnStyles: {
+        0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
+        1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
+    }
+});
+const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -3560,8 +2304,7 @@ const pdfBlob = doc.output("blob");
                                 {selectedDiv === "physiotherapy" && (
                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
                                     
-                                    <form
-                                      onSubmit={handleSubmit}
+                                    <form onSubmit={handleSubmit}
                                       enctype="multipart/form-data">
                                       <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
@@ -4374,7 +3117,7 @@ const pdfBlob = doc.output("blob");
                                         </div>
                                         <div>
                                           <button
-                                            className={`bg-cyan-950 text-white py-2 px-3 rounded-md uppercase ${buttonEnabled === false ? 'disabled opacity-50 cursor-not-allowed' : ''}`}
+                                            className={`bg-cyan-950 text-white py-2 px-3 rounded-md uppercase ${buttonEnabled === false ? 'opacity-50 cursor-not-allowed' : ''}`}
                                             type="submit"
                                             disabled={buttonEnabled === false}
                                           >
