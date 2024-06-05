@@ -100,7 +100,10 @@ export default function Dashboard() {
     remark: '',
     typeother:'',
     other_p_value_3:'',
-    dob:''
+    dob:'',
+    contact:'',
+    nprs:'',
+    nonh:0
   });
   const [formData_1, setFormData_1] = useState({
     acidity: "",
@@ -180,6 +183,7 @@ export default function Dashboard() {
     intensity: '',
     observation: '',
     tend: 0,
+    nonh:0,
     crepitus: 0,
     scar: 'heal',
     swelling: 0,
@@ -192,8 +196,9 @@ export default function Dashboard() {
     remark: '',
     typeother:'',
     other_p_value_3:'',
-    dob:''
-  });
+    dob:'',
+    contact:'',
+    nprs:''  });
   const [formData_3, setFormData_3] = useState({
     name: '',
     age: '',
@@ -215,6 +220,7 @@ export default function Dashboard() {
     side: '',
     dull: 0,
     cramp: 0,
+    nonh:0,
     sharpShoot: 0,
     burn: 0,
     throb: 0,
@@ -239,7 +245,9 @@ export default function Dashboard() {
     remark: '',
     typeother:'',
     other_p_value_3:'',
-    dob:''
+    dob:'',
+    contact:'',
+    nprs:''
   });
 
   const handleDivClick = (category) => {
@@ -279,6 +287,9 @@ export default function Dashboard() {
   const closeModal = () => {
     setShowModal(false);
     setSelectedDiv("");
+    setButtonEnabled(false);
+    setPdfFiles([]);
+    setSelectedImages([]);
     setFormData({
       name: '',
       age: '',
@@ -302,6 +313,7 @@ export default function Dashboard() {
       cramp: 0,
       sharpShoot: 0,
       burn: 0,
+      nonh:0,
       throb: 0,
       numb: 0,
       tingling: 0,
@@ -324,7 +336,9 @@ export default function Dashboard() {
       remark: '',
       typeother:'',
       other_p_value_3:'',
-      dob:''
+      dob:'',
+      contact:'',
+      nprs:''
     });
     setFormData_1({
       acidity: "",
@@ -379,6 +393,7 @@ export default function Dashboard() {
       address: '',
       domSide: '',
       chfCmp: '',
+      nonh:0,
       hyperTense: 0,
       diabetes: 0,
       thyroid: 0,
@@ -416,7 +431,9 @@ export default function Dashboard() {
       phyDiagno: '',
       ObjTreatment: '',
       remark: '',
-      dob:''
+      dob:'',
+      contact:'',
+      nprs:''
     });
     setFormData_3({
       name: '',
@@ -426,6 +443,7 @@ export default function Dashboard() {
       address: '',
       domSide: '',
       chfCmp: '',
+      nonh:0,
       hyperTense: 0,
       diabetes: 0,
       thyroid: 0,
@@ -463,7 +481,9 @@ export default function Dashboard() {
       remark: '',
       typeother:'',
       other_p_value_3:'',
-      dob:''
+      dob:'',
+      contact:'',
+      nprs:''
     });
     setLoad1(false);
     fetchData();
@@ -753,6 +773,9 @@ export default function Dashboard() {
           burn: appointmentData.burn,
           throb: appointmentData.throb,
           numb: appointmentData.numb,
+          contact:appointmentData.contact,
+          nprs:appointmentData.nprs,
+          nonh:appointmentData.nonh,
           dob:appointmentData.dob,
           tingling: appointmentData.tingling,
           freqNature: appointmentData.freqNature,
@@ -810,6 +833,9 @@ export default function Dashboard() {
           thyroid: appointmentData.thyroid,
           asthama: appointmentData.asthama,
           others: appointmentData.others,
+          contact:appointmentData.contact,
+          nonh:appointmentData.nonh,
+          nprs:appointmentData.nprs,
           other_p_value: appointmentData.other_p_value,
           other_p_value_2: appointmentData.other_p_value_2,
           pastSurg: appointmentData.pastSurg,
@@ -873,6 +899,7 @@ export default function Dashboard() {
           hyperTense: appointmentData.hyperTense,
           diabetes: appointmentData.diabetes,
           thyroid: appointmentData.thyroid,
+          nonh:appointmentData.nonh,
           asthama: appointmentData.asthama,
           others: appointmentData.others,
           other_p_value: appointmentData.other_p_value,
@@ -883,6 +910,8 @@ export default function Dashboard() {
           side: appointmentData.side,
           dull: appointmentData.dull,
           cramp: appointmentData.cramp,
+          contact:appointmentData.contact,
+          nprs:appointmentData.nprs,
           sharpShoot: appointmentData.sharpShoot,
           burn: appointmentData.burn,
           throb: appointmentData.throb,
@@ -931,10 +960,10 @@ export default function Dashboard() {
        
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* WEIGHT_LOSS *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
-        doc.setTextColor(255, 0, 0); // Set text color to red (RGB: 255, 0, 0)
+        doc.setTextColor(255, 0, 0); 
         doc.text(
           moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
           190,
@@ -1248,7 +1277,7 @@ export default function Dashboard() {
             valueY: y + 239,
           },
         
-          { label: "Aerobiks", labelX: 10, labelY: y + 246 },
+          { label: "Aerobics", labelX: 10, labelY: y + 246 },
           {
             value: formData_1.machine == 1 ? "Yes" : "No",
             valueX: 50,
@@ -1448,13 +1477,19 @@ export default function Dashboard() {
       try {
         const doc = new jsPDF();
         doc.setTextColor(255, 0, 0);
-        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
+        doc.text("* PHYSIOTHERAPY *", doc.internal.pageSize.getWidth() / 2, 12, {
           align: "center",
         });
         doc.setTextColor(255, 0, 0); 
         doc.text(
           moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
           190,
+          12,
+          { align: "center" }
+        );
+        doc.text(
+         formData.contact,
+          10,
           12,
           { align: "center" }
         );
@@ -1564,7 +1599,7 @@ export default function Dashboard() {
             valueY: y + 56,
           },
           {
-            label: "2)dliatetes",
+            label: "2)DIABETES",
             value: formData.diabetes == 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 63,
@@ -1655,7 +1690,7 @@ export default function Dashboard() {
             valueY: y + 164,
           },
           {
-            label: "* Intensity(NPRS)",
+            label: "* Intensity",
             value: formData.intensity!== "" ? `=> ${formData.intensity
 
             }` : " --- ",
@@ -1666,7 +1701,7 @@ export default function Dashboard() {
           },
           {label: "* Type", labelX: 10, labelY: y + 183},
           {
-            label: "1)Dullaaying",
+            label: "1)Duallaching",
             value: formData.dull== 1 ? "Yes" : "No",
             labelX: 10,
             labelY: y + 189,
@@ -1739,16 +1774,17 @@ export default function Dashboard() {
             valueX: 55,
             valueY: y + 246,
           },
-          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
           {
-            label: "* Observation",
-            value: formData.observation!== "" ? `=> ${formData.observation
+            label: "* Numerical Pain Rating Scale(NPRS)",
+            value: formData.nprs!== "" ? `=> ${formData.nprs
             }` : " --- ",
             labelX: 10,
-            labelY: y + 260,
+            labelY: y + 253,
             valueX: 10,
-            valueY: y + 265,
+            valueY: y + 260,
           },
+          { title: "*", titleX: 196, titleY: y+280},
+          { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
           { label: "* Palpation", labelX: 10, labelY: y},
           {
             label: "1)Tenderness",
@@ -1767,9 +1803,8 @@ export default function Dashboard() {
             valueY: y + 14,
           },
           {
-            label: "3)Scar",
-            value: formData.scar!== "" ? `${formData.scar
-            }` : " --- ",
+            label: "3)Scar:heal/nonheal",
+            value: `${formData.scar== 1 ? "Yes" : "No"}/${formData.nonh== 1 ? "Yes" : "No"}`,
             labelX: 10,
             labelY: y + 21,
             valueX: 55,
@@ -1837,14 +1872,24 @@ export default function Dashboard() {
             valueX: 10,
             valueY: y + 96,
           },
+         
+          {
+            label: "* Observation",
+            value: formData.observation!== "" ? `=> ${formData.observation
+            }` : " --- ",
+            labelX: 10,
+            labelY: y + 103,
+            valueX: 10,
+            valueY: y + 108,
+          },
           {
             label: "* Remark",
             value: formData.remark!== "" ? `=> ${formData.remark
             }` : " --- ",
             labelX: 10,
-            labelY: y +103,
+            labelY: y +115,
             valueX: 10,
-            valueY: y + 108,
+            valueY: y + 120,
           },
         ];
         let addToNextPage = false;
@@ -1870,7 +1915,7 @@ export default function Dashboard() {
             const truncatedText = truncateText(field.value);
             addText(truncatedText, field.valueX, field.valueY, "normal", 13);
           }
-          if (field.label === "* Observation") {
+          if (field.title === "*") {
             addToNextPage = true;
           }
         });
@@ -1894,6 +1939,9 @@ export default function Dashboard() {
         formDataObject.append("thyroid", formData.thyroid);
         formDataObject.append("asthama", formData.asthama);
         formDataObject.append("others", formData.others);
+        formDataObject.append("nprs", formData.nprs);
+        formDataObject.append("nonh", formData.nonh);
+        formDataObject.append("contact", formData.contact);
         formDataObject.append("other_p_value", formData.other_p_value);
         formDataObject.append("other_p_value_2", formData.other_p_value_2);
         formDataObject.append("other_p_value_3", formData.other_p_value_3);
@@ -1942,57 +1990,6 @@ export default function Dashboard() {
           "https://arpanhospital.online/appointment_book_py.php",
           formDataObject
         );
-        setSelectedImages([]);
-        setSelectedPatientId({ patient_id: "", appointment_id: "", name: "", age: "", gender: "", appointment_date: "", appointment_time: "" });
-        setFormData({
-          name: '',
-          age: '',
-          gender: '',
-          occupation: '',
-          address: '',
-          domSide: '',
-          chfCmp: '',
-          hyperTense: 0,
-          diabetes: 0,
-          thyroid: 0,
-          asthama: 0,
-          others: 0,
-          other_p_value: '',
-          other_p_value_2: '',
-          pastSurg: '',
-          presentSurg: '',
-          siteLoca: '',
-          side: '',
-          dob:'',
-          dull: 0,
-          cramp: 0,
-          sharpShoot: 0,
-          burn: 0,
-          throb: 0,
-          numb: 0,
-          tingling: 0,
-          freqNature: '',
-          duration: '',
-          painAgrFact: '',
-          painRelFact: '',
-          intensity: '',
-          observation: '',
-          tend: 0,
-          crepitus: 0,
-          scar: '',
-          swelling: 0,
-          palpOthers: 0,
-          examination: '',
-          investRadioFinding: '',
-          medDiagno: '',
-          phyDiagno: '',
-          ObjTreatment: '',
-          remark: '',
-          typeother:'',
-          other_p_value_3:''
-        });
-        setButtonEnabled(false);
-        setPdfFiles([]);
         closeModal();
         toast.success(response.data.message);
       } catch (error) {
@@ -2000,435 +1997,453 @@ export default function Dashboard() {
       }
     }
     else if (selectedDiv == "pain_management") {
-      try {
+      try {  
         const doc = new jsPDF();
-        doc.setTextColor(255, 0, 0);
-        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
-          align: "center",
-        });
-        doc.setTextColor(255, 0, 0); 
-        doc.text(
-          moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-          190,
-          12,
-          { align: "center" }
-        );
-        doc.setTextColor(0, 0, 0);
-        let y = 20;
-        
-        function addText(text, x, y, fontStyle, fontSize) {
-          doc.setFont(fontStyle);
-          doc.setFontSize(fontSize);
-          doc.text(text, x, y);
-        }
-        
-        function addPageBorder() {
-          doc.setDrawColor(0); // Border color (black)
-          doc.setLineWidth(0.5); // Border line width
-          doc.rect(
-            5,
-            5,
-            doc.internal.pageSize.getWidth() - 10,
-            doc.internal.pageSize.getHeight() - 10
-          ); // Add a border around the page
-        }
-        const truncateText = (text) => {
-          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
-              text = text.slice(0, -1);
-            }
-            text += '...';
-          }
-          return text;
-        };
-        
-        const fields = [
-          {
-            label: "Name",
-            value: selectedPatientId.name,
-            labelX: 10,
-            labelY: y,
-            valueX: 10,
-            valueY: y + 7,
-          },
-          {
-            label: "Age",
-            value: selectedPatientId.age,
-            labelX: 80,
-            labelY: y,
-            valueX: 80,
-            valueY: y + 7,
-          },
-          {
-            label: "Gender",
-            value: selectedPatientId.gender,
-            labelX: 102,
-            labelY: y,
-            valueX: 102,
-            valueY: y + 7,
-          },
-          {
-            label: "Dob",
-            value: moment(formData_2.dob).format('DD-MM-YYYY'),
-            labelX: 138,
-            labelY: y,
-            valueX: 138,
-            valueY: y + 7,
-          },
-          {
-            label: "Occupation",
-            value: formData_2.occupation,
-            labelX: 174,
-            labelY: y,
-            valueX: 174,
-            valueY: y + 7,
-          },
-          
-          {
-            label: "* Address",
-            value: `=> ${formData_2.address}`,
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 10,
-            valueY: y + 19,
-          },
-          {
-            label: "* Dominant Side",
-            value: `=> ${formData_2.domSide}`,
-            labelX: 10,
-            labelY: y + 26,
-            valueX: 10,
-            valueY: y + 31,
-          },
-          {
-            label: "* Chief Complaint",
-            value: `=> ${formData_2.chfCmp}`,
-            labelX: 10,
-            labelY: y + 38,
-            valueX: 10,
-            valueY: y + 43,
-          },
-          { title: "* History", titleX: 90, titleY: y + 50},
-          {
-            label: "1)Asthma",
-            value: formData_2.asthama == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 56,
-            valueX: 55,
-            valueY: y + 56,
-          },
-          {
-            label: "2)dliatetes",
-            value: formData_2.diabetes == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 63,
-            valueX: 55,
-            valueY: y + 63,
-           
-          },
-          {
-            label: "3)Thayroid",
-            value: formData_2.thyroid == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 70,
-            valueX: 55,
-            valueY: y + 70,
-           
-          },
-          {
-            label: "4)Hypertension",
-            value: formData_2.hyperTense == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 77,
-            valueX: 55,
-            valueY: y + 77,
-          },
-          {
-            label: "5)Other History",
-            value: formData_2.other_p_value!== "" ? formData_2.other_p_value : " --- ",
-            labelX: 10,
-            labelY: y + 84,
-            valueX: 55,
-            valueY: y + 84,
-          },
-          {
-            label: "6)Past History",
-            value: formData_2.pastSurg!== "" ? formData_2.pastSurg : " --- ",
-            labelX: 10,
-            labelY: y + 91,
-            valueX: 55,
-            valueY: y + 91,
-          },
-          {
-            label: "7)Present History",
-            value: formData_2.presentSurg!== "" ? formData_2.presentSurg : " --- ",
-            labelX: 10,
-            labelY: y + 98,
-            valueX: 55,
-            valueY: y + 98,
-          },
-          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
-          {
-            label: "* Site/Location",
-            value: formData_2.siteLoca!== "" ? `=> ${formData_2.siteLoca}` : " --- ",
-            labelX: 10,
-            labelY: y + 111,
-            valueX: 10,
-            valueY: y + 116,
-          },
-          {
-            label: "* Side",
-            value: formData_2.side!== "" ? `=> ${formData_2.side}` : " --- ",
-            labelX: 10,
-            labelY: y + 123,
-            valueX: 10,
-            valueY: y + 128,
-          },
-          {
-            label: "* Frequency/Nature",
-            value: formData_2.freqNature!== "" ? `=> ${formData_2.freqNature}` : " --- ",
-            labelX: 10,
-            labelY: y + 135,
-            valueX: 10,
-            valueY: y + 140,
-          },
-          {
-            label: "* Pain Aggravating Factor",
-            value: formData_2.painAgrFact!== "" ? `=> ${formData_2.painAgrFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 147,
-            valueX: 10,
-            valueY: y + 152,
-          },
-          {
-            label: "* Pain Relieving Factor",
-            value: formData_2.painRelFact!== "" ? `=> ${formData_2.painRelFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 159,
-            valueX: 10,
-            valueY: y + 164,
-          },
-          {
-            label: "* Intensity(NPRS)",
-            value: formData_2.intensity!== "" ? `=> ${formData_2.intensity
-        
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 171,
-            valueX: 10,
-            valueY: y + 176,
-          },
-          {label: "* Type", labelX: 10, labelY: y + 183},
-          {
-            label: "1)Dullaaying",
-            value: formData_2.dull== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 189,
-            valueX: 55,
-            valueY: y + 189,
-          },
-          {
-            label: "2)Cramping",
-            value: formData_2.cramp== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 196,
-            valueX: 55,
-            valueY: y + 196,
-          },
-          {
-            label: "3)Sharp Shooting",
-            value: formData_2.sharpShoot== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 203,
-            valueX: 55,
-            valueY: y + 203,
-          },
-          {
-            label: "4)Burning ",
-            value: formData_2.burn== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 210,
-            valueX: 55,
-            valueY: y + 210,
-          },
-          {
-            label: "5)Throbbing",
-            value: formData_2.throb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 217,
-            valueX: 55,
-            valueY: y + 217,
-          },
-          {
-            label: "6)Numbness",
-            value: formData_2.numb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 225,
-            valueX: 55,
-            valueY: y + 225,
-          },
-          {
-            label: "7)Tingling",
-            value: formData_2.tingling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 232,
-            valueX: 55,
-            valueY: y + 232,
-          },
-          {
-            label: "8)Other",
-            value: formData_2.other_p_value_3!== "" ? `${formData_2.other_p_value_3
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 239,
-            valueX: 55,
-            valueY: y + 239,
-          },
-          {
-            label: "* Duaration",
-            value: formData_2.duration== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 246,
-            valueX: 55,
-            valueY: y + 246,
-          },
-          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
-          {
-            label: "* Observation",
-            value: formData_2.observation!== "" ? `=> ${formData_2.observation
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 260,
-            valueX: 10,
-            valueY: y + 265,
-          },
-          { label: "* Palpation", labelX: 10, labelY: y},
-          {
-            label: "1)Tenderness",
-            value: formData_2.tend== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 7,
-            valueX: 55,
-            valueY: y + 7,
-          },
-          {
-            label: "2)Crepitus",
-            value: formData_2.crepitus== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 55,
-            valueY: y + 14,
-          },
-          {
-            label: "3)Scar",
-            value: formData_2.scar!== "" ? `${formData_2.scar
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 21,
-            valueX: 55,
-            valueY: y + 21,
-          },
-          {
-            label: "4)Swelling ",
-            value: formData_2.swelling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 28,
-            valueX: 55,
-            valueY: y + 28,
-          },
-          {
-            label: "5)other_p_value_2",
-            value: formData_2.other_p_value_2!== "" ? `=> ${formData_2.other_p_value_2
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +35,
-            valueX: 55,
-            valueY: y + 35,
-          },
-          {
-            label: "* Examination",
-            value: formData_2.examination!== "" ? `=> ${formData_2.examination
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +42,
-            valueX: 10,
-            valueY: y + 47,
-          },
-          {
-            label: "* Innestigation/Radiological Findings",
-            value: formData_2.investRadioFinding!== "" ? `=> ${formData_2.investRadioFinding
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +54,
-            valueX: 10,
-            valueY: y + 59,
-          },
-          {
-            label: "* Medical Diagnosis",
-            value: formData_2.medDiagno!== "" ? `=> ${formData_2.medDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +66,
-            valueX: 10,
-            valueY: y + 71,
-          },
-          {
-            label: "* Physiotherapy Diagnosis",
-            value: formData_2.phyDiagno!== "" ? `=> ${formData_2.phyDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +78,
-            valueX: 10,
-            valueY: y + 84,
-          },
-          {
-            label: "* Treatment",
-            value: formData_2.ObjTreatment!== "" ? `=> ${formData_2.ObjTreatment
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +91,
-            valueX: 10,
-            valueY: y + 96,
-          },
-          {
-            label: "* Remark",
-            value: formData_2.remark!== "" ? `=> ${formData_2.remark
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +103,
-            valueX: 10,
-            valueY: y + 108,
-          },
-        ];
-        let addToNextPage = false;
-        fields.forEach((field,index) => {
-          if (addToNextPage) {
-            // Start a new page for all fields after * Observation
-            doc.addPage();
-            addPageBorder();
-            y = 20; // Reset y-coordinate
-            addToNextPage = false; // Reset flag to avoid multiple page additions
-          }
-          addPageBorder();
-          if (field.title !== undefined) {
-            doc.setTextColor(21, 94, 117);
-            addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-          }
-          if (field.label !== undefined) {
-            doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
-          }
-          if (field.value !== undefined) {
-            doc.setTextColor(0);
-            const truncatedText = truncateText(field.value);
-            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
-          }
-          if (field.label === "* Observation") {
-            addToNextPage = true;
-          }
-        });
-        const pdfBlob = doc.output("blob");
-        
+doc.setTextColor(255, 0, 0);
+doc.text("* PAIN_MANAGEMENT *", doc.internal.pageSize.getWidth() / 2, 12, {
+  align: "center",
+});
+doc.setTextColor(255, 0, 0); 
+doc.text(
+  moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
+  190,
+  12,
+  { align: "center" }
+);
+doc.text(
+ formData_2.contact,
+  10,
+  12,
+  { align: "center" }
+);
+doc.setTextColor(0, 0, 0);
+let y = 20;
+
+function addText(text, x, y, fontStyle, fontSize) {
+  doc.setFont(fontStyle);
+  doc.setFontSize(fontSize);
+  doc.text(text, x, y);
+}
+
+function addPageBorder() {
+  doc.setDrawColor(0); // Border color (black)
+  doc.setLineWidth(0.5); // Border line width
+  doc.rect(
+    5,
+    5,
+    doc.internal.pageSize.getWidth() - 10,
+    doc.internal.pageSize.getHeight() - 10
+  ); // Add a border around the page
+}
+
+const truncateText = (text) => {
+  if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+    while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
+      text = text.slice(0, -1);
+    }
+    text += '...';
+  }
+  return text;
+};
+
+const fields = [
+  {
+    label: "Name",
+    value: selectedPatientId.name,
+    labelX: 10,
+    labelY: y,
+    valueX: 10,
+    valueY: y + 7,
+  },
+  {
+    label: "Age",
+    value: selectedPatientId.age,
+    labelX: 80,
+    labelY: y,
+    valueX: 80,
+    valueY: y + 7,
+  },
+  {
+    label: "Gender",
+    value: selectedPatientId.gender,
+    labelX: 102,
+    labelY: y,
+    valueX: 102,
+    valueY: y + 7,
+  },
+  {
+    label: "Dob",
+    value: moment(formData_2.dob).format('DD-MM-YYYY'),
+    labelX: 138,
+    labelY: y,
+    valueX: 138,
+    valueY: y + 7,
+  },
+  {
+    label: "Occupation",
+    value: formData_2.occupation,
+    labelX: 174,
+    labelY: y,
+    valueX: 174,
+    valueY: y + 7,
+  },
+  
+  {
+    label: "* Address",
+    value: `=> ${formData_2.address}`,
+    labelX: 10,
+    labelY: y + 14,
+    valueX: 10,
+    valueY: y + 19,
+  },
+  {
+    label: "* Dominant Side",
+    value: `=> ${formData_2.domSide}`,
+    labelX: 10,
+    labelY: y + 26,
+    valueX: 10,
+    valueY: y + 31,
+  },
+  {
+    label: "* Chief Complaint",
+    value: `=> ${formData_2.chfCmp}`,
+    labelX: 10,
+    labelY: y + 38,
+    valueX: 10,
+    valueY: y + 43,
+  },
+  { title: "* History", titleX: 90, titleY: y + 50},
+  {
+    label: "1)Asthma",
+    value: formData_2.asthama == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 56,
+    valueX: 55,
+    valueY: y + 56,
+  },
+  {
+    label: "2)DIABETES",
+    value: formData_2.diabetes == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 63,
+    valueX: 55,
+    valueY: y + 63,
+   
+  },
+  {
+    label: "3)Thayroid",
+    value: formData_2.thyroid == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 70,
+    valueX: 55,
+    valueY: y + 70,
+   
+  },
+  {
+    label: "4)Hypertension",
+    value: formData_2.hyperTense == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 77,
+    valueX: 55,
+    valueY: y + 77,
+  },
+  {
+    label: "5)Other History",
+    value: formData_2.other_p_value!== "" ? formData_2.other_p_value : " --- ",
+    labelX: 10,
+    labelY: y + 84,
+    valueX: 55,
+    valueY: y + 84,
+  },
+  {
+    label: "6)Past History",
+    value: formData_2.pastSurg!== "" ? formData_2.pastSurg : " --- ",
+    labelX: 10,
+    labelY: y + 91,
+    valueX: 55,
+    valueY: y + 91,
+  },
+  {
+    label: "7)Present History",
+    value: formData_2.presentSurg!== "" ? formData_2.presentSurg : " --- ",
+    labelX: 10,
+    labelY: y + 98,
+    valueX: 55,
+    valueY: y + 98,
+  },
+  { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
+  {
+    label: "* Site/Location",
+    value: formData_2.siteLoca!== "" ? `=> ${formData_2.siteLoca}` : " --- ",
+    labelX: 10,
+    labelY: y + 111,
+    valueX: 10,
+    valueY: y + 116,
+  },
+  {
+    label: "* Side",
+    value: formData_2.side!== "" ? `=> ${formData_2.side}` : " --- ",
+    labelX: 10,
+    labelY: y + 123,
+    valueX: 10,
+    valueY: y + 128,
+  },
+  {
+    label: "* Frequency/Nature",
+    value: formData_2.freqNature!== "" ? `=> ${formData_2.freqNature}` : " --- ",
+    labelX: 10,
+    labelY: y + 135,
+    valueX: 10,
+    valueY: y + 140,
+  },
+  {
+    label: "* Pain Aggravating Factor",
+    value: formData_2.painAgrFact!== "" ? `=> ${formData_2.painAgrFact}` : " --- ",
+    labelX: 10,
+    labelY: y + 147,
+    valueX: 10,
+    valueY: y + 152,
+  },
+  {
+    label: "* Pain Relieving Factor",
+    value: formData_2.painRelFact!== "" ? `=> ${formData_2.painRelFact}` : " --- ",
+    labelX: 10,
+    labelY: y + 159,
+    valueX: 10,
+    valueY: y + 164,
+  },
+  {
+    label: "* Intensity",
+    value: formData_2.intensity!== "" ? `=> ${formData_2.intensity
+
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 171,
+    valueX: 10,
+    valueY: y + 176,
+  },
+  {label: "* Type", labelX: 10, labelY: y + 183},
+  {
+    label: "1)Duallaching",
+    value: formData_2.dull== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 189,
+    valueX: 55,
+    valueY: y + 189,
+  },
+  {
+    label: "2)Cramping",
+    value: formData_2.cramp== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 196,
+    valueX: 55,
+    valueY: y + 196,
+  },
+  {
+    label: "3)Sharp Shooting",
+    value: formData_2.sharpShoot== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 203,
+    valueX: 55,
+    valueY: y + 203,
+  },
+  {
+    label: "4)Burning ",
+    value: formData_2.burn== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 210,
+    valueX: 55,
+    valueY: y + 210,
+  },
+  {
+    label: "5)Throbbing",
+    value: formData_2.throb== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 217,
+    valueX: 55,
+    valueY: y + 217,
+  },
+  {
+    label: "6)Numbness",
+    value: formData_2.numb== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 225,
+    valueX: 55,
+    valueY: y + 225,
+  },
+  {
+    label: "7)Tingling",
+    value: formData_2.tingling== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 232,
+    valueX: 55,
+    valueY: y + 232,
+  },
+  {
+    label: "8)Other",
+    value: formData_2.other_p_value_3!== "" ? `${formData_2.other_p_value_3
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 239,
+    valueX: 55,
+    valueY: y + 239,
+  },
+  {
+    label: "* Duaration",
+    value: formData_2.duration!== "" ? `${formData_2.duration
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 246,
+    valueX: 55,
+    valueY: y + 246,
+  },
+  {
+    label: "* Numerical Pain Rating Scale(NPRS)",
+    value: formData_2.nprs!== "" ? `=> ${formData_2.nprs
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 253,
+    valueX: 10,
+    valueY: y + 260,
+  },
+  { title: "*", titleX: 196, titleY: y+280},
+  { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
+  { label: "* Palpation", labelX: 10, labelY: y},
+  {
+    label: "1)Tenderness",
+    value: formData_2.tend== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 7,
+    valueX: 55,
+    valueY: y + 7,
+  },
+  {
+    label: "2)Crepitus",
+    value: formData_2.crepitus== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 14,
+    valueX: 55,
+    valueY: y + 14,
+  },
+  {
+    label: "3)Scar:heal/nonheal",
+    value: `${formData_2.scar== 1 ? "Yes" : "No"}/${formData_2.nonh== 1 ? "Yes" : "No"}`,
+    labelX: 10,
+    labelY: y + 21,
+    valueX: 55,
+    valueY: y + 21,
+  },
+  {
+    label: "4)Swelling ",
+    value: formData_2.swelling== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 28,
+    valueX: 55,
+    valueY: y + 28,
+  },
+  {
+    label: "5)other_p_value_2",
+    value: formData_2.other_p_value_2!== "" ? `=> ${formData_2.other_p_value_2
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +35,
+    valueX: 55,
+    valueY: y + 35,
+  },
+  {
+    label: "* Examination",
+    value: formData_2.examination!== "" ? `=> ${formData_2.examination
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +42,
+    valueX: 10,
+    valueY: y + 47,
+  },
+  {
+    label: "* Innestigation/Radiological Findings",
+    value: formData_2.investRadioFinding!== "" ? `=> ${formData_2.investRadioFinding
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +54,
+    valueX: 10,
+    valueY: y + 59,
+  },
+  {
+    label: "* Medical Diagnosis",
+    value: formData_2.medDiagno!== "" ? `=> ${formData_2.medDiagno
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +66,
+    valueX: 10,
+    valueY: y + 71,
+  },
+  {
+    label: "* Physiotherapy Diagnosis",
+    value: formData_2.phyDiagno!== "" ? `=> ${formData_2.phyDiagno
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +78,
+    valueX: 10,
+    valueY: y + 84,
+  },
+  {
+    label: "* Treatment",
+    value: formData_2.ObjTreatment!== "" ? `=> ${formData_2.ObjTreatment
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +91,
+    valueX: 10,
+    valueY: y + 96,
+  },
+ 
+  {
+    label: "* Observation",
+    value: formData_2.observation!== "" ? `=> ${formData_2.observation
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 103,
+    valueX: 10,
+    valueY: y + 108,
+  },
+  {
+    label: "* Remark",
+    value: formData_2.remark!== "" ? `=> ${formData_2.remark
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +115,
+    valueX: 10,
+    valueY: y + 120,
+  },
+];
+let addToNextPage = false;
+fields.forEach((field,index) => {
+  if (addToNextPage) {
+    // Start a new page for all fields after * Observation
+    doc.addPage();
+    addPageBorder();
+    y = 20; // Reset y-coordinate
+    addToNextPage = false; // Reset flag to avoid multiple page additions
+  }
+  addPageBorder();
+  if (field.title !== undefined) {
+    doc.setTextColor(21, 94, 117);
+    addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
+  }
+  if (field.label !== undefined) {
+    doc.setTextColor(97, 3, 22);
+    addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
+  }
+  if (field.value !== undefined) {
+    doc.setTextColor(0);
+    const truncatedText = truncateText(field.value);
+    addText(truncatedText, field.valueX, field.valueY, "normal", 13);
+  }
+  if (field.title === "*") {
+    addToNextPage = true;
+  }
+});
+const pdfBlob = doc.output("blob");
+
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -2439,6 +2454,8 @@ export default function Dashboard() {
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
         formDataObject.append("dob", formData_2.dob);
+        formDataObject.append("nprs", formData_2.nprs);
+        formDataObject.append("contact", formData_2.contact);
         formDataObject.append("contact", formData_2.contact);
         formDataObject.append("occupation", formData_2.occupation);
         formDataObject.append("address", formData_2.address);
@@ -2449,6 +2466,7 @@ export default function Dashboard() {
         formDataObject.append("thyroid", formData_2.thyroid);
         formDataObject.append("asthama", formData_2.asthama);
         formDataObject.append("others", formData_2.others);
+        formDataObject.append("nonh", formData_2.nonh);
         formDataObject.append("other_p_value", formData_2.other_p_value);
         formDataObject.append("other_p_value_2", formData_2.other_p_value_2);
         formDataObject.append("pastSurg", formData_2.pastSurg);
@@ -2497,57 +2515,6 @@ export default function Dashboard() {
           "https://arpanhospital.online/appointment_book_pain.php",
           formDataObject
         );
-        setSelectedImages([]);
-        setSelectedPatientId({ patient_id: "", appointment_id: "", name: "", age: "", gender: "", appointment_date: "", appointment_time: "" });
-        setFormData_2({
-          name: '',
-          age: '',
-          gender: '',
-          occupation: '',
-          address: '',
-          domSide: '',
-          chfCmp: '',
-          hyperTense: 0,
-          diabetes: 0,
-          thyroid: 0,
-          asthama: 0,
-          others: 0,
-          other_p_value: '',
-          other_p_value_2:'',
-          typeother:'',
-          other_p_value_3:'',
-          pastSurg: '',
-          presentSurg: '',
-          siteLoca: '',
-          dob:'',
-          side: '',
-          dull: 0,
-          cramp: 0,
-          sharpShoot: 0,
-          burn: 0,
-          throb: 0,
-          numb: 0,
-          tingling: 0,
-          freqNature: '',
-          duration: '',
-          painAgrFact: '',
-          painRelFact: '',
-          intensity: '',
-          observation: '',
-          tend: 0,
-          crepitus: 0,
-          scar: '',
-          swelling: 0,
-          palpOthers: 0,
-          examination: '',
-          investRadioFinding: '',
-          medDiagno: '',
-          phyDiagno: '',
-          ObjTreatment: '',
-          remark: ''
-        });
-        setButtonEnabled(false);
-        setPdfFiles([]);
         closeModal();
         toast.success(response.data.message);
       } catch (error) {
@@ -2557,432 +2524,451 @@ export default function Dashboard() {
     else {
       try {
         const doc = new jsPDF();
-        doc.setTextColor(255, 0, 0);
-        doc.text("* PATIENT REPORT *", doc.internal.pageSize.getWidth() / 2, 12, {
-          align: "center",
-        });
-        doc.setTextColor(255, 0, 0); 
-        doc.text(
-          moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
-          190,
-          12,
-          { align: "center" }
-        );
-        doc.setTextColor(0, 0, 0);
-        let y = 20;
-        
-        function addText(text, x, y, fontStyle, fontSize) {
-          doc.setFont(fontStyle);
-          doc.setFontSize(fontSize);
-          doc.text(text, x, y);
-        }
-        
-        function addPageBorder() {
-          doc.setDrawColor(0); // Border color (black)
-          doc.setLineWidth(0.5); // Border line width
-          doc.rect(
-            5,
-            5,
-            doc.internal.pageSize.getWidth() - 10,
-            doc.internal.pageSize.getHeight() - 10
-          ); // Add a border around the page
-        }
-        const truncateText = (text) => {
-          if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
-            while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
-              text = text.slice(0, -1);
-            }
-            text += '...';
-          }
-          return text;
-        };
-        
-        const fields = [
-          {
-            label: "Name",
-            value: selectedPatientId.name,
-            labelX: 10,
-            labelY: y,
-            valueX: 10,
-            valueY: y + 7,
-          },
-          {
-            label: "Age",
-            value: selectedPatientId.age,
-            labelX: 80,
-            labelY: y,
-            valueX: 80,
-            valueY: y + 7,
-          },
-          {
-            label: "Gender",
-            value: selectedPatientId.gender,
-            labelX: 102,
-            labelY: y,
-            valueX: 102,
-            valueY: y + 7,
-          },
-          {
-            label: "Dob",
-            value: moment(formData_3.dob).format('DD-MM-YYYY'),
-            labelX: 138,
-            labelY: y,
-            valueX: 138,
-            valueY: y + 7,
-          },
-          {
-            label: "Occupation",
-            value: formData_3.occupation,
-            labelX: 174,
-            labelY: y,
-            valueX: 174,
-            valueY: y + 7,
-          },
-          
-          {
-            label: "* Address",
-            value: `=> ${formData_3.address}`,
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 10,
-            valueY: y + 19,
-          },
-          {
-            label: "* Dominant Side",
-            value: `=> ${formData_3.domSide}`,
-            labelX: 10,
-            labelY: y + 26,
-            valueX: 10,
-            valueY: y + 31,
-          },
-          {
-            label: "* Chief Complaint",
-            value: `=> ${formData_3.chfCmp}`,
-            labelX: 10,
-            labelY: y + 38,
-            valueX: 10,
-            valueY: y + 43,
-          },
-          { title: "* History", titleX: 90, titleY: y + 50},
-          {
-            label: "1)Asthma",
-            value: formData_3.asthama == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 56,
-            valueX: 55,
-            valueY: y + 56,
-          },
-          {
-            label: "2)dliatetes",
-            value: formData_3.diabetes == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 63,
-            valueX: 55,
-            valueY: y + 63,
-           
-          },
-          {
-            label: "3)Thayroid",
-            value: formData_3.thyroid == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 70,
-            valueX: 55,
-            valueY: y + 70,
-           
-          },
-          {
-            label: "4)Hypertension",
-            value: formData_3.hyperTense == 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 77,
-            valueX: 55,
-            valueY: y + 77,
-          },
-          {
-            label: "5)Other History",
-            value: formData_3.other_p_value!== "" ? formData_3.other_p_value : " --- ",
-            labelX: 10,
-            labelY: y + 84,
-            valueX: 55,
-            valueY: y + 84,
-          },
-          {
-            label: "6)Past History",
-            value: formData_3.pastSurg!== "" ? formData_3.pastSurg : " --- ",
-            labelX: 10,
-            labelY: y + 91,
-            valueX: 55,
-            valueY: y + 91,
-          },
-          {
-            label: "7)Present History",
-            value: formData_3.presentSurg!== "" ? formData_3.presentSurg : " --- ",
-            labelX: 10,
-            labelY: y + 98,
-            valueX: 55,
-            valueY: y + 98,
-          },
-          { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
-          {
-            label: "* Site/Location",
-            value: formData_3.siteLoca!== "" ? `=> ${formData_3.siteLoca}` : " --- ",
-            labelX: 10,
-            labelY: y + 111,
-            valueX: 10,
-            valueY: y + 116,
-          },
-          {
-            label: "* Side",
-            value: formData_3.side!== "" ? `=> ${formData_3.side}` : " --- ",
-            labelX: 10,
-            labelY: y + 123,
-            valueX: 10,
-            valueY: y + 128,
-          },
-          {
-            label: "* Frequency/Nature",
-            value: formData_3.freqNature!== "" ? `=> ${formData_3.freqNature}` : " --- ",
-            labelX: 10,
-            labelY: y + 135,
-            valueX: 10,
-            valueY: y + 140,
-          },
-          {
-            label: "* Pain Aggravating Factor",
-            value: formData_3.painAgrFact!== "" ? `=> ${formData_3.painAgrFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 147,
-            valueX: 10,
-            valueY: y + 152,
-          },
-          {
-            label: "* Pain Relieving Factor",
-            value: formData_3.painRelFact!== "" ? `=> ${formData_3.painRelFact}` : " --- ",
-            labelX: 10,
-            labelY: y + 159,
-            valueX: 10,
-            valueY: y + 164,
-          },
-          {
-            label: "* Intensity(NPRS)",
-            value: formData_3.intensity!== "" ? `=> ${formData_3.intensity
-        
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 171,
-            valueX: 10,
-            valueY: y + 176,
-          },
-          {label: "* Type", labelX: 10, labelY: y + 183},
-          {
-            label: "1)Dullaaying",
-            value: formData_3.dull== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 189,
-            valueX: 55,
-            valueY: y + 189,
-          },
-          {
-            label: "2)Cramping",
-            value: formData_3.cramp== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 196,
-            valueX: 55,
-            valueY: y + 196,
-          },
-          {
-            label: "3)Sharp Shooting",
-            value: formData_3.sharpShoot== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 203,
-            valueX: 55,
-            valueY: y + 203,
-          },
-          {
-            label: "4)Burning ",
-            value: formData_3.burn== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 210,
-            valueX: 55,
-            valueY: y + 210,
-          },
-          {
-            label: "5)Throbbing",
-            value: formData_3.throb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 217,
-            valueX: 55,
-            valueY: y + 217,
-          },
-          {
-            label: "6)Numbness",
-            value: formData_3.numb== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 225,
-            valueX: 55,
-            valueY: y + 225,
-          },
-          {
-            label: "7)Tingling",
-            value: formData_3.tingling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 232,
-            valueX: 55,
-            valueY: y + 232,
-          },
-          {
-            label: "8)Other",
-            value: formData_3.other_p_value_3!== "" ? `${formData_3.other_p_value_3
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 239,
-            valueX: 55,
-            valueY: y + 239,
-          },
-          {
-            label: "* Duaration",
-            value: formData_3.duration== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 246,
-            valueX: 55,
-            valueY: y + 246,
-          },
-          { title: "* OBJECTIVE ASSESSMENT", titleX: 70, titleY: y + 253},
-          {
-            label: "* Observation",
-            value: formData_3.observation!== "" ? `=> ${formData_3.observation
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 260,
-            valueX: 10,
-            valueY: y + 265,
-          },
-          { label: "* Palpation", labelX: 10, labelY: y},
-          {
-            label: "1)Tenderness",
-            value: formData_3.tend== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 7,
-            valueX: 55,
-            valueY: y + 7,
-          },
-          {
-            label: "2)Crepitus",
-            value: formData_3.crepitus== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 14,
-            valueX: 55,
-            valueY: y + 14,
-          },
-          {
-            label: "3)Scar",
-            value: formData_3.scar!== "" ? `${formData_3.scar
-            }` : " --- ",
-            labelX: 10,
-            labelY: y + 21,
-            valueX: 55,
-            valueY: y + 21,
-          },
-          {
-            label: "4)Swelling ",
-            value: formData_3.swelling== 1 ? "Yes" : "No",
-            labelX: 10,
-            labelY: y + 28,
-            valueX: 55,
-            valueY: y + 28,
-          },
-          {
-            label: "5)other_p_value_2",
-            value: formData_3.other_p_value_2!== "" ? `=> ${formData_3.other_p_value_2
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +35,
-            valueX: 55,
-            valueY: y + 35,
-          },
-          {
-            label: "* Examination",
-            value: formData_3.examination!== "" ? `=> ${formData_3.examination
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +42,
-            valueX: 10,
-            valueY: y + 47,
-          },
-          {
-            label: "* Innestigation/Radiological Findings",
-            value: formData_3.investRadioFinding!== "" ? `=> ${formData_3.investRadioFinding
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +54,
-            valueX: 10,
-            valueY: y + 59,
-          },
-          {
-            label: "* Medical Diagnosis",
-            value: formData_3.medDiagno!== "" ? `=> ${formData_3.medDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +66,
-            valueX: 10,
-            valueY: y + 71,
-          },
-          {
-            label: "* Physiotherapy Diagnosis",
-            value: formData_3.phyDiagno!== "" ? `=> ${formData_3.phyDiagno
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +78,
-            valueX: 10,
-            valueY: y + 84,
-          },
-          {
-            label: "* Treatment",
-            value: formData_3.ObjTreatment!== "" ? `=> ${formData_3.ObjTreatment
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +91,
-            valueX: 10,
-            valueY: y + 96,
-          },
-          {
-            label: "* Remark",
-            value: formData_3.remark!== "" ? `=> ${formData_3.remark
-            }` : " --- ",
-            labelX: 10,
-            labelY: y +103,
-            valueX: 10,
-            valueY: y + 108,
-          },
-        ];
-        let addToNextPage = false;
-        fields.forEach((field,index) => {
-          if (addToNextPage) {
-            // Start a new page for all fields after * Observation
-            doc.addPage();
-            addPageBorder();
-            y = 20; // Reset y-coordinate
-            addToNextPage = false; // Reset flag to avoid multiple page additions
-          }
-          addPageBorder();
-          if (field.title !== undefined) {
-            doc.setTextColor(21, 94, 117);
-            addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
-          }
-          if (field.label !== undefined) {
-            doc.setTextColor(97, 3, 22);
-            addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
-          }
-          if (field.value !== undefined) {
-            doc.setTextColor(0);
-            const truncatedText = truncateText(field.value);
-            addText(truncatedText, field.valueX, field.valueY, "normal", 13);
-          }
-          if (field.label === "* Observation") {
-            addToNextPage = true;
-          }
-        });
-        const pdfBlob = doc.output("blob");        
+doc.setTextColor(255, 0, 0);
+doc.text("* PAIN_MANAGEMENT *", doc.internal.pageSize.getWidth() / 2, 12, {
+  align: "center",
+});
+doc.setTextColor(255, 0, 0); 
+doc.text(
+  moment(selectedPatientId.appointment_date).format("DD-MM-YYYY"),
+  190,
+  12,
+  { align: "center" }
+);
+doc.text(`+91 ${
+ formData_3.contact}`,
+  30,
+  12,
+  { align: "center" }
+);
+doc.setTextColor(0, 0, 0);
+let y = 20;
+
+function addText(text, x, y, fontStyle, fontSize) {
+  doc.setFont(fontStyle);
+  doc.setFontSize(fontSize);
+  doc.text(text, x, y);
+}
+
+function addPageBorder() {
+  doc.setDrawColor(0); // Border color (black)
+  doc.setLineWidth(0.5); // Border line width
+  doc.rect(
+    5,
+    5,
+    doc.internal.pageSize.getWidth() - 10,
+    doc.internal.pageSize.getHeight() - 10
+  ); // Add a border around the page
+}
+
+const truncateText = (text) => {
+  if (doc.getStringUnitWidth(text) * 14 > MAX_TEXT_WIDTH) {
+    while (doc.getStringUnitWidth(text + '...') * 14 > MAX_TEXT_WIDTH) {
+      text = text.slice(0, -1);
+    }
+    text += '...';
+  }
+  return text;
+};
+
+const fields = [
+  {
+    label: "Name",
+    value: selectedPatientId.name,
+    labelX: 10,
+    labelY: y,
+    valueX: 10,
+    valueY: y + 7,
+  },
+  {
+    label: "Age",
+    value: selectedPatientId.age,
+    labelX: 80,
+    labelY: y,
+    valueX: 80,
+    valueY: y + 7,
+  },
+  {
+    label: "Gender",
+    value: selectedPatientId.gender,
+    labelX: 102,
+    labelY: y,
+    valueX: 102,
+    valueY: y + 7,
+  },
+  {
+    label: "Dob",
+    value: moment(formData_3.dob).format('DD-MM-YYYY'),
+    labelX: 138,
+    labelY: y,
+    valueX: 138,
+    valueY: y + 7,
+  },
+  {
+    label: "Occupation",
+    value: formData_3.occupation,
+    labelX: 174,
+    labelY: y,
+    valueX: 174,
+    valueY: y + 7,
+  },
+  
+  {
+    label: "* Address",
+    value: `=> ${formData_3.address}`,
+    labelX: 10,
+    labelY: y + 14,
+    valueX: 10,
+    valueY: y + 19,
+  },
+  {
+    label: "* Dominant Side",
+    value: `=> ${formData_3.domSide}`,
+    labelX: 10,
+    labelY: y + 26,
+    valueX: 10,
+    valueY: y + 31,
+  },
+  {
+    label: "* Chief Complaint",
+    value: `=> ${formData_3.chfCmp}`,
+    labelX: 10,
+    labelY: y + 38,
+    valueX: 10,
+    valueY: y + 43,
+  },
+  { title: "* History", titleX: 90, titleY: y + 50},
+  {
+    label: "1)Asthma",
+    value: formData_3.asthama == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 56,
+    valueX: 55,
+    valueY: y + 56,
+  },
+  {
+    label: "2)DIABETES",
+    value: formData_3.diabetes == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 63,
+    valueX: 55,
+    valueY: y + 63,
+   
+  },
+  {
+    label: "3)Thayroid",
+    value: formData_3.thyroid == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 70,
+    valueX: 55,
+    valueY: y + 70,
+   
+  },
+  {
+    label: "4)Hypertension",
+    value: formData_3.hyperTense == 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 77,
+    valueX: 55,
+    valueY: y + 77,
+  },
+  {
+    label: "5)Other History",
+    value: formData_3.other_p_value!== "" ? formData_3.other_p_value : " --- ",
+    labelX: 10,
+    labelY: y + 84,
+    valueX: 55,
+    valueY: y + 84,
+  },
+  {
+    label: "6)Past History",
+    value: formData_3.pastSurg!== "" ? formData_3.pastSurg : " --- ",
+    labelX: 10,
+    labelY: y + 91,
+    valueX: 55,
+    valueY: y + 91,
+  },
+  {
+    label: "7)Present History",
+    value: formData_3.presentSurg!== "" ? formData_3.presentSurg : " --- ",
+    labelX: 10,
+    labelY: y + 98,
+    valueX: 55,
+    valueY: y + 98,
+  },
+  { title: "* PAIN EVALUATION", titleX: 75, titleY: y + 105 },
+  {
+    label: "* Site/Location",
+    value: formData_3.siteLoca!== "" ? `=> ${formData_3.siteLoca}` : " --- ",
+    labelX: 10,
+    labelY: y + 111,
+    valueX: 10,
+    valueY: y + 116,
+  },
+  {
+    label: "* Side",
+    value: formData_3.side!== "" ? `=> ${formData_3.side}` : " --- ",
+    labelX: 10,
+    labelY: y + 123,
+    valueX: 10,
+    valueY: y + 128,
+  },
+  {
+    label: "* Frequency/Nature",
+    value: formData_3.freqNature!== "" ? `=> ${formData_3.freqNature}` : " --- ",
+    labelX: 10,
+    labelY: y + 135,
+    valueX: 10,
+    valueY: y + 140,
+  },
+  {
+    label: "* Pain Aggravating Factor",
+    value: formData_3.painAgrFact!== "" ? `=> ${formData_3.painAgrFact}` : " --- ",
+    labelX: 10,
+    labelY: y + 147,
+    valueX: 10,
+    valueY: y + 152,
+  },
+  {
+    label: "* Pain Relieving Factor",
+    value: formData_3.painRelFact!== "" ? `=> ${formData_3.painRelFact}` : " --- ",
+    labelX: 10,
+    labelY: y + 159,
+    valueX: 10,
+    valueY: y + 164,
+  },
+  {
+    label: "* Intensity",
+    value: formData_3.intensity!== "" ? `=> ${formData_3.intensity
+
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 171,
+    valueX: 10,
+    valueY: y + 176,
+  },
+  {label: "* Type", labelX: 10, labelY: y + 183},
+  {
+    label: "1)Duallaching",
+    value: formData_3.dull== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 189,
+    valueX: 55,
+    valueY: y + 189,
+  },
+  {
+    label: "2)Cramping",
+    value: formData_3.cramp== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 196,
+    valueX: 55,
+    valueY: y + 196,
+  },
+  {
+    label: "3)Sharp Shooting",
+    value: formData_3.sharpShoot== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 203,
+    valueX: 55,
+    valueY: y + 203,
+  },
+  {
+    label: "4)Burning ",
+    value: formData_3.burn== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 210,
+    valueX: 55,
+    valueY: y + 210,
+  },
+  {
+    label: "5)Throbbing",
+    value: formData_3.throb== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 217,
+    valueX: 55,
+    valueY: y + 217,
+  },
+  {
+    label: "6)Numbness",
+    value: formData_3.numb== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 225,
+    valueX: 55,
+    valueY: y + 225,
+  },
+  {
+    label: "7)Tingling",
+    value: formData_3.tingling== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 232,
+    valueX: 55,
+    valueY: y + 232,
+  },
+  {
+    label: "8)Other",
+    value: formData_3.other_p_value_3!== "" ? `${formData_3.other_p_value_3
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 239,
+    valueX: 55,
+    valueY: y + 239,
+  },
+  {
+    label: "* Duaration",
+    value: formData_3.duration!== "" ? `${formData_3.duration
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 246,
+    valueX: 55,
+    valueY: y + 246,
+  },
+  {
+    label: "* Numerical Pain Rating Scale(NPRS)",
+    value: formData_3.nprs!== "" ? `=> ${formData_3.nprs
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 253,
+    valueX: 10,
+    valueY: y + 260,
+  },
+  { title: "*", titleX: 196, titleY: y+280},
+  { title: "* OBJECTIVE ASSESSMENT", titleX: 80, titleY: y},
+  { label: "* Palpation", labelX: 10, labelY: y},
+  {
+    label: "1)Tenderness",
+    value: formData_3.tend== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 7,
+    valueX: 55,
+    valueY: y + 7,
+  },
+  {
+    label: "2)Crepitus",
+    value: formData_3.crepitus== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 14,
+    valueX: 55,
+    valueY: y + 14,
+  },
+  {
+    label: "3)Scar:heal/nonheal",
+    value: `${formData_3.scar== 1 ? "Yes" : "No"}/${formData_3.nonh== 1 ? "Yes" : "No"}`,
+    labelX: 10,
+    labelY: y + 21,
+    valueX: 55,
+    valueY: y + 21,
+  },
+  {
+    label: "4)Swelling ",
+    value: formData_3.swelling== 1 ? "Yes" : "No",
+    labelX: 10,
+    labelY: y + 28,
+    valueX: 55,
+    valueY: y + 28,
+  },
+  {
+    label: "5)other_p_value_2",
+    value: formData_3.other_p_value_2!== "" ? `=> ${formData_3.other_p_value_2
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +35,
+    valueX: 55,
+    valueY: y + 35,
+  },
+  {
+    label: "* Examination",
+    value: formData_3.examination!== "" ? `=> ${formData_3.examination
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +42,
+    valueX: 10,
+    valueY: y + 47,
+  },
+  {
+    label: "* Innestigation/Radiological Findings",
+    value: formData_3.investRadioFinding!== "" ? `=> ${formData_3.investRadioFinding
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +54,
+    valueX: 10,
+    valueY: y + 59,
+  },
+  {
+    label: "* Medical Diagnosis",
+    value: formData_3.medDiagno!== "" ? `=> ${formData_3.medDiagno
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +66,
+    valueX: 10,
+    valueY: y + 71,
+  },
+  {
+    label: "* Physiotherapy Diagnosis",
+    value: formData_3.phyDiagno!== "" ? `=> ${formData_3.phyDiagno
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +78,
+    valueX: 10,
+    valueY: y + 84,
+  },
+  {
+    label: "* Treatment",
+    value: formData_3.ObjTreatment!== "" ? `=> ${formData_3.ObjTreatment
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +91,
+    valueX: 10,
+    valueY: y + 96,
+  },
+ 
+  {
+    label: "* Observation",
+    value: formData_3.observation!== "" ? `=> ${formData_3.observation
+    }` : " --- ",
+    labelX: 10,
+    labelY: y + 103,
+    valueX: 10,
+    valueY: y + 108,
+  },
+  {
+    label: "* Remark",
+    value: formData_3.remark!== "" ? `=> ${formData_3.remark
+    }` : " --- ",
+    labelX: 10,
+    labelY: y +115,
+    valueX: 10,
+    valueY: y + 120,
+  },
+];
+let addToNextPage = false;
+fields.forEach((field,index) => {
+  if (addToNextPage) {
+    // Start a new page for all fields after * Observation
+    doc.addPage();
+    addPageBorder();
+    y = 20; // Reset y-coordinate
+    addToNextPage = false; // Reset flag to avoid multiple page additions
+  }
+  addPageBorder();
+  if (field.title !== undefined) {
+    doc.setTextColor(21, 94, 117);
+    addText(`${field.title}`, field.titleX, field.titleY, "bold", 15);
+  }
+  if (field.label !== undefined) {
+    doc.setTextColor(97, 3, 22);
+    addText(`${field.label}:`, field.labelX, field.labelY, "italic", 15);
+  }
+  if (field.value !== undefined) {
+    doc.setTextColor(0);
+    const truncatedText = truncateText(field.value);
+    addText(truncatedText, field.valueX, field.valueY, "normal", 13);
+  }
+  if (field.title === "*") {
+    addToNextPage = true;
+  }
+});
+const pdfBlob = doc.output("blob");
+
         const formDataObject = new FormData();
         formDataObject.append("patient_id", selectedPatientId.patient_id);
         formDataObject.append(
@@ -3007,6 +2993,8 @@ export default function Dashboard() {
         formDataObject.append("other_p_value_3", formData_3.other_p_value_3);
         formDataObject.append("typeother", formData_3.typeother);
         formDataObject.append("pastSurg", formData_3.pastSurg);
+        formDataObject.append("nprs", formData_3.nprs);
+        formDataObject.append("contact", formData_3.contact);
         formDataObject.append("presentSurg", formData_3.presentSurg);
         formDataObject.append("siteLoca", formData_3.siteLoca);
         formDataObject.append("side", formData_3.side);
@@ -3019,6 +3007,7 @@ export default function Dashboard() {
         formDataObject.append("tingling", formData_3.tingling);
         formDataObject.append("freqNature", formData_3.freqNature);
         formDataObject.append("duration", formData_3.duration);
+        formDataObject.append("nonh", formData_3.nonh);
         formDataObject.append("painAgrFact", formData_3.painAgrFact);
         formDataObject.append("painRelFact", formData_3.painRelFact);
         formDataObject.append("intensity", formData_3.intensity);
@@ -3050,54 +3039,6 @@ export default function Dashboard() {
           "https://arpanhospital.online/appointment_book_fitness.php",
           formDataObject
         );
-        setSelectedImages([]);
-        setSelectedPatientId({ patient_id: "", appointment_id: "", name: "", age: "", gender: "", appointment_date: "", appointment_time: "" });
-        setFormData_3({
-          occupation: '',
-          address: '',
-          domSide: '',
-          chfCmp: '',
-          hyperTense: 0,
-          diabetes: 0,
-          thyroid: 0,
-          asthama: 0,
-          others: 0,
-          dob:'',
-          other_p_value: '',
-          other_p_value_2: '',
-          pastSurg: '',
-          presentSurg: '',
-          siteLoca: '',
-          side: '',
-          dull: 0,
-          cramp: 0,
-          sharpShoot: 0,
-          burn: 0,
-          throb: 0,
-          numb: 0,
-          tingling: 0,
-          freqNature: '',
-          duration: '',
-          painAgrFact: '',
-          painRelFact: '',
-          intensity: '',
-          observation: '',
-          tend: 0,
-          crepitus: 0,
-          scar: '',
-          swelling: 0,
-          palpOthers: 0,
-          examination: '',
-          investRadioFinding: '',
-          medDiagno: '',
-          phyDiagno: '',
-          ObjTreatment: '',
-          remark: '',
-          typeother:'',
-          other_p_value_3:''
-        });
-        setButtonEnabled(false);
-        setPdfFiles([]);
         closeModal();
         toast.success(response.data.message);
       } catch (error) {
@@ -3625,7 +3566,7 @@ export default function Dashboard() {
                                       <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                      <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
+                                      <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
                                       <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                               <p>DOB</p>
@@ -3646,6 +3587,24 @@ export default function Dashboard() {
                                             />
                                           </div>
                                           </div>
+                                      <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                            <p>Phone Number</p>
+                                          </div>
+                                          <div className="">
+                                          <input
+                                            type="tel"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="contact"
+                                            onChange={handleInputChange}
+                                            value={formData.contact}
+                                            maxLength={10}
+                                            minLength={10}
+                                            placeholder="phone number"
+                                            pattern="^\d+$"
+                                          />
+                                        </div>
+                                        </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                               <p>Ocuupation</p>
@@ -3773,7 +3732,7 @@ export default function Dashboard() {
                                                   }
                                                   onChange={handleInputChange}
                                                 />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">asthama</label>
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">asthma</label>
                                               </div>
                                               <div className=" inline-flex gap-2 items-center text-center w-full">
                                                 <input
@@ -3788,7 +3747,7 @@ export default function Dashboard() {
                                                   }
                                                   onChange={handleInputChange}
                                                 />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">other</label>
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">others</label>
                                               </div>
                                               {formData.others == 1 && (
                                               <div className="w-full">
@@ -3884,7 +3843,7 @@ export default function Dashboard() {
                                                   }
                                                   onChange={handleInputChange}
                                                 />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">dull aaying</label>
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">dullaching</label>
                                                 </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
@@ -4030,7 +3989,7 @@ export default function Dashboard() {
                                               <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange} value={formData.duration} required>
                                                 <option value="acute" selected={formData.duration==="acute"}>acute</option>
                                                 <option value="subacute" selected={formData.duration==="subacute"}>subacute</option>
-                                                <option value="chrowic"selected={formData.duration==="chrowic"}>chrowic</option>
+                                                <option value="chrowic"selected={formData.duration==="chrowic"}>chrovic</option>
                                               </select>
                                           </div>
                                           </div>
@@ -4064,7 +4023,7 @@ export default function Dashboard() {
                                             ></textarea>
                                           </div>
                                           </div>
-                                          <div className="col-span-2 flex flex-col gap-2 w-full">
+                                          <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                               <p>intensity</p>
                                             </div>
@@ -4072,13 +4031,28 @@ export default function Dashboard() {
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="intensity"
-                                              placeholder="Numerical Pain Rating Scale(NPRS)"
+                                              placeholder="intensity"
                                               
                                               onChange={handleInputChange}
                                               value={formData.intensity}
                                             ></textarea>
                                           </div>
                                           </div>
+                                          <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                            <p>Numerical Pain Rating Scale(nprs)</p>
+                                          </div>
+                                          <div className="">
+                                          <textarea
+                                            className=" w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="nprs"
+                                            placeholder="Numerical Pain Rating Scale(NPRS)"
+                                            
+                                            onChange={handleInputChange}
+                                            value={formData.nprs}
+                                          ></textarea>
+                                        </div>
+                                        </div>
                                           <h1 className="text-blue-800 font-serif uppercase text-xl pt-3">
                                      (B) Objective Assessment
                                       </h1>
@@ -4116,7 +4090,7 @@ export default function Dashboard() {
                                                   }
                                                   onChange={handleInputChange}
                                                 />
-                                                <label className="text-red-600 uppercase font-serif" htmlFor="">tenderess</label>
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">tenderness</label>
                                                 </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
@@ -4133,13 +4107,43 @@ export default function Dashboard() {
                                                 />
                                                 <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                                 </div>
-                                                <div>
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} required>
-                                                <option hidden selected >SCAR</option>
-                                                <option value="acute" selected={formData.scar === 'acute'}>heal</option>
-                                                <option value="subacute"selected={ formData.scar === 'subacute'}>nonheal</option>
-                                              </select>
-                                                </div>
+                                            <div className="flex flex-row items-center gap-2">
+                                              <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                                  <p>Scar</p>
+                                              </div>
+                                              <div className="flex flex-col  gap-2">
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="scar"
+                                                  id=""
+                                                  checked={
+                                                    formData.scar == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">heal</label>
+                                                  </div>
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="nonh"
+                                                  id=""
+                                                  checked={
+                                                    formData.nonh == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">nonheal</label>
+                                                  </div>
+                                              </div>
+                                            </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
                                                   className="h-4 w-4"
@@ -4220,13 +4224,13 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                              <p>medical dipgnosis</p>
+                                              <p>medical diagnosis</p>
                                             </div>
                                             <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="medDiagno"
-                                              placeholder="medical dipgnosis"
+                                              placeholder="medical diagnosis"
                                               
                                               onChange={handleInputChange}
                                               value={formData.medDiagno}
@@ -4265,13 +4269,13 @@ export default function Dashboard() {
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                              <p>remark</p>
+                                              <p>remarks</p>
                                             </div>
                                             <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="remark"
-                                              placeholder="remark"
+                                              placeholder="remarks"
                                               
                                               onChange={handleInputChange}
                                               value={formData.remark}
@@ -4390,7 +4394,7 @@ export default function Dashboard() {
                                        <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                     <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
+                                     <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
                                      <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                              <p>DOB</p>
@@ -4411,6 +4415,24 @@ export default function Dashboard() {
                                            />
                                          </div>
                                          </div>
+                                         <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                            <p>Phone Number</p>
+                                          </div>
+                                          <div className="">
+                                          <input
+                                            type="tel"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="contact"
+                                            onChange={handleInputChange_3}
+                                            value={formData_3.contact}
+                                            maxLength={10}
+                                            minLength={10}
+                                            placeholder="phone number"
+                                            pattern="^\d+$"
+                                          />
+                                        </div>
+                                        </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                              <p>Ocuupation</p>
@@ -4538,7 +4560,7 @@ export default function Dashboard() {
                                                  }
                                                  onChange={handleInputChange_3}
                                                />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">asthama</label>
+                                               <label className="text-red-600 uppercase font-serif" htmlFor="">asthma</label>
                                              </div>
                                              <div className=" inline-flex gap-2 items-center text-center w-full">
                                                <input
@@ -4553,7 +4575,7 @@ export default function Dashboard() {
                                                  }
                                                  onChange={handleInputChange_3}
                                                />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">other</label>
+                                               <label className="text-red-600 uppercase font-serif" htmlFor="">others</label>
                                              </div>
                                              {formData_3.others == 1 && (
                                              <div className="w-full">
@@ -4649,7 +4671,7 @@ export default function Dashboard() {
                                                  }
                                                  onChange={handleInputChange_3}
                                                />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">dull aaying</label>
+                                               <label className="text-red-600 uppercase font-serif" htmlFor="">DULLachING</label>
                                                </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
@@ -4795,7 +4817,7 @@ export default function Dashboard() {
                                            <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_3} value={formData_3.duration} required>
                                                 <option value="acute" selected={formData_3.duration==="acute"}>acute</option>
                                                 <option value="subacute" selected={formData_3.duration==="subacute"}>subacute</option>
-                                                <option value="chrowic"selected={formData_3.duration==="chrowic"}>chrowic</option>
+                                                <option value="chrowic"selected={formData_3.duration==="chrowic"}>chrovic</option>
                                               </select>
                                          </div>
                                          </div>
@@ -4829,7 +4851,7 @@ export default function Dashboard() {
                                            ></textarea>
                                          </div>
                                          </div>
-                                         <div className="col-span-2 flex flex-col gap-2 w-full">
+                                         <div className=" flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                              <p>intensity</p>
                                            </div>
@@ -4837,13 +4859,27 @@ export default function Dashboard() {
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="intensity"
-                                             placeholder="Numerical Pain Rating Scale(NPRS)"
+                                             placeholder="intensity"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.intensity}
                                            ></textarea>
                                          </div>
                                          </div>
+                                         <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                            <p>Numerical Pain Rating Scale(NPRS)</p>
+                                          </div>
+                                          <div className="">
+                                          <textarea
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="nprs"
+                                            placeholder="Numerical Pain Rating Scale(NPRS)"
+                                            onChange={handleInputChange_3}
+                                            value={formData_3.nprs}
+                                          ></textarea>
+                                        </div>
+                                        </div>
                                          <h1 className="text-blue-800 font-serif uppercase text-xl pt-3">
                                      (B) Objective Assessment
                                       </h1>
@@ -4881,7 +4917,7 @@ export default function Dashboard() {
                                                  }
                                                  onChange={handleInputChange_3}
                                                />
-                                               <label className="text-red-600 uppercase font-serif" htmlFor="">tenderess</label>
+                                               <label className="text-red-600 uppercase font-serif" htmlFor="">tenderness</label>
                                                </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
@@ -4898,13 +4934,43 @@ export default function Dashboard() {
                                                />
                                                <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                                </div>
-                                               <div>
-                                               <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_3} value={formData_3.scar} >
-                                                <option hidden selected >SCAR</option>
-                                               <option value="acute" selected={formData_3.scar === 'acute'}>heal</option>
-                                               <option value="subacute"selected={ formData_3.scar === 'subacute'}>nonheal</option>
-                                             </select>
-                                               </div>
+                                               <div className="flex flex-row items-center gap-2">
+                                              <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                                  <p>Scar</p>
+                                              </div>
+                                              <div className="flex flex-col  gap-2">
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="scar"
+                                                  id=""
+                                                  checked={
+                                                    formData_3.scar == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange_3}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">heal</label>
+                                                  </div>
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="nonh"
+                                                  id=""
+                                                  checked={
+                                                    formData_3.nonh == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange_3}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">nonheal</label>
+                                                  </div>
+                                              </div>
+                                            </div> 
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
                                                  className="h-4 w-4"
@@ -4948,9 +5014,7 @@ export default function Dashboard() {
                                                  onChange={handleInputChange_3}
                                                />
                                              </div>
-                                           )}
-                                               
-                                              
+                                           )} 
                                            </div>
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
@@ -4985,13 +5049,13 @@ export default function Dashboard() {
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                             <p>medical dipgnosis</p>
+                                             <p>medical diagnosis</p>
                                            </div>
                                            <div className="">
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="medDiagno"
-                                             placeholder="medical dipgnosis"
+                                             placeholder="medical diagnosis"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.medDiagno}
@@ -5030,13 +5094,13 @@ export default function Dashboard() {
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                             <p>remark</p>
+                                             <p>remarks</p>
                                            </div>
                                            <div className="">
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="remark"
-                                             placeholder="remark"
+                                             placeholder="remarks"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.remark}
@@ -5288,7 +5352,7 @@ export default function Dashboard() {
                                             </div>
                                             <div className="flex flex-row gap-2 items-center justify-around w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
-                                                <p>(3) Dialetes</p>
+                                                <p>(3) Diabetes</p>
                                               </div>
                                               <div className="w-full text-end">
                                                 <input
@@ -5503,8 +5567,16 @@ export default function Dashboard() {
                                             <p>* Diet History</p>
                                           </div>
                                           <div className="pl-2 w-full">
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(1) Food</p>
+                                            <div className="flex flex-row item-center gap-2 pb-1 w-full">
+                                              <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider w-full">
+                                                <p>(1) Food</p>
+                                              </div>
+                                              <div className="text-center text-sm font-extrabold text-gray-500 uppercase  tracking-wider w-full ">
+                                                <p>TIME</p>
+                                              </div>
+                                              <div className="text-center text-sm font-extrabold text-gray-500 uppercase  tracking-wider w-full ">
+                                                <p>CONTENT</p>
+                                              </div>
                                             </div>
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
@@ -5616,8 +5688,16 @@ export default function Dashboard() {
                                                 />
                                               </div>
                                             </div>
-                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider ">
-                                              <p>(2) water</p>
+                                            <div className="flex flex-row item-center gap-2 pb-1 pt-2 w-full">
+                                              <div className="text-left text-sm font-extrabold text-gray-500 uppercase  tracking-wider w-full">
+                                                <p>(2) Water</p>
+                                              </div>
+                                              <div className="text-center text-sm font-extrabold text-gray-500  tracking-wider w-full ">
+                                                <p>how many glasses/day ?</p>
+                                              </div>
+                                              <div className="text-center text-sm font-extrabold text-gray-500  tracking-wider w-full ">
+                                                <p>at what time?</p>
+                                              </div>
                                             </div>
                                             <div className="flex flex-row items-center gap-2 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase  tracking-wider w-full">
@@ -5735,7 +5815,7 @@ export default function Dashboard() {
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• Cycleling</p>
+                                                  <p>• Cycling</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5754,7 +5834,7 @@ export default function Dashboard() {
                                             <div className="flex flex-row items-center gap-2 pb-1 w-full">
                                               <div className="text-left text-sm font-extrabold text-red-500 uppercase flex flex-row items-center justify-between  tracking-wider w-full ">
                                                 <div>
-                                                  <p>• Aerobiks</p>
+                                                  <p>• Aerobics</p>
                                                 </div>
                                                 <input
                                                   className="h-4 w-4 "
@@ -5857,13 +5937,13 @@ export default function Dashboard() {
                                       <div className="flex flex-col pt-3 gap-2 pb-1 w-full">
                                         <div className="text-left text-sm font-extrabold text-gray-500 uppercase flex flex-col gap-3  justify-between  tracking-wider w-full ">
                                           <div>
-                                            <p>* Remark</p>
+                                            <p>Remarks</p>
                                           </div>
                                           <div className="w-full">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="remark"
-                                              placeholder="remark"
+                                              placeholder="remarks"
                                               
                                               onChange={handleInputChange_1}
                                               value={formData_1.remark}
@@ -5982,7 +6062,7 @@ export default function Dashboard() {
                                        <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                    <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-3 w-full gap-2">
+                                    <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
                                     <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>DOB</p>
@@ -6004,6 +6084,24 @@ export default function Dashboard() {
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                            <p>Phone Number</p>
+                                          </div>
+                                          <div className="">
+                                          <input
+                                            type="tel"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="contact"
+                                            onChange={handleInputChange_2}
+                                            value={formData_2.contact}
+                                            maxLength={10}
+                                            minLength={10}
+                                            placeholder="phone number"
+                                            pattern="^\d+$"
+                                          />
+                                        </div>
+                                        </div>
+                                        <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>Ocuupation</p>
                                           </div>
                                           <div className="">
@@ -6012,7 +6110,6 @@ export default function Dashboard() {
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="occupation"
                                             placeholder="Occupation"
-                                            
                                             onChange={handleInputChange_2}
                                             value={formData_2.occupation}
                                           />
@@ -6129,7 +6226,7 @@ export default function Dashboard() {
                                                 }
                                                 onChange={handleInputChange_2}
                                               />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">asthama</label>
+                                              <label className="text-red-600 uppercase font-serif" htmlFor="">asthma</label>
                                             </div>
                                             <div className=" inline-flex gap-2 items-center text-center w-full">
                                               <input
@@ -6144,7 +6241,7 @@ export default function Dashboard() {
                                                 }
                                                 onChange={handleInputChange_2}
                                               />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">other</label>
+                                              <label className="text-red-600 uppercase font-serif" htmlFor="">others</label>
                                             </div>
                                             {formData_2.others == 1 && (
                                             <div className="w-full">
@@ -6240,7 +6337,7 @@ export default function Dashboard() {
                                                 }
                                                 onChange={handleInputChange_2}
                                               />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">dull aaying</label>
+                                              <label className="text-red-600 uppercase font-serif" htmlFor="">DULLachING</label>
                                               </div>
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
@@ -6386,7 +6483,7 @@ export default function Dashboard() {
                                             <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_2} value={formData_2.duration}required>
                                               <option value="acute" selected={formData_2.duration==='acute'}>acute</option>
                                               <option value="subacute"selected={formData_2.duration==='subacute'}>subacute</option>
-                                              <option value="chrowic"selected={formData_2.duration==='chrowic'}>chrowic</option>
+                                              <option value="chrowic"selected={formData_2.duration==='chrowic'}>chrovic</option>
                                             </select>
                                         </div>
                                         </div>
@@ -6420,18 +6517,33 @@ export default function Dashboard() {
                                           ></textarea>
                                         </div>
                                         </div>
-                                        <div className="col-span-2 flex flex-col gap-2 w-full">
+                                        <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                             <p>intensity</p>
                                           </div>
                                           <div className="">
                                           <textarea
-                                            className="col-span-2 w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="intensity"
-                                            placeholder="Numerical Pain Rating Scale(NPRS)"
+                                            placeholder="intensity"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.intensity}
+                                          ></textarea>
+                                        </div>
+                                        </div>
+                                        <div className="flex flex-col gap-2 w-full">
+                                          <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                            <p>Numerical Pain Rating Scale(NPRS)</p>
+                                          </div>
+                                          <div className="">
+                                          <textarea
+                                            className=" w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            name="nprs"
+                                            placeholder="Numerical Pain Rating Scale(NPRS)"
+                                            
+                                            onChange={handleInputChange_2}
+                                            value={formData_2.nprs}
                                           ></textarea>
                                         </div>
                                         </div>
@@ -6472,8 +6584,9 @@ export default function Dashboard() {
                                                 }
                                                 onChange={handleInputChange_2}
                                               />
-                                              <label className="text-red-600 uppercase font-serif" htmlFor="">tenderess</label>
+                                              <label className="text-red-600 uppercase font-serif" htmlFor="">tenderness</label>
                                               </div>
+
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
                                                 className="h-4 w-4"
@@ -6489,13 +6602,43 @@ export default function Dashboard() {
                                               />
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                               </div>
-                                              <div className="w-full">
-                                              <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_2} value={formData_2.scar} >
-                                              <option hidden selected >SCAR</option>
-                                              <option value="acute" selected={formData_2.scar === 'acute'}>heal</option>
-                                              <option value="subacute"selected={ formData_2.scar === 'subacute'}>nonheal</option>
-                                            </select>
+                                              <div className="flex flex-row items-center gap-2">
+                                              <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
+                                                  <p>Scar</p>
                                               </div>
+                                              <div className="flex flex-col  gap-2">
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="scar"
+                                                  id=""
+                                                  checked={
+                                                    formData_2.scar == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange_2}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">heal</label>
+                                                  </div>
+                                                  <div className="inline-flex gap-2 items-center ">
+                                                  <input
+                                                  className="h-4 w-4"
+                                                  type="checkbox"
+                                                  name="nonh"
+                                                  id=""
+                                                  checked={
+                                                    formData_2.nonh == 1
+                                                      ? true
+                                                      : false
+                                                  }
+                                                  onChange={handleInputChange_2}
+                                                />
+                                                <label className="text-red-600 uppercase font-serif" htmlFor="">nonheal</label>
+                                                  </div>
+                                              </div>
+                                            </div>
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
                                                 className="h-4 w-4"
@@ -6576,13 +6719,13 @@ export default function Dashboard() {
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                            <p>medical dipgnosis</p>
+                                            <p>medical diagnosis</p>
                                           </div>
                                           <div className="">
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="medDiagno"
-                                            placeholder="medical dipgnosis"
+                                            placeholder="medical diagnosis"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.medDiagno}
@@ -6621,13 +6764,13 @@ export default function Dashboard() {
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                            <p>remark</p>
+                                            <p>remarks</p>
                                           </div>
                                           <div className="">
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="remark"
-                                            placeholder="remark"
+                                            placeholder="remarks"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.remark}
