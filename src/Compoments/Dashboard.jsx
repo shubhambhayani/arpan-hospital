@@ -957,81 +957,6 @@ export default function Dashboard() {
     setLoad1(true);
     if (selectedDiv == "weight_loss") {
       try {
-        // const doc = new jsPDF();
-        // doc.setFontSize(13);
-        // const pageWidth = doc.internal.pageSize.getWidth();
-        // const pageHeight = doc.internal.pageSize.getHeight();
-        // doc.setTextColor(22, 78, 99);
-        
-        // // Centered title
-        // doc.text("WEIGHT_LOSS", pageWidth / 2, 12, { align: "center" });
-        
-        // const fields = [
-        //     { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
-        //     { label: "Name", value: selectedPatientId.name },
-        //     { label: "Age", value: selectedPatientId.age },
-        //     { label: "Dob", value: moment(formData.dob).format("DD/MM/YYYY") },
-        //     { label: "Gender", value: selectedPatientId.gender },
-        //     { label: "Contact", value: formData.contact },
-        //     { label: "Education", value: formData.contact },
-        //     { label: "Occupation", value: formData.occupation },
-        //     { label: "Address", value: formData.address },
-        //     { title: "MEDICAL HISTORY", colSpan: 2 },
-        //     { label: "1) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
-        //     { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
-        //     { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
-        //     { label: "4) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
-        //     { label: "5) Heart Disease", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
-        //     { label: "6) Other History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
-        //     { label: "7) Past History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
-        //     { title: "NEED", colSpan: 2 },
-        //     { label: "1) Health", value: formData.asthama == 1 ? "Yes" : "No" },
-        //     { label: "2) Fitness", value: formData.diabetes == 1 ? "Yes" : "No" },
-        //     { label: "3) Physique", value: formData.thyroid == 1 ? "Yes" : "No" },
-        //     { label: "4) Weight Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
-        //     { label: "5) Weight Gain", value: formData.hyperTense == 1 ? "Yes" : "No" },
-        //     { label: "6) Fat Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
-        //     { label: "7) Other Need", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
-        //     { title: "DIET HISTORY", colSpan: 2 },
-        //     { label: "Breakfast", value: formData.other_p_value !== "" ? formData.other_p_value : " --- ", value2: formData.other_p_value_2 !== "" ? formData.other_p_value_2 : " --- " },
-
-        // ];
-        
-        // const tableRowsFirstPage = [];
-        
-        // fields.forEach(field => {
-        //     if (field.title) {
-        //         const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: [50, 50, 255], halign: 'center' } }];
-        //         tableRowsFirstPage.push(row);
-        //     }else if (field.value2 !== undefined) {
-        //       const row = [field.label, field.value];
-        //       tableRowsFirstPage.push(row);
-        //       const row2 = ["", field.value2];
-        //       tableRowsFirstPage.push(row2);
-        //   } else {
-        //       const row = [field.label, field.value];
-        //       tableRowsFirstPage.push(row);
-        //   }
-        // });
-        
-        // // Add border to the first page
-        // doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
-        
-        // // Add the content for the first page
-        // doc.autoTable({
-        //     head: [],
-        //     body: tableRowsFirstPage,
-        //     startY: 20,
-        //     theme: 'grid',
-        //     styles: { overflow: 'linebreak', cellPadding: 2 },
-        //     columnStyles: {
-        //         0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99] },
-        //         1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] }
-        //     }
-        // });
-        
-        // const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
-        // const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         const doc = new jsPDF();
 doc.setFontSize(13);
 const pageWidth = doc.internal.pageSize.getWidth();
@@ -1045,33 +970,44 @@ const fields = [
     { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
     { label: "Name", value: selectedPatientId.name },
     { label: "Age", value: selectedPatientId.age },
-    { label: "Dob", value: moment(formData.dob).format("DD/MM/YYYY") },
-    { label: "Gender", value: selectedPatientId.gender },
-    { label: "Contact", value: formData.contact },
-    { label: "Education", value: formData.study },
-    { label: "Occupation", value: formData.occupation },
-    { label: "Address", value: formData.address },
-    { title: "MEDICAL HISTORY", colSpan: 3 },
-    { label: "1) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
-    { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
-    { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
-    { label: "4) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
-    { label: "5) Heart Disease", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
-    { label: "6) Other History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
-    { label: "7) Past History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
-    { title: "NEED", colSpan: 3 },
-    { label: "1) Health", value: formData.asthama == 1 ? "Yes" : "No" },
-    { label: "2) Fitness", value: formData.diabetes == 1 ? "Yes" : "No" },
-    { label: "3) Physique", value: formData.thyroid == 1 ? "Yes" : "No" },
-    { label: "4) Weight Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
-    { label: "5) Weight Gain", value: formData.hyperTense == 1 ? "Yes" : "No" },
-    { label: "6) Fat Loss", value: formData.hyperTense == 1 ? "Yes" : "No" },
-    { label: "7) Other Need", value: formData.other_p_value !== "" ? formData.other_p_value : " --- ", value2: formData.other_p_value !== "" ? formData.other_p_value: " --- " },
+    { label: "Dob", value:moment(formData_1.dob).format("DD/MM/YYYY")},
+    { label: "Contact", value: formData_1.contact },
+    { label: "Education", value: formData_1.study },
+    { label: "Occupation", value: formData_1.occupation },
+    { label: "Address", value: formData_1.address },
+    { label: "Remarks", value: formData_1.remark },
+    { title: "MEDICAL HISTORY", colSpan: 2 },
+    { label: "1) Hypertension", value: formData_1.blood == 1 ? "Yes" : "No" },
+    { label: "2) Asthma", value: formData_1.acidity == 1 ? "Yes" : "No" },
+    { label: "3) Diabetes", value: formData_1.kabajiyat == 1 ? "Yes" : "No" },
+    { label: "4) thyroid", value: formData_1.thairoid == 1 ? "Yes" : "No" },
+    { label: "5) Heart Disease", value: formData_1.heart == 1 ? "Yes" : "No" },
+    { label: "6) Other History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
+    { label: "7) Past History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
+    { title: "NEED", colSpan: 2 },
+    { label: "1) Health", value: formData_1.health == 1 ? "Yes" : "No" },
+    { label: "2) Fitness", value: formData_1.fitness == 1 ? "Yes" : "No" },
+    { label: "3) Physique", value: formData_1.thyroid == 1 ? "Yes" : "No" },
+    { label: "4) Weight Loss", value: formData_1.weight_down == 1 ? "Yes" : "No" },
+    { label: "5) Weight Gain", value: formData_1.weight__up == 1 ? "Yes" : "No" },
+    { label: "6) Fat Loss", value: formData_1.fact_loss == 1 ? "Yes" : "No" },
+    { label: "7) Other Need", value: formData_1.dia !== "" ? formData_1.dia : " --- "},
+    { title: "EXTRA ACTIVITIES", colSpan: 2 },
+    { label: "1) Walking", value: formData_1.walk == 1 ? "Yes" : "No" },
+    { label: "2) Running", value: formData_1.run == 1 ? "Yes" : "No" },
+    { label: "3) Yoga", value: formData_1.yoga == 1 ? "Yes" : "No" },
+    { label: "4) Swimming", value: formData_1.swe == 1 ? "Yes" : "No" },
+    { label: "5) Cycling", value: formData_1.cyc == 1 ? "Yes" : "No" },
+    { label: "6) Aerobics", value: formData_1.machine == 1 ? "Yes" : "No" },
+    { label: "7) Gym/Treadmill", value: formData_1.o == 1 ? "Yes" : "No" },
+    { label: "8) Other Extra Activities", value: formData_1.other_p !== "" ? formData_1.other_p : " --- " },
+    { title: "ROUTINE ACTIVITIES", colSpan: 2 },
+    { label: "1) Stair Climing", value: formData_1.dada == 1 ? "Yes" : "No" },
+    { label: "2) Household Work", value: formData_1.work == 1 ? "Yes" : "No" },
+    { label: "3) Other Routine Activities", value: formData_1.other_p_1 !== "" ? formData_1.other_p_1: " --- " },
 ];
 
 const tableRows = [];
-
-// Process the fields and add rows based on the presence of value2
 fields.forEach(field => {
     if (field.title) {
         const row = [{ content: field.title, colSpan: field.colSpan || 2, styles: { fontStyle: 'bold', fontSize: 14, textColor: [50, 50, 255], halign: 'center' } }];
@@ -1082,9 +1018,9 @@ fields.forEach(field => {
     }
 });
 
-// Add border to the first page
+
 doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
-// Add the content for the first page
+
 doc.autoTable({
     head: [],
     body: tableRows,
@@ -1096,6 +1032,52 @@ doc.autoTable({
         1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0] },
     }
 });
+
+const foodData = [
+  { food: "Breakfast", time: formData_1.m_time, content: formData_1.m_what},
+  { food: "Lunch", time: formData_1.l_time, content: formData_1.m_what},
+  { food: "Dinner", time: formData_1.d_time, content:formData_1.m_what },
+  { food: "In Between Diet", time: formData_1.o_time, content: formData_1.m_what},
+];
+
+const foodTableRows = [];
+foodData.forEach(item => {
+  foodTableRows.push([item.food, item.time, item.content]);
+});
+const newTableTitleY = doc.autoTable.previous.finalY + 6;
+doc.setFontSize(14);
+doc.setTextColor(50, 50, 255);
+doc.setFont('helvetica', 'bold');
+doc.text("DEIT HISTORY", pageWidth / 2,newTableTitleY,{ align: "center" });
+
+doc.autoTable({
+  head: [[{ content: 'Food', styles: { halign: 'center' } }, { content: 'Time', styles: { halign: 'center' } }, { content: 'Content', styles: { halign: 'center' } }]],
+  body: foodTableRows,
+  startY: newTableTitleY+3, // Start after the previous table
+  theme: 'grid',
+  styles: { overflow: 'linebreak', cellPadding: 2 },
+  columnStyles: {
+      0: { cellWidth: 50, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99], halign: 'center' },
+      1: { cellWidth: 50, fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0], halign: 'center' },
+      2: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0], halign: 'center' },
+  }
+});
+const newTableTitleY_1 = doc.autoTable.previous.finalY + 3;
+doc.autoTable({
+  head: [[{ content: 'Water', styles: { halign: 'center' } }, { content: 'how many glasses/day ?', styles: { halign: 'center' } }, { content: 'at what time?', styles: { halign: 'center' } }]],
+  body: [["Water",formData_1.w_time,formData_1.w_what]],
+  startY:newTableTitleY_1, 
+  theme: 'grid',
+  styles: { overflow: 'linebreak', cellPadding: 2 },
+  columnStyles: {
+      0: { cellWidth: 20, fontStyle: 'bold', fontSize: 13, textColor: [22, 78, 99], halign: 'center' },
+      1: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0], halign: 'center' },
+      2: { cellWidth: 'auto', fontStyle: 'normal', fontSize: 13, textColor: [0, 0, 0], halign: 'center' },
+  }
+});
+
+
+
 
 const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
 const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
@@ -1637,7 +1619,7 @@ const fields = [
   { label: "5)Throbbing", value: formData_3.throb == 1 ? "Yes" : "No"},
   { label: "6)Numbness", value: formData_3.numb == 1 ? "Yes" : "No"},
   { label: "7)Tingling", value: formData_3.tingling == 1 ? "Yes" : "No"},
-  { label: "8)Others Type", value: formData_3.other_p_value_3 !== "" ? `${formData_3.other_p_value_3}` : " --- "},
+  { label: "8)Others Type", value:formData_3. other_p_value_3 !== "" ? formData_3.other_p_value_3 : " --- " },
   { title: "***", colSpan: 2 },
   { title: "PALPATION",colSpan: 2 },
   { label: "1)Tenderness", value: formData_3.tend == 1 ? "Yes" : "No"},
@@ -2923,7 +2905,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                 <input
                                                   className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
                                                   type="text"
-                                                  name="other_p_value"
+                                                  name="other_p_value_2"
                                                   value={
                                                     formData.other_p_value_2
                                                   }
@@ -3750,7 +3732,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                <input
                                                  className="bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
                                                  type="text"
-                                                 name="other_p_value"
+                                                 name="other_p_value_2"
                                                  value={
                                                    formData_3.other_p_value_2
                                                  }
@@ -5418,7 +5400,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                               <input
                                                 className=" bg-white px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-mono text-md uppercase w-full text-cyan-950"
                                                 type="text"
-                                                name="other_p_value"
+                                                name="other_p_value_2"
                                                 value={
                                                   formData_2.other_p_value_2
                                                 }
