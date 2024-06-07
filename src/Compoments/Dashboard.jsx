@@ -998,8 +998,8 @@ export default function Dashboard() {
             { label: "1) Hypertension", value: formData_1.blood == 1 ? "Yes" : "No" },
             { label: "2) Asthma", value: formData_1.acidity == 1 ? "Yes" : "No" },
             { label: "3) Diabetes", value: formData_1.kabajiyat == 1 ? "Yes" : "No" },
-            { label: "4) Thyroid", value: formData_1.thairoid == 1 ? "Yes" : "No" },
-            { label: "5) Heart Disease", value: formData_1.heart == 1 ? "Yes" : "No" },
+            { label: "4) Heart Disease", value: formData_1.heart == 1 ? "Yes" : "No" },
+            { label: "5) Thyroid", value: formData_1.thairoid == 1 ? "Yes" : "No" },
             { label: "6) Other History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
             { label: "7) Past History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
             { title: "NEED", colSpan: 2 },
@@ -1053,9 +1053,9 @@ export default function Dashboard() {
         
         const foodData = [
             { food: "Breakfast", time: formData_1.m_time, content: formData_1.m_what },
-            { food: "Lunch", time: formData_1.l_time, content: formData_1.m_what },
-            { food: "Dinner", time: formData_1.d_time, content: formData_1.m_what },
-            { food: "In Between Diet", time: formData_1.o_time, content: formData_1.m_what },
+            { food: "Lunch", time: formData_1.l_time, content: formData_1.l_what },
+            { food: "Dinner", time: formData_1.d_time, content: formData_1.d_what },
+            { food: "In Between Diet", time: formData_1.o_time, content: formData_1.o_what },
         ];
         
         const foodTableRows = [];
@@ -1245,7 +1245,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         { label: "2)Crepitus", value: formData.crepitus == 1 ? "Yes" : "No"},
         { label: " 3)Scar", value: formData.scar !== "" ? formData.scar : " --- "},
         { label: "4)Swelling ", value: formData.swelling == 1 ? "Yes" : "No" },
-        { label: "5)other_Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
+        { label: "5)other Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
         { label: "Examination", value: formData.examination !== "" ? `${formData.examination}` : " --- "},
         { label: "Innestigation/Radiological Findings", value: formData.investRadioFinding !== "" ? `${formData.investRadioFinding}` : " --- "},
         { label: "Medical Diagnosis", value: formData.medDiagno !== "" ? `${formData.medDiagno}` : " --- "},
@@ -1449,9 +1449,9 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         { title: "PALPATION",colSpan: 2 },
         { label: "1)Tenderness", value: formData_2.tend == 1 ? "Yes" : "No"},
         { label: "2)Crepitus", value: formData_2.crepitus == 1 ? "Yes" : "No"},
-        { label: " 3)Scar", value: formData_2.scar !== "" ? formData_2.scar : " --- "},
+        { label: "3)Scar", value: formData_2.scar !== "" ? formData_2.scar : " --- "},
         { label: "4)Swelling ", value: formData_2.swelling == 1 ? "Yes" : "No" },
-        { label: "5)other_Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
+        { label: "5)other Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
         { label: "Examination", value: formData_2.examination !== "" ? `${formData_2.examination}` : " --- "},
         { label: "Innestigation/Radiological Findings", value: formData_2.investRadioFinding !== "" ? `${formData_2.investRadioFinding}` : " --- "},
         { label: "Medical Diagnosis", value: formData_2.medDiagno !== "" ? `${formData_2.medDiagno}` : " --- "},
@@ -1658,7 +1658,7 @@ const fields = [
   { label: "2)Crepitus", value: formData_3.crepitus == 1 ? "Yes" : "No"},
  { label: " 3)Scar", value: formData_3.scar !== "" ? formData_3.scar : " --- "},
   { label: "4)Swelling ", value: formData_3.swelling == 1 ? "Yes" : "No" },
-  { label: "5)other_Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
+  { label: "5)other Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
   { label: "Examination", value: formData_3.examination !== "" ? `${formData_3.examination}` : " --- "},
   { label: "Innestigation/Radiological Findings", value: formData_3.investRadioFinding !== "" ? `${formData_3.investRadioFinding}` : " --- "},
   { label: "Medical Diagnosis", value: formData_3.medDiagno !== "" ? `${formData_3.medDiagno}` : " --- "},
@@ -2561,7 +2561,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="siteLoca"
-                                              placeholder="present surgial"
+                                              placeholder="Enter Site/Location"
                                               
                                               onChange={handleInputChange}
                                               value={formData.siteLoca}
@@ -2576,7 +2576,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="side"
-                                              placeholder="present surgial"
+                                              placeholder="Enter a Side"
                                               
                                               onChange={handleInputChange}
                                               value={formData.side}
@@ -2855,7 +2855,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                   <p>Scar</p>
                                               </div>
                                               <div className="">
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange} value={formData.scar} required>
+                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange} value={formData.scar} required>
                                                 <option value="heal" selected={formData.scar==="heal"}>heal</option>
                                                 <option value="nonheal" selected={formData.scar==="nonheal"}>nonheal</option>
                                               </select>
@@ -3351,7 +3351,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="siteLoca"
-                                             placeholder="present surgial"
+                                             placeholder="Enter Site/Location"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.siteLoca}
@@ -3366,7 +3366,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="side"
-                                             placeholder="present surgial"
+                                             placeholder="Enter a Side"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.side}
@@ -3645,13 +3645,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                               <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                                   <p>Scar</p>
                                               </div>
-                                             <div className="">
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_3} value={formData_3.scar} required>
+                                              <div className="">
+                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_3} value={formData_3.scar} required>
                                                 <option value="heal" selected={formData_3.scar==="heal"}>heal</option>
                                                 <option value="nonheal" selected={formData_3.scar==="nonheal"}>nonheal</option>
                                               </select>
                                             </div>
-                                            </div> 
+                                            </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
                                                  className="h-4 w-4"
@@ -4981,7 +4981,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="siteLoca"
-                                            placeholder="present surgial"
+                                            placeholder="Enter Site/Location"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.siteLoca}
@@ -4996,7 +4996,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="side"
-                                            placeholder="present surgial"
+                                            placeholder="Enter a Side"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.side}
@@ -5271,12 +5271,12 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                               />
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">crepitus</label>
                                               </div>
-                                              <div className="flex flex-col gap-2">
+                                              <div className="flex flex-row items-center gap-2">
                                               <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
                                                   <p>Scar</p>
                                               </div>
                                               <div className="">
-                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="duration" id="" onChange={handleInputChange_2} value={formData_2.scar} required>
+                                                <select className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10" name="scar" id="" onChange={handleInputChange_2} value={formData_2.scar} required>
                                                 <option value="heal" selected={formData_2.scar==="heal"}>heal</option>
                                                 <option value="nonheal" selected={formData_2.scar==="nonheal"}>nonheal</option>
                                               </select>
