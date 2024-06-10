@@ -20,8 +20,200 @@ import pain_managment from "../element/pain.jpeg";
 import jsPDF from "jspdf";
 import 'jspdf-autotable';
 import pdf from "../element/pdf.jpg";
+const initialFormData = {
+  name: '',
+  age: '',
+  gender: '',
+  occupation: '',
+  address: '',
+  domSide: "",
+  chfCmp: '',
+  hyperTense: 0,
+  diabetes: 0,
+  thyroid: 0,
+  asthama: 0,
+  others: 0,
+  other_p_value: '',
+  other_p_value_2: '',
+  pastSurg: '',
+  presentSurg: '',
+  siteLoca: '',
+  side: '',
+  dull: 0,
+  cramp: 0,
+  sharpShoot: 0,
+  burn: 0,
+  throb: 0,
+  numb: 0,
+  tingling: 0,
+  freqNature: '',
+  duration: 'acute',
+  painAgrFact: '',
+  painRelFact: '',
+  intensity: '',
+  observation: '',
+  tend: 0,
+  crepitus: 0,
+  scar: 'heal',
+  swelling: 0,
+  palpOthers: 0,
+  examination: '',
+  investRadioFinding: '',
+  medDiagno: '',
+  phyDiagno: '',
+  ObjTreatment: '',
+  remark: '',
+  typeother:'',
+  other_p_value_3:'',
+  dob:'',
+  contact:'',
+};
 
+const initialFormData_1 = {
+  acidity: "",
+  address: "",
+  contact: "",
+  cyc: "",
+  d_time: "",
+  d_what: "",
+  dada: "",
+  dia: "",
+  dob: "",
+  fact_loss: "",
+  fitness: "",
+  gender: "",
+  health: "",
+  blood: "",
+  heart: "",
+  kabajiyat: "",
+  l_time: "",
+  l_what: "",
+  m_time: "",
+  m_what: "",
+  machine: "",
+  name: "",
+  o: "",
+  o_time: "",
+  o_what: "",
+  occupation: "",
+  other_p_value: "",
+  phy: "",
+  run: "",
+  study: "",
+  swe: "",
+  thairoid: "",
+  w_time: "",
+  w_what: "",
+  walk: "",
+  weight__up: "",
+  weight_down: "",
+  work: "",
+  yoga: "",
+  dayabitis: "",
+  remark: "",
+  other_p:"",
+  other_p_1:""
+};
 
+const initialFormData_2 = {
+  name: '',
+  age: '',
+  gender: '',
+  occupation: '',
+  address: '',
+  domSide: '',
+  chfCmp: '',
+  hyperTense: 0,
+  diabetes: 0,
+  thyroid: 0,
+  asthama: 0,
+  others: 0,
+  other_p_value: '',
+  other_p_value_2: '',
+  pastSurg: '',
+  presentSurg: '',
+  siteLoca: '',
+  side: '',
+  dull: 0,
+  cramp: 0,
+  sharpShoot: 0,
+  burn: 0,
+  throb: 0,
+  numb: 0,
+  tingling: 0,
+  freqNature: '',
+  duration: 'acute',
+  painAgrFact: '',
+  painRelFact: '',
+  intensity: '',
+  observation: '',
+  tend: 0,
+  crepitus: 0,
+  scar: 'heal',
+  swelling: 0,
+  palpOthers: 0,
+  examination: '',
+  investRadioFinding: '',
+  medDiagno: '',
+  phyDiagno: '',
+  ObjTreatment: '',
+  remark: '',
+  typeother:'',
+  other_p_value_3:'',
+  dob:'',
+  contact:'',
+  study: "",
+};
+
+const initialFormData_3 = {
+  name: '',
+  age: '',
+  gender: '',
+  occupation: '',
+  address: '',
+  domSide: '',
+  chfCmp: '',
+  hyperTense: 0,
+  diabetes: 0,
+  thyroid: 0,
+  asthama: 0,
+  others: 0,
+  other_p_value: '',
+  other_p_value_2: '',
+  pastSurg: '',
+  presentSurg: '',
+  siteLoca: '',
+  side: '',
+  dull: 0,
+  cramp: 0,
+  sharpShoot: 0,
+  burn: 0,
+  throb: 0,
+  numb: 0,
+  tingling: 0,
+  freqNature: '',
+  duration: 'acute',
+  painAgrFact: '',
+  painRelFact: '',
+  intensity: '',
+  observation: '',
+  tend: 0,
+  crepitus: 0,
+  scar: 'heal',
+  swelling: 0,
+  palpOthers: 0,
+  examination: '',
+  investRadioFinding: '',
+  medDiagno: '',
+  phyDiagno: '',
+  ObjTreatment: '',
+  remark: '',
+  typeother:'',
+  other_p_value_3:'',
+  dob:'',
+  contact:'',
+  study: ""
+};
 export default function Dashboard() {
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
@@ -45,7 +237,7 @@ export default function Dashboard() {
     appointment_time: "",
   });
   const [buttonEnabled, setButtonEnabled] = useState(false);
-
+  
   const images = {
     physiotherapy: physiotherapy,
     weight_loss: image2,
@@ -56,196 +248,10 @@ export default function Dashboard() {
   const getImageForCategory = (category) => {
     return images[category];
   };
-  const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    gender: '',
-    occupation: '',
-    address: '',
-    domSide: "",
-    chfCmp: '',
-    hyperTense: 0,
-    diabetes: 0,
-    thyroid: 0,
-    asthama: 0,
-    others: 0,
-    other_p_value: '',
-    other_p_value_2: '',
-    pastSurg: '',
-    presentSurg: '',
-    siteLoca: '',
-    side: '',
-    dull: 0,
-    cramp: 0,
-    sharpShoot: 0,
-    burn: 0,
-    throb: 0,
-    numb: 0,
-    tingling: 0,
-    freqNature: '',
-    duration: 'acute',
-    painAgrFact: '',
-    painRelFact: '',
-    intensity: '',
-    observation: '',
-    tend: 0,
-    crepitus: 0,
-    scar: 'heal',
-    swelling: 0,
-    palpOthers: 0,
-    examination: '',
-    investRadioFinding: '',
-    medDiagno: '',
-    phyDiagno: '',
-    ObjTreatment: '',
-    remark: '',
-    typeother:'',
-    other_p_value_3:'',
-    dob:'',
-    contact:'',
-  });
-  const [formData_1, setFormData_1] = useState({
-    acidity: "",
-    address: "",
-    contact: "",
-    cyc: "",
-    d_time: "",
-    d_what: "",
-    dada: "",
-    dia: "",
-    dob: "",
-    fact_loss: "",
-    fitness: "",
-    gender: "",
-    health: "",
-    blood: "",
-    heart: "",
-    kabajiyat: "",
-    l_time: "",
-    l_what: "",
-    m_time: "",
-    m_what: "",
-    machine: "",
-    name: "",
-    o: "",
-    o_time: "",
-    o_what: "",
-    occupation: "",
-    other_p_value: "",
-    phy: "",
-    run: "",
-    study: "",
-    swe: "",
-    thairoid: "",
-    w_time: "",
-    w_what: "",
-    walk: "",
-    weight__up: "",
-    weight_down: "",
-    work: "",
-    yoga: "",
-    dayabitis: "",
-    remark: "",
-    other_p:"",
-    other_p_1:""
-  });
-  const [formData_2, setFormData_2] = useState({
-    name: '',
-    age: '',
-    gender: '',
-    occupation: '',
-    address: '',
-    domSide: '',
-    chfCmp: '',
-    hyperTense: 0,
-    diabetes: 0,
-    thyroid: 0,
-    asthama: 0,
-    others: 0,
-    other_p_value: '',
-    other_p_value_2: '',
-    pastSurg: '',
-    presentSurg: '',
-    siteLoca: '',
-    side: '',
-    dull: 0,
-    cramp: 0,
-    sharpShoot: 0,
-    burn: 0,
-    throb: 0,
-    numb: 0,
-    tingling: 0,
-    freqNature: '',
-    duration: 'acute',
-    painAgrFact: '',
-    painRelFact: '',
-    intensity: '',
-    observation: '',
-    tend: 0,
-    crepitus: 0,
-    scar: 'heal',
-    swelling: 0,
-    palpOthers: 0,
-    examination: '',
-    investRadioFinding: '',
-    medDiagno: '',
-    phyDiagno: '',
-    ObjTreatment: '',
-    remark: '',
-    typeother:'',
-    other_p_value_3:'',
-    dob:'',
-    contact:''  
-  });
-  const [formData_3, setFormData_3] = useState({
-    name: '',
-    age: '',
-    gender: '',
-    occupation: '',
-    address: '',
-    domSide: '',
-    chfCmp: '',
-    hyperTense: 0,
-    diabetes: 0,
-    thyroid: 0,
-    asthama: 0,
-    others: 0,
-    other_p_value: '',
-    other_p_value_2: '',
-    pastSurg: '',
-    presentSurg: '',
-    siteLoca: '',
-    side: '',
-    dull: 0,
-    cramp: 0,
-    sharpShoot: 0,
-    burn: 0,
-    throb: 0,
-    numb: 0,
-    tingling: 0,
-    freqNature: '',
-    duration: 'acute',
-    painAgrFact: '',
-    painRelFact: '',
-    intensity: '',
-    observation: '',
-    tend: 0,
-    crepitus: 0,
-    scar: 'heal',
-    swelling: 0,
-    palpOthers: 0,
-    examination: '',
-    investRadioFinding: '',
-    medDiagno: '',
-    phyDiagno: '',
-    ObjTreatment: '',
-    remark: '',
-    typeother:'',
-    other_p_value_3:'',
-    dob:'',
-    contact:'',
-   
-  });
+  const [formData, setFormData] = useState(initialFormData);
+  const [formData_1, setFormData_1] = useState(initialFormData_1);
+  const [formData_2, setFormData_2] = useState(initialFormData_2);
+  const [formData_3, setFormData_3] = useState(initialFormData_3);
 
   const handleDivClick = (category) => {
     setSelectedDiv(category);
@@ -313,196 +319,10 @@ export default function Dashboard() {
     setButtonEnabled(false);
     setPdfFiles([]);
     setSelectedImages([]);
-    setFormData({
-      name: '',
-      age: '',
-      gender: '',
-      occupation: '',
-      address: '',
-      domSide: '',
-      chfCmp: '',
-      hyperTense: 0,
-      diabetes: 0,
-      thyroid: 0,
-      asthama: 0,
-      others: 0,
-      other_p_value: '',
-      other_p_value_2: '',
-      pastSurg: '',
-      presentSurg: '',
-      siteLoca: '',
-      side: '',
-      dull: 0,
-      cramp: 0,
-      sharpShoot: 0,
-      burn: 0,
-      throb: 0,
-      numb: 0,
-      tingling: 0,
-      freqNature: '',
-      duration: '',
-      painAgrFact: '',
-      painRelFact: '',
-      intensity: '',
-      observation: '',
-      tend: 0,
-      crepitus: 0,
-      scar: '',
-      swelling: 0,
-      palpOthers: 0,
-      examination: '',
-      investRadioFinding: '',
-      medDiagno: '',
-      phyDiagno: '',
-      ObjTreatment: '',
-      remark: '',
-      typeother:'',
-      other_p_value_3:'',
-      dob:'',
-      contact:'',
-
-    });
-    setFormData_1({
-      acidity: "",
-      address: "",
-      contact: "",
-      cyc: "",
-      d_time: "",
-      d_what: "",
-      dada: "",
-      dia: "",
-      dob: "",
-      fact_loss: "",
-      fitness: "",
-      gender: "",
-      health: "",
-      blood: "",
-      heart: "",
-      kabajiyat: "",
-      l_time: "",
-      l_what: "",
-      m_time: "",
-      m_what: "",
-      machine: "",
-      name: "",
-      o: "",
-      o_time: "",
-      o_what: "",
-      occupation: "",
-      other_p_value: "",
-      phy: "",
-      run: "",
-      study: "",
-      swe: "",
-      thairoid: "",
-      w_time: "",
-      w_what: "",
-      walk: "",
-      weight__up: "",
-      weight_down: "",
-      work: "",
-      yoga: "",
-      dayabitis: "",
-      remark: "",
-      other_p:"",
-      other_p_1:""
-    });
-    setFormData_2({
-      name: '',
-      age: '',
-      gender: '',
-      occupation: '',
-      address: '',
-      domSide: '',
-      chfCmp: '',
-      hyperTense: 0,
-      diabetes: 0,
-      thyroid: 0,
-      asthama: 0,
-      others: 0,
-      other_p_value: '',
-      other_p_value_2: '',
-      pastSurg: '',
-      presentSurg: '',
-      siteLoca: '',
-      side: '',
-      dull: 0,
-      cramp: 0,
-      sharpShoot: 0,
-      burn: 0,
-      throb: 0,
-      numb: 0,
-      tingling: 0,
-      freqNature: '',
-      duration: '',
-      painAgrFact: '',
-      painRelFact: '',
-      intensity: '',
-      observation: '',
-      tend: 0,
-      crepitus: 0,
-      scar: '',
-      swelling: 0,
-      typeother:'',
-      other_p_value_3:'',
-      palpOthers: 0,
-      examination: '',
-      investRadioFinding: '',
-      medDiagno: '',
-      phyDiagno: '',
-      ObjTreatment: '',
-      remark: '',
-      dob:'',
-      contact:'',
-    });
-    setFormData_3({
-      name: '',
-      age: '',
-      gender: '',
-      occupation: '',
-      address: '',
-      domSide: '',
-      chfCmp: '',
-      hyperTense: 0,
-      diabetes: 0,
-      thyroid: 0,
-      asthama: 0,
-      others: 0,
-      other_p_value: '',
-      other_p_value_2: '',
-      pastSurg: '',
-      presentSurg: '',
-      siteLoca: '',
-      side: '',
-      dull: 0,
-      cramp: 0,
-      sharpShoot: 0,
-      burn: 0,
-      throb: 0,
-      numb: 0,
-      tingling: 0,
-      freqNature: '',
-      duration: '',
-      painAgrFact: '',
-      painRelFact: '',
-      intensity: '',
-      observation: '',
-      tend: 0,
-      crepitus: 0,
-      scar: '',
-      swelling: 0,
-      palpOthers: 0,
-      examination: '',
-      investRadioFinding: '',
-      medDiagno: '',
-      phyDiagno: '',
-      ObjTreatment: '',
-      remark: '',
-      typeother:'',
-      other_p_value_3:'',
-      dob:'',
-      contact:'',
-    });
+  setFormData(initialFormData);
+  setFormData_1(initialFormData_1);
+  setFormData_2(initialFormData_2);
+  setFormData_3(initialFormData_3);
     setLoad1(false);
     fetchData();
   };
@@ -772,6 +592,7 @@ export default function Dashboard() {
         setFormData({
           occupation: appointmentData.occupation,
           address: appointmentData.address,
+          study: appointmentData.study,
           domSide: appointmentData.domSide,
           chfCmp: appointmentData.chfCmp,
           hyperTense: appointmentData.hyperTense,
@@ -839,6 +660,7 @@ export default function Dashboard() {
           age: appointmentData.age,
           gender: appointmentData.gender,
           occupation: appointmentData.occupation,
+          study: appointmentData.study,
           address: appointmentData.address,
           domSide: appointmentData.domSide,
           chfCmp: appointmentData.chfCmp,
@@ -907,6 +729,7 @@ export default function Dashboard() {
           age: appointmentData.age,
           gender: appointmentData.gender,
           occupation: appointmentData.occupation,
+          study: appointmentData.study,
           address: appointmentData.address,
           domSide: appointmentData.domSide,
           chfCmp: appointmentData.chfCmp,
@@ -979,7 +802,7 @@ export default function Dashboard() {
         
         doc.setFontSize(15);
         doc.setTextColor(127, 29, 29);
-        doc.text("Arpan Advanced Physiotherapy & Fitness Center", pageWidth / 2, 12, { align: "center" });
+        doc.text("ARPAN ADVANCED PHYSIOTHERAPY & FITNESS CENTER", pageWidth / 2, 12, { align: "center" });
         doc.setFontSize(13);
         doc.setTextColor(22, 78, 99);
         doc.text("WEIGHT LOSS", pageWidth / 2, 22, { align: "center" });
@@ -1000,8 +823,8 @@ export default function Dashboard() {
             { label: "3) Diabetes", value: formData_1.kabajiyat == 1 ? "Yes" : "No" },
             { label: "4) Heart Disease", value: formData_1.heart == 1 ? "Yes" : "No" },
             { label: "5) Thyroid", value: formData_1.thairoid == 1 ? "Yes" : "No" },
-            { label: "6) Other History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
-            { label: "7) Past History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
+            { label: "6) Other Surgical History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
+            { label: "7) Past Surgical History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
             { title: "NEED", colSpan: 2 },
             { label: "1) Health", value: formData_1.health == 1 ? "Yes" : "No" },
             { label: "2) Fitness", value: formData_1.fitness == 1 ? "Yes" : "No" },
@@ -1036,7 +859,7 @@ export default function Dashboard() {
             }
         });
         
-        addPageBorder();  // Add the initial page border
+        addPageBorder(); 
         
         doc.autoTable({
             head: [],
@@ -1127,7 +950,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("dob", formData_1.dob);
         formDataObject.append("fact_loss", formData_1.fact_loss);
         formDataObject.append("other_p", formData_1.other_p);
-        formDataObject.append("other_P_1", formData_1.other_p_1);
+        formDataObject.append("other_p_1", formData_1.other_p_1);
         formDataObject.append("fitness", formData_1.fitness);
         formDataObject.append("health", formData_1.health);
         formDataObject.append("blood", formData_1.blood);
@@ -1187,19 +1010,20 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
     else if (selectedDiv == "physiotherapy") {
       try {
         const doc = new jsPDF();
-        doc.setFontSize(13);
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
         const addPageBorder = () => {
           doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
       };
         doc.setFontSize(15);
+        doc.setTextColor(0,0,0);
+        doc.text("ARPAN ADVANCED PHYSIOTHERAPY & FITNESS CENTER", pageWidth / 2, 12, { align: "center" });
+        doc.setFontSize(13);
         doc.setTextColor(127, 29, 29);
-        doc.text("Arpan Advanced Physiotherapy & Fitness Center -- PHYSIOTHERAPY", pageWidth / 2, 12, { align: "center" });
-        
-        // Centered subtitle
+        doc.text("PHYSIOTHERAPY", pageWidth / 2, 18, { align: "center" });
+        doc.setFontSize(12);
         doc.setTextColor(255, 0, 0);
-        doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
+        doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 24, { align: "center" });
         
         const fields = [
           { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
@@ -1209,18 +1033,19 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Dob", value:formData.dob !== "" ? moment(formData.dob).format("DD/MM/YYYY") : " --- "},
           { label: "Gender", value: selectedPatientId.gender },
           { label: "Contact", value: formData.contact },
+          { label: "Education", value: formData.study },
           { label: "Occupation", value: formData.occupation },
           { label: "Address", value: formData.address },
           { label: "Dominant Side", value: formData.domSide },
-          { label: "Chief Complaint", value: formData.chfCmp },
-          { title: "HISTORY", colSpan: 2 },
+          { label: "Chief Complain", value: formData.chfCmp },
+          { title: "MEDICAL HISTORY", colSpan: 2 },
           { label: "1) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
           { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
           { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
           { label: "4) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
           { label: "5) Other History", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
-          { label: "6) Past History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
-          { label: "7) Present History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
+          { label: "6) Past Surgical History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
+          { label: "7) Present Surgical History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
           { title: "PAIN EVALUATION", colSpan: 2 },
           { label: "Site/Location", value: formData.siteLoca !== "" ? formData.siteLoca : " --- " },
           { label: "Side", value: formData.side !== "" ? formData.side : " --- " },
@@ -1239,18 +1064,19 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Pain Relieving Factor", value: formData.painRelFact !== "" ? formData.painRelFact : " --- " },
           { label: "Intensity:(nprs)", value: formData.intensity !== "" ? formData.intensity : " --- " },
         { title: "***", colSpan: 2 },
-        { label: "Observation", value: formData.observation !== "" ? `${formData.observation}` : " --- "},
-        { title: "PALPATION",colSpan: 2 },
+        { label: "OBSERVATION", value: formData.observation !== "" ? `${formData.observation}` : " --- "},
+        { label: "PALPATION", value: '---' },
         { label: "1)Tenderness", value: formData.tend == 1 ? "Yes" : "No"},
         { label: "2)Crepitus", value: formData.crepitus == 1 ? "Yes" : "No"},
         { label: " 3)Scar", value: formData.scar !== "" ? formData.scar : " --- "},
         { label: "4)Swelling ", value: formData.swelling == 1 ? "Yes" : "No" },
         { label: "5)other Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
-        { label: "Examination", value: formData.examination !== "" ? `${formData.examination}` : " --- "},
-        { label: "Innestigation/Radiological Findings", value: formData.investRadioFinding !== "" ? `${formData.investRadioFinding}` : " --- "},
-        { label: "Medical Diagnosis", value: formData.medDiagno !== "" ? `${formData.medDiagno}` : " --- "},
-        { label: "Physiotherapy Diagnosis", value: formData.phyDiagno !== "" ? `${formData.phyDiagno}` : " --- "},
-        { label: "Treatment", value: formData.ObjTreatment !== "" ? `${formData.ObjTreatment}` : " --- " },
+        { title: " ", colSpan: 2 },
+        { label: "EXAMINATION", value: formData.examination !== "" ? `${formData.examination}` : " --- "},
+        { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData.investRadioFinding !== "" ? `${formData.investRadioFinding}` : " --- "},
+        { label: "MEDICAL DIAGNOSIS", value: formData.medDiagno !== "" ? `${formData.medDiagno}` : " --- "},
+        { label: "PHYSIOTHERAPY DIAGNOSIS", value: formData.phyDiagno !== "" ? `${formData.phyDiagno}` : " --- "},
+        { label: "TREATMENT", value: formData.ObjTreatment !== "" ? `${formData.ObjTreatment}` : " --- " },
         ];
         
         const tableRowsFirstPage = [];
@@ -1285,7 +1111,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         doc.autoTable({
             head: [],
             body: tableRowsFirstPage,
-            startY: 25,
+            startY: 27,
             theme: 'grid',
             styles: { overflow: 'linebreak', cellPadding: 2 },
             columnStyles: {
@@ -1325,6 +1151,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("name", selectedPatientId.name);
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
+        formDataObject.append("study", formData.study);
         formDataObject.append("dob", formData.dob);
         formDataObject.append("occupation", formData.occupation);
         formDataObject.append("address", formData.address);
@@ -1400,12 +1227,14 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
       };
       doc.setFontSize(15);
+      doc.setTextColor(0,0,0);
+      doc.text("ARPAN ADVANCED PHYSIOTHERAPY & FITNESS CENTER", pageWidth / 2, 12, { align: "center" });
+       doc.setFontSize(13);
       doc.setTextColor(127, 29, 29);
-      doc.text("Arpan Advanced Physiotherapy & Fitness Center -- PAIN_MANAGEMENT", pageWidth / 2, 12, { align: "center" });
-        
-        // Centered subtitle
-        doc.setTextColor(255, 0, 0);
-        doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
+      doc.text("PAIN_MANAGEMENT", pageWidth / 2, 18, { align: "center" });
+        doc.setFontSize(12);
+      doc.setTextColor(255, 0, 0);
+      doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 24, { align: "center" });
         
         const fields = [
           { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
@@ -1415,17 +1244,18 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Dob", value:formData_3.dob !== "" ? moment(formData_2.dob).format("DD/MM/YYYY") : " --- "},
           { label: "Gender", value: selectedPatientId.gender },
           { label: "Contact", value: formData_2.contact },
+          { label: "Education", value: formData_2.study },
           { label: "Occupation", value: formData_2.occupation },
           { label: "Address", value: formData_2.address },
           { label: "Dominant Side", value: formData_2.domSide },
-          { label: "Chief Complaint", value: formData_2.chfCmp },
-          { title: "HISTORY", colSpan: 2 },
+          { label: "Chief Complain", value: formData_2.chfCmp },
+          { title: "MEDICAL HISTORY", colSpan: 2 },
           { label: "1) Hypertension", value: formData_2.hyperTense == 1 ? "Yes" : "No" },
           { label: "2) Diabetes", value: formData_2.diabetes == 1 ? "Yes" : "No" },
           { label: "3) Thyroid", value: formData_2.thyroid == 1 ? "Yes" : "No" },
           { label: "4) Asthma", value: formData_2.asthama == 1 ? "Yes" : "No" },
-          { label: "5) Other History", value: formData_2.other_p_value !== "" ? formData_2.other_p_value : " --- " },
-          { label: "6) Past History", value: formData_2.pastSurg !== "" ? formData_2.pastSurg : " --- " },
+          { label: "5) Other Surgical History", value: formData_2.other_p_value !== "" ? formData_2.other_p_value : " --- " },
+          { label: "6) Past Surgical History", value: formData_2.pastSurg !== "" ? formData_2.pastSurg : " --- " },
           { label: "7) Present History", value: formData_2.presentSurg !== "" ? formData_2.presentSurg : " --- " },
           { title: "PAIN EVALUATION", colSpan: 2 },
           { label: "Site/Location", value: formData_2.siteLoca !== "" ? formData_2.siteLoca : " --- " },
@@ -1445,18 +1275,19 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Pain Relieving Factor", value: formData_2.painRelFact !== "" ? formData_2.painRelFact : " --- " },
           { label: "Intensity:(nprs)", value: formData_2.intensity !== "" ? formData_2.intensity : " --- " },
         { title: "***", colSpan: 2 },
-        { label: "Observation", value: formData_2.observation !== "" ? `${formData_2.observation}` : " --- "},
-        { title: "PALPATION",colSpan: 2 },
+        { label: "OBSERVATION", value: formData_2.observation !== "" ? `${formData_2.observation}` : " --- "},
+        { label: "PALPATION", value: '---' },
         { label: "1)Tenderness", value: formData_2.tend == 1 ? "Yes" : "No"},
         { label: "2)Crepitus", value: formData_2.crepitus == 1 ? "Yes" : "No"},
-        { label: "3)Scar", value: formData_2.scar !== "" ? formData_2.scar : " --- "},
+        { label: " 3)Scar", value: formData_2.scar !== "" ? formData_2.scar : " --- "},
         { label: "4)Swelling ", value: formData_2.swelling == 1 ? "Yes" : "No" },
         { label: "5)other Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
-        { label: "Examination", value: formData_2.examination !== "" ? `${formData_2.examination}` : " --- "},
-        { label: "Innestigation/Radiological Findings", value: formData_2.investRadioFinding !== "" ? `${formData_2.investRadioFinding}` : " --- "},
-        { label: "Medical Diagnosis", value: formData_2.medDiagno !== "" ? `${formData_2.medDiagno}` : " --- "},
-        { label: "Physiotherapy Diagnosis", value: formData_2.phyDiagno !== "" ? `${formData_2.phyDiagno}` : " --- "},
-        { label: "Treatment", value: formData_2.ObjTreatment !== "" ? `${formData_2.ObjTreatment}` : " --- " },
+        { title: " ", colSpan: 2 },
+        { label: "EXAMINATION", value: formData_2.examination !== "" ? `${formData_2.examination}` : " --- "},
+        { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData_2.investRadioFinding !== "" ? `${formData_2.investRadioFinding}` : " --- "},
+        { label: "MEDICAL DIAGNOSIS", value: formData_2.medDiagno !== "" ? `${formData_2.medDiagno}` : " --- "},
+        { label: "PHYSIOTHERAPY DIAGNOSIS", value: formData_2.phyDiagno !== "" ? `${formData_2.phyDiagno}` : " --- "},
+        { label: "TREATMENT", value: formData_2.ObjTreatment !== "" ? `${formData_2.ObjTreatment}` : " --- " },
         ];
 
         const tableRowsFirstPage = [];
@@ -1491,7 +1322,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         doc.autoTable({
             head: [],
             body: tableRowsFirstPage,
-            startY: 25,
+            startY: 27,
             theme: 'grid',
             styles: { overflow: 'linebreak', cellPadding: 2 },
             columnStyles: {
@@ -1531,6 +1362,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("name", selectedPatientId.name);
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
+        formDataObject.append("study", formData_2.study);
         formDataObject.append("dob", formData_2.dob);
         formDataObject.append("contact", formData_2.contact);
         formDataObject.append("contact", formData_2.contact);
@@ -1558,8 +1390,8 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("tingling", formData_2.tingling);
         formDataObject.append("freqNature", formData_2.freqNature);
         formDataObject.append("duration", formData_2.duration);
-        formDataObject.append("other_p_value_3", formData.other_p_value_3);
-        formDataObject.append("typeother", formData.typeother);
+        formDataObject.append("other_p_value_3", formData_2.other_p_value_3);
+        formDataObject.append("typeother", formData_2.typeother);
         formDataObject.append("painAgrFact", formData_2.painAgrFact);
         formDataObject.append("painRelFact", formData_2.painRelFact);
         formDataObject.append("intensity", formData_2.intensity);
@@ -1607,12 +1439,14 @@ const addPageBorder = () => {
   doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
 };
 doc.setFontSize(15);
+doc.setTextColor(0,0,0);
+doc.text("ARPAN ADVANCED PHYSIOTHERAPY & FITNESS CENTER", pageWidth / 2, 12, { align: "center" });
+ doc.setFontSize(13);
 doc.setTextColor(127, 29, 29);
-doc.text("Arpan Advanced Physiotherapy & Fitness Center -- FITNESS", pageWidth / 2, 12, { align: "center" });
-
-// Centered subtitle
+doc.text("FITNESS", pageWidth / 2, 18, { align: "center" });
+  doc.setFontSize(12);
 doc.setTextColor(255, 0, 0);
-doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 22, { align: "center" });
+doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 24, { align: "center" });
 
 const fields = [
     { label: "Appointment Date", value: moment(selectedPatientId.appointment_date).format("DD/MM/YYYY") },
@@ -1623,17 +1457,18 @@ const fields = [
     { label: "Gender", value: selectedPatientId.gender },
     { label: "Contact", value: formData_3.contact },
     { label: "Occupation", value: formData_3.occupation },
+    { label: "Education", value: formData_3.study },
     { label: "Address", value: formData_3.address },
     { label: "Dominant Side", value: formData_3.domSide },
-    { label: "Chief Complaint", value: formData_3.chfCmp },
-    { title: "HISTORY", colSpan: 2 },
+    { label: "Chief Complain", value: formData_3.chfCmp },
+    { title: "MEDICAL HISTORY", colSpan: 2 },
     { label: "1) Hypertension", value: formData_3.hyperTense == 1 ? "Yes" : "No" },
     { label: "2) Diabetes", value: formData_3.diabetes == 1 ? "Yes" : "No" },
     { label: "3) Thyroid", value: formData_3.thyroid == 1 ? "Yes" : "No" },
     { label: "4) Asthma", value: formData_3.asthama == 1 ? "Yes" : "No" },
     { label: "5) Other History", value: formData_3.other_p_value !== "" ? formData_3.other_p_value : " --- " },
-    { label: "6) Past History", value: formData_3.pastSurg !== "" ? formData_3.pastSurg : " --- " },
-    { label: "7) Present History", value: formData_3.presentSurg !== "" ? formData_3.presentSurg : " --- " },
+    { label: "6) Past Surgical History", value: formData_3.pastSurg !== "" ? formData_3.pastSurg : " --- " },
+    { label: "7) Present Surgical History", value: formData_3.presentSurg !== "" ? formData_3.presentSurg : " --- " },
     { title: "PAIN EVALUATION", colSpan: 2 },
     { label: "Site/Location", value: formData_3.siteLoca !== "" ? formData_3.siteLoca : " --- " },
     { label: "Side", value: formData_3.side !== "" ? formData_3.side : " --- " },
@@ -1652,18 +1487,19 @@ const fields = [
     { label: "Pain Relieving Factor", value: formData_3.painRelFact !== "" ? formData_3.painRelFact : " --- " },
     { label: "Intensity:(nprs)", value: formData_3.intensity !== "" ? formData_3.intensity : " --- " },
   { title: "***", colSpan: 2 },
-  { label: "Observation", value: formData_3.observation !== "" ? `${formData_3.observation}` : " --- "},
-  { title: "PALPATION",colSpan: 2 },
+  { label: "OBSERVATION", value: formData_3.observation !== "" ? `${formData_3.observation}` : " --- "},
+  { label: "PALPATION", value: '---' },
   { label: "1)Tenderness", value: formData_3.tend == 1 ? "Yes" : "No"},
   { label: "2)Crepitus", value: formData_3.crepitus == 1 ? "Yes" : "No"},
- { label: " 3)Scar", value: formData_3.scar !== "" ? formData_3.scar : " --- "},
+  { label: " 3)Scar", value: formData_3.scar !== "" ? formData_3.scar : " --- "},
   { label: "4)Swelling ", value: formData_3.swelling == 1 ? "Yes" : "No" },
   { label: "5)other Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
-  { label: "Examination", value: formData_3.examination !== "" ? `${formData_3.examination}` : " --- "},
-  { label: "Innestigation/Radiological Findings", value: formData_3.investRadioFinding !== "" ? `${formData_3.investRadioFinding}` : " --- "},
-  { label: "Medical Diagnosis", value: formData_3.medDiagno !== "" ? `${formData_3.medDiagno}` : " --- "},
-  { label: "Physiotherapy Diagnosis", value: formData_3.phyDiagno !== "" ? `${formData_3.phyDiagno}` : " --- "},
-  { label: "Treatment", value: formData_3.ObjTreatment !== "" ? `${formData_3.ObjTreatment}` : " --- " },
+  { title: " ", colSpan: 2 },
+  { label: "EXAMINATION", value: formData_3.examination !== "" ? `${formData_3.examination}` : " --- "},
+  { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData_3.investRadioFinding !== "" ? `${formData_3.investRadioFinding}` : " --- "},
+  { label: "MEDICAL DIAGNOSIS", value: formData_3.medDiagno !== "" ? `${formData_3.medDiagno}` : " --- "},
+  { label: "PHYSIOTHERAPY DIAGNOSIS", value: formData_3.phyDiagno !== "" ? `${formData_3.phyDiagno}` : " --- "},
+  { label: "TREATMENT", value: formData_3.ObjTreatment !== "" ? `${formData_3.ObjTreatment}` : " --- " },
 ];
 
 const tableRowsFirstPage = [];
@@ -1698,7 +1534,7 @@ addPageBorder();
 doc.autoTable({
     head: [],
     body: tableRowsFirstPage,
-    startY: 25,
+    startY: 27,
     theme: 'grid',
     styles: { overflow: 'linebreak', cellPadding: 2 },
     columnStyles: {
@@ -1736,6 +1572,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("name", selectedPatientId.name);
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
+        formDataObject.append("study", formData_3.study);
         formDataObject.append("occupation", formData_3.occupation);
         formDataObject.append("address", formData_3.address);
         formDataObject.append("domSide", formData_3.domSide);
@@ -2321,8 +2158,8 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                       <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                      <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
-                                      <div className="flex flex-col gap-2 w-full">
+                                      <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-5 w-full gap-2">
+                                          <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                               <p>DOB</p>
                                             </div>
@@ -2342,7 +2179,22 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             />
                                           </div>
                                           </div>
-                                      <div className="flex flex-col gap-2 w-full">
+                                          <div className="flex flex-col gap-2 w-full">
+                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                              <p>EDUCATION</p>
+                                            </div>
+                                            <div className="">
+                                            <input
+                                              type="text"
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="study"
+                                              placeholder="Education"
+                                              onChange={handleInputChange}
+                                              value={formData.study}
+                                            />
+                                          </div>
+                                          </div>
+                                          <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>Phone Number</p>
                                           </div>
@@ -2359,7 +2211,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             pattern="^\d+$"
                                           />
                                         </div>
-                                        </div>
+                                          </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                               <p>Ocuupation</p>
@@ -2426,7 +2278,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           </div>
                                           <div className="col-span-2 flex flex-col w-full">
                                             <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                              <p>history</p>
+                                              <p>medical history</p>
                                             </div>
                                             <div className="flex flex-row w-full justify-between">
                                               <div className=" inline-flex gap-2 items-center text-center w-full">
@@ -2522,13 +2374,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left font-serif  text-red-600 uppercase tracking-wider">
-                                              <p>past surgical</p>
+                                              <p>past surgical history</p>
                                             </div>
                                             <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="pastSurg"
-                                              placeholder="past surgical"
+                                              placeholder="past surgical history"
                                               
                                               onChange={handleInputChange}
                                               value={formData.pastSurg}
@@ -2537,13 +2389,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left  font-serif text-red-600 uppercase tracking-wider">
-                                              <p>present Surgical</p>
+                                              <p>present Surgical history</p>
                                             </div>
                                             <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="presentSurg"
-                                              placeholder="present surgial"
+                                              placeholder="present surgial history"
                                               
                                               onChange={handleInputChange}
                                               value={formData.presentSurg}
@@ -2926,13 +2778,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           </div>
                                           <div className="flex flex-col gap-2 w-full">
                                             <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                              <p>innestigation/radiological finings</p>
+                                              <p>investigation/radiological findings</p>
                                             </div>
                                             <div className="">
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="investRadioFinding"
-                                              placeholder="innestigation/radiological finings"
+                                              placeholder="investigation/radiological findings"
                                               
                                               onChange={handleInputChange}
                                               value={formData.investRadioFinding}
@@ -3111,7 +2963,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                        <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                     <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
+                                     <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-5 w-full gap-2">
                                      <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                              <p>DOB</p>
@@ -3132,6 +2984,21 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                            />
                                          </div>
                                          </div>
+                                         <div className="flex flex-col gap-2 w-full">
+                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                              <p>EDUCATION</p>
+                                            </div>
+                                            <div className="">
+                                            <input
+                                              type="text"
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="study"
+                                              placeholder="EDUCATION"
+                                              onChange={handleInputChange_3}
+                                              value={formData_3.study}
+                                            />
+                                          </div>
+                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>Phone Number</p>
@@ -3216,7 +3083,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                          </div>
                                          <div className="col-span-2 flex flex-col w-full">
                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                             <p>history</p>
+                                             <p>medical history</p>
                                            </div>
                                            <div className="flex flex-row w-full justify-between">
                                              <div className=" inline-flex gap-2 items-center text-center w-full">
@@ -3312,13 +3179,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left font-serif  text-red-600 uppercase tracking-wider">
-                                             <p>past surgical</p>
+                                             <p>past surgical history</p>
                                            </div>
                                            <div className="">
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="pastSurg"
-                                             placeholder="past surgical"
+                                             placeholder="past surgical history"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.pastSurg}
@@ -3327,13 +3194,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left  font-serif text-red-600 uppercase tracking-wider">
-                                             <p>present Surgical</p>
+                                             <p>present Surgical history</p>
                                            </div>
                                            <div className="">
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="presentSurg"
-                                             placeholder="present surgial"
+                                             placeholder="present surgial history"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.presentSurg}
@@ -3715,13 +3582,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                          </div>
                                          <div className="flex flex-col gap-2 w-full">
                                            <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                             <p>innestigation/radiological finings</p>
+                                             <p>investigation/radiological findings</p>
                                            </div>
                                            <div className="">
                                            <textarea
                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                              name="investRadioFinding"
-                                             placeholder="innestigation/radiological finings"
+                                             placeholder="investigation/radiological findings"
                                              
                                              onChange={handleInputChange_3}
                                              value={formData_3.investRadioFinding}
@@ -4097,7 +3964,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="dayabitis"
-                                              placeholder="Enter past History"
+                                              placeholder="Enter past Surgical History"
                                               onChange={handleInputChange_1}
                                               value={formData_1.dayabitis}
                                             ></textarea>
@@ -4106,7 +3973,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="other_p_value"
-                                              placeholder="Enter a Other History"
+                                              placeholder="Enter  Other Surgical History"
                                               onChange={handleInputChange_1}
                                               value={formData_1.other_p_value}
                                             ></textarea>
@@ -4743,7 +4610,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                        <h1 className="text-blue-800 font-serif uppercase text-xl pb-3">
                                         (A) Subjective Assessment
                                       </h1>
-                                    <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-4 w-full gap-2">
+                                    <div className="grid grid-flow-row md:grid-cols-1 lg:grid-cols-5 w-full gap-2">
                                     <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>DOB</p>
@@ -4763,6 +4630,21 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           />
                                         </div>
                                         </div>
+                                        <div className="flex flex-col gap-2 w-full">
+                                            <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
+                                              <p>EDUCATION</p>
+                                            </div>
+                                            <div className="">
+                                            <input
+                                              type="text"
+                                              className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                              name="study"
+                                              placeholder="education"
+                                              onChange={handleInputChange_2}
+                                              value={formData_2.study}
+                                            />
+                                          </div>
+                                          </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
                                             <p>Phone Number</p>
@@ -4846,7 +4728,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                         </div>
                                         <div className="col-span-2 flex flex-col w-full">
                                           <div className="text-left text-sm font-extrabold text-gray-500 uppercase tracking-wider">
-                                            <p>history</p>
+                                            <p>medical history</p>
                                           </div>
                                           <div className="flex flex-row w-full justify-between">
                                             <div className=" inline-flex gap-2 items-center text-center w-full">
@@ -4942,13 +4824,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left font-serif  text-red-600 uppercase tracking-wider">
-                                            <p>past surgical</p>
+                                            <p>past surgical history</p>
                                           </div>
                                           <div className="">
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="pastSurg"
-                                            placeholder="past surgical"
+                                            placeholder="past surgical history"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.pastSurg}
@@ -4957,13 +4839,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left  font-serif text-red-600 uppercase tracking-wider">
-                                            <p>present Surgical</p>
+                                            <p>present Surgical history</p>
                                           </div>
                                           <div className="">
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="presentSurg"
-                                            placeholder="present surgial"
+                                            placeholder="present surgial history"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.presentSurg}
@@ -5347,13 +5229,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                           <div className="text-left text-sm font-extrabold  text-gray-600 uppercase tracking-wider">
-                                            <p>innestigation/radiological finings</p>
+                                            <p>investigation/radiological findings</p>
                                           </div>
                                           <div className="">
                                           <textarea
                                             className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                             name="investRadioFinding"
-                                            placeholder="innestigation/radiological finings"
+                                            placeholder="investigation/radiological findings"
                                             
                                             onChange={handleInputChange_2}
                                             value={formData_2.investRadioFinding}
@@ -5432,9 +5314,9 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           type="file"
                                           multiple
                                           accept="image/*"
-                                          onChange={handleInputChange_2}
+                                          onChange={handleFileChange}
                                         />
-                                        {selectedImages&& selectedImages.length>0&& selectedImages.map(
+                                        {selectedImages && selectedImages.length>0 && selectedImages.map(
                                           (image, index) => (
                                             <div
                                               key={index}
