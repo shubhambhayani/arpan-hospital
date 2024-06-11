@@ -823,8 +823,8 @@ export default function Dashboard() {
             { label: "3) Diabetes", value: formData_1.kabajiyat == 1 ? "Yes" : "No" },
             { label: "4) Heart Disease", value: formData_1.heart == 1 ? "Yes" : "No" },
             { label: "5) Thyroid", value: formData_1.thairoid == 1 ? "Yes" : "No" },
-            { label: "6) Other Surgical History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
-            { label: "7) Past Surgical History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
+            { label: "6) Other History", value: formData_1.other_p_value !== "" ? formData_1.other_p_value : " --- " },
+            { label: "7) Past History", value: formData_1.dayabitis !== "" ? formData_1.dayabitis : " --- " },
             { title: "NEED", colSpan: 2 },
             { label: "1) Health", value: formData_1.health == 1 ? "Yes" : "No" },
             { label: "2) Fitness", value: formData_1.fitness == 1 ? "Yes" : "No" },
@@ -1038,14 +1038,16 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Address", value: formData.address },
           { label: "Dominant Side", value: formData.domSide },
           { label: "Chief Complain", value: formData.chfCmp },
-          { title: "MEDICAL HISTORY", colSpan: 2 },
+          { title: " ", colSpan: 2 },
+          { label: "MEDICAL HISTORY", value: '---' },
           { label: "1) Hypertension", value: formData.hyperTense == 1 ? "Yes" : "No" },
           { label: "2) Diabetes", value: formData.diabetes == 1 ? "Yes" : "No" },
           { label: "3) Thyroid", value: formData.thyroid == 1 ? "Yes" : "No" },
           { label: "4) Asthma", value: formData.asthama == 1 ? "Yes" : "No" },
           { label: "5) Other History", value: formData.other_p_value !== "" ? formData.other_p_value : " --- " },
-          { label: "6) Past Surgical History", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
-          { label: "7) Present Surgical History", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
+          { title: " ", colSpan: 2 },
+          { label: "PAST SURGICAL HISTORY", value: formData.pastSurg !== "" ? formData.pastSurg : " --- " },
+          { label: "PRESENT SURGICAL HISTORY", value: formData.presentSurg !== "" ? formData.presentSurg : " --- " },
           { title: "PAIN EVALUATION", colSpan: 2 },
           { label: "Site/Location", value: formData.siteLoca !== "" ? formData.siteLoca : " --- " },
           { label: "Side", value: formData.side !== "" ? formData.side : " --- " },
@@ -1249,14 +1251,16 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Address", value: formData_2.address },
           { label: "Dominant Side", value: formData_2.domSide },
           { label: "Chief Complain", value: formData_2.chfCmp },
-          { title: "MEDICAL HISTORY", colSpan: 2 },
+          { title: " ", colSpan: 2 },
+          { label: "MEDICAL HISTORY", value: '---' },
           { label: "1) Hypertension", value: formData_2.hyperTense == 1 ? "Yes" : "No" },
           { label: "2) Diabetes", value: formData_2.diabetes == 1 ? "Yes" : "No" },
           { label: "3) Thyroid", value: formData_2.thyroid == 1 ? "Yes" : "No" },
           { label: "4) Asthma", value: formData_2.asthama == 1 ? "Yes" : "No" },
-          { label: "5) Other Surgical History", value: formData_2.other_p_value !== "" ? formData_2.other_p_value : " --- " },
-          { label: "6) Past Surgical History", value: formData_2.pastSurg !== "" ? formData_2.pastSurg : " --- " },
-          { label: "7) Present History", value: formData_2.presentSurg !== "" ? formData_2.presentSurg : " --- " },
+          { label: "5) Other History", value: formData_2.other_p_value !== "" ? formData_2.other_p_value : " --- " },
+          { title: " ", colSpan: 2 },
+          { label: "PAST SURGICAL HISTORY", value: formData_2.pastSurg !== "" ? formData_2.pastSurg : " --- " },
+          { label: "PRESENT SURGICAL HISTORY", value: formData_2.presentSurg !== "" ? formData_2.presentSurg : " --- " },
           { title: "PAIN EVALUATION", colSpan: 2 },
           { label: "Site/Location", value: formData_2.siteLoca !== "" ? formData_2.siteLoca : " --- " },
           { label: "Side", value: formData_2.side !== "" ? formData_2.side : " --- " },
@@ -1461,14 +1465,16 @@ const fields = [
     { label: "Address", value: formData_3.address },
     { label: "Dominant Side", value: formData_3.domSide },
     { label: "Chief Complain", value: formData_3.chfCmp },
-    { title: "MEDICAL HISTORY", colSpan: 2 },
+    { title: " ", colSpan: 2 },
+    { label: "MEDICAL HISTROY", value: '---' },
     { label: "1) Hypertension", value: formData_3.hyperTense == 1 ? "Yes" : "No" },
     { label: "2) Diabetes", value: formData_3.diabetes == 1 ? "Yes" : "No" },
     { label: "3) Thyroid", value: formData_3.thyroid == 1 ? "Yes" : "No" },
     { label: "4) Asthma", value: formData_3.asthama == 1 ? "Yes" : "No" },
     { label: "5) Other History", value: formData_3.other_p_value !== "" ? formData_3.other_p_value : " --- " },
-    { label: "6) Past Surgical History", value: formData_3.pastSurg !== "" ? formData_3.pastSurg : " --- " },
-    { label: "7) Present Surgical History", value: formData_3.presentSurg !== "" ? formData_3.presentSurg : " --- " },
+    { title: " ", colSpan: 2 },
+    { label: "PAST SURGICAL HISTORY", value: formData_3.pastSurg !== "" ? formData_3.pastSurg : " --- " },
+    { label: "PRESENT SURGICAL HISTORY", value: formData_3.presentSurg !== "" ? formData_3.presentSurg : " --- " },
     { title: "PAIN EVALUATION", colSpan: 2 },
     { label: "Site/Location", value: formData_3.siteLoca !== "" ? formData_3.siteLoca : " --- " },
     { label: "Side", value: formData_3.side !== "" ? formData_3.side : " --- " },
@@ -3964,7 +3970,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="dayabitis"
-                                              placeholder="Enter past Surgical History"
+                                              placeholder="Enter past  History"
                                               onChange={handleInputChange_1}
                                               value={formData_1.dayabitis}
                                             ></textarea>
@@ -3973,7 +3979,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                             <textarea
                                               className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
                                               name="other_p_value"
-                                              placeholder="Enter  Other Surgical History"
+                                              placeholder="Enter  Other  History"
                                               onChange={handleInputChange_1}
                                               value={formData_1.other_p_value}
                                             ></textarea>
