@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Compoments/Dashboard';
 import Appoinment from './Compoments/Appoinment';
+import History from './Compoments/History';
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={< Login/>} />
             <Route path="/dashboard" element={< Dashboard/>} />
             <Route path="/report" element={<Appoinment/>} />
+            <Route path="/history" element={<History/>} />
           </Routes>
         </div>
       </Router>

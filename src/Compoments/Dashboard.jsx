@@ -1752,7 +1752,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           </>
         ) : (
           <>
-            <div>
+            <div className="w-full">
               <Navbar onSearch={fetchData} />
             </div>
             <div className="grid grid-flow-row sm:grid-cols-1 md:grid-cols-2 w-full justify-between gap-4 items-center lg:grid-cols-5 p-3">
@@ -5411,6 +5411,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                   </form>
                                 </div>
                                 )}
+                             
                               </div>
                             </>
                           )}
