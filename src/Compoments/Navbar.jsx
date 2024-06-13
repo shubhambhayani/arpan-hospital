@@ -63,7 +63,7 @@ export default function Navbar({onSearch}) {
           </div>
             </>)}
           <div className='text-cyan-900 flex flex-row pt-2 ustify-center items-center text-center'>
-          <Menu as="div" className="z-50">
+          <Menu as="div">
                      <Menu.Button>
                        <TiThMenu className='text-2xl'/>
                      </Menu.Button>
@@ -153,7 +153,7 @@ export default function Navbar({onSearch}) {
                    </Menu>
           </div>
           <div>
-            <Menu as="div" className="z-50">
+            <Menu as="div" >
                      <Menu.Button>
                      <img className='w-8 h-8 rounded-full items-center' src={user} alt="" srcset="" />
                      </Menu.Button>

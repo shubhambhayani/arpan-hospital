@@ -66,13 +66,12 @@ const initialFormData = {
   typeother:'',
   other_p_value_3:'',
   dob:'',
-  contact:'',
+  study: ""
 };
 
 const initialFormData_1 = {
   acidity: "",
   address: "",
-  contact: "",
   cyc: "",
   d_time: "",
   d_what: "",
@@ -161,7 +160,6 @@ const initialFormData_2 = {
   typeother:'',
   other_p_value_3:'',
   dob:'',
-  contact:'',
   study: "",
 };
 
@@ -211,7 +209,6 @@ const initialFormData_3 = {
   typeother:'',
   other_p_value_3:'',
   dob:'',
-  contact:'',
   study: ""
 };
 export default function Dashboard() {
@@ -233,6 +230,7 @@ export default function Dashboard() {
     name: "",
     age: "",
     gender: "",
+    contact:"",
     appointment_date: "",
     appointment_time: "",
   });
@@ -291,6 +289,7 @@ export default function Dashboard() {
     category,
     age,
     gender,
+    contact,
     appointment_date,
     appointment_time
   ) => {
@@ -301,6 +300,7 @@ export default function Dashboard() {
       patient_id,
       appointment_id,
       gender,
+      contact,
       appointment_date,
       appointment_time,
     });
@@ -525,7 +525,6 @@ export default function Dashboard() {
         setFormData_1({
           acidity: appointmentData.acidity,
           address: appointmentData.address,
-          contact: appointmentData.contact,
           blood: appointmentData.blood,
           cyc: appointmentData.cyc,
           d_time: appointmentData.d_time,
@@ -613,7 +612,6 @@ export default function Dashboard() {
           burn: appointmentData.burn,
           throb: appointmentData.throb,
           numb: appointmentData.numb,
-          contact:appointmentData.contact,
           dob:appointmentData.dob,
           tingling: appointmentData.tingling,
           freqNature: appointmentData.freqNature,
@@ -672,7 +670,6 @@ export default function Dashboard() {
           thyroid: appointmentData.thyroid,
           asthama: appointmentData.asthama,
           others: appointmentData.others,
-          contact:appointmentData.contact,
           other_p_value: appointmentData.other_p_value,
           other_p_value_2: appointmentData.other_p_value_2,
           pastSurg: appointmentData.pastSurg,
@@ -747,7 +744,6 @@ export default function Dashboard() {
           side: appointmentData.side,
           dull: appointmentData.dull,
           cramp: appointmentData.cramp,
-          contact:appointmentData.contact,
           sharpShoot: appointmentData.sharpShoot,
           burn: appointmentData.burn,
           throb: appointmentData.throb,
@@ -814,7 +810,7 @@ export default function Dashboard() {
             { label: "Name", value: selectedPatientId.name },
             { label: "Age", value: selectedPatientId.age },
             { label: "Dob", value: moment(formData_1.dob).format("DD/MM/YYYY") },
-            { label: "Contact", value: formData_1.contact },
+            { label: "Contact", value: selectedPatientId.contact },
             { label: "Education", value: formData_1.study },
             { label: "Occupation", value: formData_1.occupation },
             { label: "Address", value: formData_1.address },
@@ -937,7 +933,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("age", selectedPatientId.age);
         formDataObject.append("gender", selectedPatientId.gender);
         formDataObject.append("acidity", formData_1.acidity);
-        formDataObject.append("contact", formData_1.contact);
+        formDataObject.append("contact", selectedPatientId.contact);
         formDataObject.append("occupation", formData_1.occupation);
         formDataObject.append("address", formData_1.address);
         formDataObject.append("dayabitis", formData_1.dayabitis);
@@ -1033,7 +1029,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Age", value: selectedPatientId.age },
           { label: "Dob", value:formData.dob !== "" ? moment(formData.dob).format("DD/MM/YYYY") : " --- "},
           { label: "Gender", value: selectedPatientId.gender },
-          { label: "Contact", value: formData.contact },
+          { label: "Contact", value: selectedPatientId.contact },
           { label: "Education", value: formData.study },
           { label: "Occupation", value: formData.occupation },
           { label: "Address", value: formData.address },
@@ -1165,7 +1161,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("thyroid", formData.thyroid);
         formDataObject.append("asthama", formData.asthama);
         formDataObject.append("others", formData.others);
-        formDataObject.append("contact", formData.contact);
+        formDataObject.append("contact", selectedPatientId.contact);
         formDataObject.append("other_p_value", formData.other_p_value);
         formDataObject.append("other_p_value_2", formData.other_p_value_2);
         formDataObject.append("other_p_value_3", formData.other_p_value_3);
@@ -1246,7 +1242,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
           { label: "Age", value: selectedPatientId.age },
           { label: "Dob", value:formData_3.dob !== "" ? moment(formData_2.dob).format("DD/MM/YYYY") : " --- "},
           { label: "Gender", value: selectedPatientId.gender },
-          { label: "Contact", value: formData_2.contact },
+          { label: "Contact", value: selectedPatientId.contact },
           { label: "Education", value: formData_2.study },
           { label: "Occupation", value: formData_2.occupation },
           { label: "Address", value: formData_2.address },
@@ -1369,8 +1365,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("gender", selectedPatientId.gender);
         formDataObject.append("study", formData_2.study);
         formDataObject.append("dob", formData_2.dob);
-        formDataObject.append("contact", formData_2.contact);
-        formDataObject.append("contact", formData_2.contact);
+        formDataObject.append("contact", selectedPatientId.contact);
         formDataObject.append("occupation", formData_2.occupation);
         formDataObject.append("address", formData_2.address);
         formDataObject.append("domSide", formData_2.domSide);
@@ -1460,7 +1455,7 @@ const fields = [
     { label: "Age", value: selectedPatientId.age },
     { label: "Dob", value:formData_3.dob !== "" ? moment(formData_3.dob).format("DD/MM/YYYY") : " --- "},
     { label: "Gender", value: selectedPatientId.gender },
-    { label: "Contact", value: formData_3.contact },
+    { label: "Contact", value: selectedPatientId.contact },
     { label: "Occupation", value: formData_3.occupation },
     { label: "Education", value: formData_3.study },
     { label: "Address", value: formData_3.address },
@@ -1595,7 +1590,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("other_p_value_3", formData_3.other_p_value_3);
         formDataObject.append("typeother", formData_3.typeother);
         formDataObject.append("pastSurg", formData_3.pastSurg);
-        formDataObject.append("contact", formData_3.contact);
+        formDataObject.append("contact", selectedPatientId.contact);
         formDataObject.append("presentSurg", formData_3.presentSurg);
         formDataObject.append("siteLoca", formData_3.siteLoca);
         formDataObject.append("side", formData_3.side);
@@ -1871,31 +1866,34 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                       <table className="w-full  table-auto border-collapse border bg-cover">
                         <thead>
                           <tr className="bg-cyan-950 ">
-                            <th className="px-2 py-2 text-center text-xs font-large text-white uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-large text-white uppercase tracking-wider">
                               NO
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               NAME
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                              CONTACT
+                            </th>
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               GENDER
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               AGE
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               DATE
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               TIME
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               CATEGORY
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               STATUS
                             </th>
-                            <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
+                            <th className="px-1 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                               APPOINMENT
                             </th>
                           </tr>
@@ -1905,30 +1903,33 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                             patients.map((item, index) => (
                               <React.Fragment key={item.patient_id}>
                                 <tr className="bg-white text-center">
-                                  <td className="px-2 py-2 text-center whitespace-nowrap">
+                                  <td className="px-1 py-2 text-center whitespace-nowrap">
                                     {index + 1}
                                   </td>
-                                  <td className="px-2 py-2 text-center uppercase whitespace-nowrap">
+                                  <td className="px-1 py-2 text-center uppercase whitespace-nowrap">
                                     {item.name}
                                   </td>
-                                  <td className="px-2 py-2 text-center uppercase whitespace-nowrap">
+                                  <td className="px-1 py-2 text-center uppercase whitespace-nowrap">
+                                    {item.contact}
+                                  </td>
+                                  <td className="px-1 py-2 text-center uppercase whitespace-nowrap">
                                     {item.gender}
                                   </td>
-                                  <td className="px-2 py-2 text-center whitespace-nowrap">
+                                  <td className="px-1 py-2 text-center whitespace-nowrap">
                                     {item.age}
                                   </td>
-                                  <td className="px-2 py-2 text-center whitespace-nowrap font-mono">
+                                  <td className="px-1 py-2 text-center whitespace-nowrap font-mono">
                                     {moment(item.appointment_date).format(
                                       "DD-MM-YYYY"
                                     )}
                                   </td>
-                                  <td className="px-2 py-2 text-center whitespace-nowrap ">
+                                  <td className="px-1 py-2 text-center whitespace-nowrap ">
                                     {item.appointment_time}
                                   </td>
-                                  <td className="px-2 py-2 text-center uppercase whitespace-nowrap">
+                                  <td className="px-1 py-2 text-center uppercase whitespace-nowrap">
                                     {item.category}
                                   </td>
-                                  <td className="px-2 py-2 whitespace-nowrap">
+                                  <td className="px-1 py-2 whitespace-nowrap">
                                     {item.status == 1 ? (
                                       <div className="flex justify-center">
                                         <MdFactCheck className="text-green-800 text-2xl" />
@@ -1939,7 +1940,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                       </div>
                                     )}
                                   </td>
-                                  <td className="px-4 py-2">
+                                  <td className="px-3 py-2">
                                     <button
                                       className="bg-cyan-950 p-2 md:p-3 content-center cursor-pointer text-white rounded-md font-serif"
                                       onClick={() =>
@@ -1950,6 +1951,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           item.category,
                                           item.age,
                                           item.gender,
+                                          item.contact,
                                           item.appointment_date,
                                           item.appointment_time
                                         )
@@ -2207,10 +2209,10 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           <div className="">
                                           <input
                                             type="tel"
-                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-sans uppercase h-10"
                                             name="contact"
-                                            onChange={handleInputChange}
-                                            value={formData.contact}
+                                            readOnly
+                                            value={selectedPatientId.contact}
                                             maxLength={10}
                                             minLength={10}
                                             placeholder="phone number"
@@ -3012,10 +3014,10 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           <div className="">
                                           <input
                                             type="tel"
-                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-sans uppercase h-10"
                                             name="contact"
-                                            onChange={handleInputChange_3}
-                                            value={formData_3.contact}
+                                            readOnly
+                                            value={selectedPatientId.contact}
                                             maxLength={10}
                                             minLength={10}
                                             placeholder="phone number"
@@ -3836,8 +3838,8 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                 name="contact"
                                                 placeholder="phone number"
                                                 pattern="^\d+$"
-                                                value={formData_1.contact}
-                                                onChange={handleInputChange_1}
+                                                value={selectedPatientId.contact}
+                                                readOnly
                                                 minLength={10}
                                                 maxLength={10}
                                               />
@@ -4658,10 +4660,10 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                           <div className="">
                                           <input
                                             type="tel"
-                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-serif uppercase h-10"
+                                            className="w-full rounded-md text-cyan-950 font-medium p-2 shadow-lg shadow-slate-950 text-sm font-sans uppercase h-10"
                                             name="contact"
-                                            onChange={handleInputChange_2}
-                                            value={formData_2.contact}
+                                            readOnly
+                                            value={selectedPatientId.contact}
                                             maxLength={10}
                                             minLength={10}
                                             placeholder="phone number"

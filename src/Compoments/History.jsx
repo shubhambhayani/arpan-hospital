@@ -147,20 +147,26 @@ export default function History() {
                               {index + 1}
                             </td>
                             <td className="px-2 py-1 items-center flex flex-row justify-center  uppercase whitespace-nowrap">
-                              {item.image==null?(<>
-                                <span className="text-4xl font-bold bg-cyan-900 text-white w-16 h-16 rounded-full items-center text-center flex justify-center">
-          {item.name.charAt(0)}
-        </span></>):(<><img
-                                className="w-16 h-16 rounded-full object-cover cursor-pointer"
-                                src={`https://arpanhospital.online/${item.image}`}
-                                alt={item.name.charAt(0)} 
-                                onClick={() => {
-                                  handleImageClick(
-                                    `https://arpanhospital.online/${item.image}`
-                                  );
-                                }}
-                              />
-                              </>)}
+                              {item.image == null ? (
+                                <>
+                                  <span className="text-4xl font-bold bg-cyan-900 text-white w-16 h-16 rounded-full items-center text-center flex justify-center">
+                                    {item.name.charAt(0)}
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <img
+                                    className="w-16 h-16 rounded-full object-cover cursor-pointer"
+                                    src={`https://arpanhospital.online/${item.image}`}
+                                    alt={item.name.charAt(0)}
+                                    onClick={() => {
+                                      handleImageClick(
+                                        `https://arpanhospital.online/${item.image}`
+                                      );
+                                    }}
+                                  />
+                                </>
+                              )}
                             </td>
                             <td className="px-2 py-2 text-center uppercase whitespace-nowrap">
                               {item.name}
@@ -345,7 +351,7 @@ export default function History() {
                   </div>
                 </div>
                 <div className="w-full flex flex-col gap-2 p-2">
-                    <div className="w-full text-center bg-cyan-950  text-white p-2 rounded-md sticky top-0 ">
+                  <div className="w-full text-center bg-cyan-950  text-white p-2 rounded-md sticky top-0 ">
                     <h1>PAIN MANAGEMENT</h1>
                   </div>
                   <div className="h-full overflow-auto w-full flex flex-col gap-2 ">
@@ -385,7 +391,7 @@ export default function History() {
         )}
         <div className="bg-slate-200 mt-1 flex flex-row font-serif font-thin items-center justify-center w-full p-3">
           <p>
-            © 2024 . Arpan Multispecialist Hospital . Devloped By{" "}
+            © 2024 . Arpan Advanced Physiotherapy & Fitness Center . Devloped By
             <Link to="https://codzcartinfotech.com/" className="text-blue-800">
               Codzcart Infotech
             </Link>
