@@ -246,7 +246,8 @@ export default function Dashboard() {
   };
 
   const getImageForCategory = (category) => {
-    return images[category];
+    const formattedCategory = category.toLowerCase().replace(' ', '_');
+    return images[formattedCategory];
   };
   const [formData, setFormData] = useState(initialFormData);
   const [formData_1, setFormData_1] = useState(initialFormData_1);
@@ -511,7 +512,7 @@ export default function Dashboard() {
     setSelectedImages([]);
     setPdfFiles([]);
     setButtonEnabled(false);
-    if (selectedDiv === "weight_loss") {
+    if (selectedDiv === "weight loss") {
       try {
         const response = await axios.get(
           `https://arpanhospital.online/appoi_by_id.php?patient_id=${patientId}`
@@ -645,7 +646,7 @@ export default function Dashboard() {
       }
       return
     }
-    if (selectedDiv === "pain_management") {
+    if (selectedDiv === "pain management") {
       try {
         const response = await axios.get(
           `https://arpanhospital.online/pain_by_id.php?patient_id=${patientId}`
@@ -789,7 +790,7 @@ export default function Dashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoad1(true);
-    if (selectedDiv == "weight_loss") {
+    if (selectedDiv == "weight loss") {
       try {
         const doc = new jsPDF();
         doc.setFontSize(13);
@@ -1219,7 +1220,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         console.error(error.message);
       }
     }
-    else if (selectedDiv == "pain_management") {
+    else if (selectedDiv == "pain management") {
       try {  
         const doc = new jsPDF();
         doc.setFontSize(13);
@@ -1233,7 +1234,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
       doc.text("ARPAN ADVANCED PHYSIOTHERAPY & FITNESS CENTER", pageWidth / 2, 12, { align: "center" });
        doc.setFontSize(13);
       doc.setTextColor(127, 29, 29);
-      doc.text("PAIN_MANAGEMENT", pageWidth / 2, 18, { align: "center" });
+      doc.text("PAIN MANAGEMENT", pageWidth / 2, 18, { align: "center" });
         doc.setFontSize(12);
       doc.setTextColor(255, 0, 0);
       doc.text("(A) SUBJECTIVE ASSESSMENT ", pageWidth / 2, 24, { align: "center" });
@@ -2102,8 +2103,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                         className="bg-slate-200   px-2 rounded-md py-2 text-center shadow-lg h-10 shadow-slate-950 font-serif text-md uppercase w-full text-cyan-950"
                                         type="text"
                                         id=""
-                                        
-                                        value={selectedDiv}
+                                        value={selectedDiv==="pain management"?'pain management':selectedDiv}
                                       />
                                     </div>
                                   </div>
@@ -2132,28 +2132,28 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                     FITNESS
                                   </div>
                                   <div
-                                    className={`rounded-md border-2 p-2 cursor-pointer text-center w-full  inline-flex items-center justify-center gap-2 ${selectedDiv === "weight_loss"
+                                    className={`rounded-md border-2 p-2 cursor-pointer text-center w-full  inline-flex items-center justify-center gap-2 ${selectedDiv === "weight loss"
                                         ? "bg-cyan-950 text-white"
                                         : "bg-white text-red-600"
                                       }`}
                                     onClick={() =>
-                                      handleDivClick("weight_loss")
+                                      handleDivClick("weight loss")
                                     }
                                   >
                                     <FaUserDoctor className="text-md" />
                                     WEIGHT LOSS
                                   </div>
                                   <div
-                                    className={`rounded-md border-2 p-2 cursor-pointer text-center w-full inline-flex items-center justify-center gap-2 ${selectedDiv === "pain_management"
+                                    className={`rounded-md border-2 p-2 cursor-pointer text-center w-full inline-flex items-center justify-center gap-2 ${selectedDiv === "pain management"
                                         ? "bg-cyan-950 text-white"
                                         : "bg-white text-red-600"
                                       }`}
                                     onClick={() =>
-                                      handleDivClick("pain_management")
+                                      handleDivClick("pain management")
                                     }
                                   >
                                     <FaUserDoctor className="text-md" />
-                                    PAIN_MANAGEMENT
+                                    PAIN MANAGEMENT
                                   </div>
                                 </div>
                                 {selectedDiv === "physiotherapy" && (
@@ -3765,7 +3765,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                    </div>
                                    
                                 )}
-                                {selectedDiv === "weight_loss" && (
+                                {selectedDiv === "weight loss" && (
                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
                                     <h1 className="text-blue-800 font-serif text-xl">
                                       PERSONAL INFORMATION
@@ -4607,7 +4607,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                     </form>
                                   </div>
                                 )}
-                                {selectedDiv === "pain_management" && (
+                                {selectedDiv === "pain management" && (
                                   <div className="rounded-md flex flex-col gap-3 p-2 bg-slate-200 overflow-auto text-white">
                                 
                                   <form

@@ -104,8 +104,8 @@ export default function History() {
         <div className="h-auto w-full sticky top-0 ">
           <Navbar onSearch={fetchData} />
         </div>
-        <div className="h-full w-full px-4 ">
-          <div className="bg-white rounded-md w-full h-full  shadow-md shadow-black">
+        <div className="h-full w-full px-4 overflow-auto">
+          <div className="bg-white rounded-md w-full h-full overflow-auto shadow-md shadow-black">
             {Load ? (
               <>
                 <div className="w-full h-full flex justify-center items-center">
@@ -118,8 +118,8 @@ export default function History() {
               </>
             ) : (
               <>
-                <table className="w-full h-auto overflow-auto table-auto border-collapse border bg-cover font-serif">
-                  <thead>
+                <table className="w-full h-auto  table-auto border-collapse border bg-cover font-serif">
+                  <thead className="-">
                     <tr className="bg-cyan-950 ">
                       <th className="px-2 py-2 text-center text-xs font-large text-white uppercase tracking-wider">
                         NO
@@ -129,9 +129,6 @@ export default function History() {
                       </th>
                       <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                         NAME
-                      </th>
-                      <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
-                        EMAIL
                       </th>
                       <th className="px-2 py-2 text-center text-xs font-latge text-white  uppercase tracking-wider">
                         CONTACT
@@ -150,21 +147,23 @@ export default function History() {
                               {index + 1}
                             </td>
                             <td className="px-2 py-1 items-center flex flex-row justify-center  uppercase whitespace-nowrap">
-                              <img
+                              {item.image==null?(<>
+                                <span className="text-4xl font-bold bg-cyan-900 text-white w-16 h-16 rounded-full items-center text-center flex justify-center">
+          {item.name.charAt(0)}
+        </span></>):(<><img
                                 className="w-16 h-16 rounded-full object-cover cursor-pointer"
                                 src={`https://arpanhospital.online/${item.image}`}
+                                alt={item.name.charAt(0)} 
                                 onClick={() => {
                                   handleImageClick(
                                     `https://arpanhospital.online/${item.image}`
                                   );
                                 }}
                               />
+                              </>)}
                             </td>
                             <td className="px-2 py-2 text-center uppercase whitespace-nowrap">
                               {item.name}
-                            </td>
-                            <td className="px-2 py-2 text-center whitespace-nowrap">
-                              {item.email}
                             </td>
                             <td className="px-2 py-2 text-center whitespace-nowrap font-sans ">
                               {item.contact}
@@ -312,7 +311,7 @@ export default function History() {
                 </div>
                 <div className="w-full flex flex-col gap-2 p-2 border-r-2 border-black">
                   <div className="w-full text-center bg-cyan-950  text-white p-2 rounded-md sticky top-0 ">
-                    <h1>WEIGHT-LOSS</h1>
+                    <h1>WEIGHT LOSS</h1>
                   </div>
                   <div className="h-full overflow-auto w-full flex flex-col gap-2 ">
                     {appointment && appointment?.pdf_file_3?.length > 0 ? (
@@ -346,8 +345,8 @@ export default function History() {
                   </div>
                 </div>
                 <div className="w-full flex flex-col gap-2 p-2">
-                <div className="w-full text-center bg-cyan-950  text-white p-2 rounded-md sticky top-0 ">
-                    <h1>WEIGHT-LOSS</h1>
+                    <div className="w-full text-center bg-cyan-950  text-white p-2 rounded-md sticky top-0 ">
+                    <h1>PAIN MANAGEMENT</h1>
                   </div>
                   <div className="h-full overflow-auto w-full flex flex-col gap-2 ">
                     {appointment && appointment?.pdf_file_4?.length > 0 ? (
