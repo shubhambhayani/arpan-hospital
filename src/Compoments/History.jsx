@@ -389,14 +389,11 @@ export default function History() {
             </div>
           </div>
         )}
-        <div className="bg-slate-200 mt-1 flex flex-row font-serif font-thin items-center justify-center w-full p-3">
-          <p>
-            © 2024 . Arpan Advanced Physiotherapy & Fitness Center . Devloped By
-            <Link to="https://codzcartinfotech.com/" className="text-blue-800">
-              Codzcart Infotech
-            </Link>
-          </p>
-        </div>
+      <div className="bg-slate-200 flex flex-row font-serif font-thin items-center justify-center w-full p-3">
+  <p>© 2024 . Arpan Advanced Physiotherapy & Fitness Center. Devloped By <Link to="https://codzcartinfotech.com/" className="text-blue-800">
+    Codzcart Infotech
+        </Link></p>
+</div>
       </div>
     </>
   );

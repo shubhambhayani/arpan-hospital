@@ -19,7 +19,9 @@ import image2 from "../element/Weight Loss Icon.jpeg";
 import pain_managment from "../element/pain.jpeg";
 import jsPDF from "jspdf";
 import 'jspdf-autotable';
+import { Link } from "react-router-dom";
 import pdf from "../element/pdf.jpg";
+
 const initialFormData = {
   name: '',
   age: '',
@@ -1835,6 +1837,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
             <div className="w-full h-full overflow-x-hidden">
               <div className="flex md:flex-col lg:flex-row gap-3 p-3  rounded-md">
                 <div className="lg:w-1/4 md:w-full bg-white shadow-lg shadow-slate-900 rounded-md flex items-center justify-center  flex-col">
+                <h1 className="font-serif text-cyan-900">TODAY APPOINMENT DATA</h1>
                   <div className="mb-4 w-full h-full">
                     <Doughnut
                       className="items-center flex flex-row"
@@ -5423,6 +5426,11 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                   )}
                 </div>
               </div>
+            <div className="h-10  flex justify-center items-center bg-slate-200 w-full text-center font-serif font-thin overflow-hidden">
+  <p className="">© 2024 . Arpan Advanced Physiotherapy & Fitness Center. Devloped By <Link to="https://codzcartinfotech.com/" className="text-blue-800">
+    Codzcart Infotech
+        </Link></p>
+</div>
             </div>
           </>
         )}
