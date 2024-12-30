@@ -56,7 +56,6 @@ const initialFormData = {
   observation: '',
   tend: 0,
   crepitus: 0,
-  scar: 0,
   scarv:'',
   swelling: 0,
   palpOthers: 0,
@@ -151,7 +150,6 @@ const initialFormData_2 = {
   observation: '',
   tend: 0,
   crepitus: 0,
-  scar: 0,
   scarv:'',
   swelling: 0,
   palpOthers: 0,
@@ -201,7 +199,6 @@ const initialFormData_3 = {
   observation: '',
   tend: 0,
   crepitus: 0,
-  scar: 0,
   scarv:'',
   swelling: 0,
   palpOthers: 0,
@@ -261,18 +258,6 @@ export default function Dashboard() {
     setSelectedDiv(category);
   };
   useEffect(() => {
-  if(formData.scar == "")
-    {
-      setFormData({ scar: 'heal' });
-    }
-    if(formData_2.scar == "")
-      {
-        setFormData_2({ scar: 'heal' });
-      }
-      if(formData_3.scar == "")
-        {
-          setFormData_3({ scar: 'heal' });
-        }
         if(formData_3.duration == "")
           {
             setFormData_3({ duration: 'acute' });
@@ -627,7 +612,6 @@ export default function Dashboard() {
           observation: appointmentData.observation,
           tend: appointmentData.tend,
           crepitus: appointmentData.crepitus,
-          scar: appointmentData.scar,
           scarv: appointmentData.scarv,
           swelling: appointmentData.swelling,
           palpOthers: appointmentData.palpOthers,
@@ -698,7 +682,6 @@ export default function Dashboard() {
           observation: appointmentData.observation,
           tend: appointmentData.tend,
           crepitus: appointmentData.crepitus,
-          scar: appointmentData.scar,
           scarv:appointmentData.scarv,
           swelling: appointmentData.swelling,
           palpOthers: appointmentData.palpOthers,
@@ -765,7 +748,6 @@ export default function Dashboard() {
           tend: appointmentData.tend,
           dob:appointmentData.dob,
           crepitus: appointmentData.crepitus,
-          scar: appointmentData.scar,
           scarv: appointmentData.scarv,
           swelling: appointmentData.swelling,
           palpOthers: appointmentData.palpOthers,
@@ -1073,9 +1055,8 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         { label: "PALPATION", value: '---' },
         { label: "1)Tenderness", value: formData.tend == 1 ? "Yes" : "No"},
         { label: "2)Crepitus", value: formData.crepitus == 1 ? "Yes" : "No"},
-        { label: "3)Scar", value: formData.scar == 1 ? "Yes" : "No"},
-        {label:  "4)Scar Type",value:formData.scar == 1 ? `${formData.scarv}` : "---"},
-        { label: "5)other Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
+        {label:  "3)Scar",value:formData.scarv !== "" ? `${formData.scarv}` : "---"},
+        { label: "4)other Palpation", value: formData.other_p_value_2 !== "" ? `${formData.other_p_value_2}` : " --- "},
         { title: " ", colSpan: 2 },
         { label: "EXAMINATION", value: formData.examination !== "" ? `${formData.examination}` : " --- "},
         { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData.investRadioFinding !== "" ? `${formData.investRadioFinding}` : " --- "},
@@ -1144,7 +1125,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
             didDrawPage: addPageBorder
         });
         
-        const pdfData = doc.output('arraybuffer'); // Get PDF data as array buffer
+        const pdfData = doc.output('arraybuffer'); 
         const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
 
         const formDataObject = new FormData();
@@ -1191,8 +1172,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("observation", formData.observation);
         formDataObject.append("tend", formData.tend);
         formDataObject.append("crepitus", formData.crepitus);
-        formDataObject.append("scar", formData.scar);
-        formDataObject.append("scarv", formData.scar==1 ? formData.scarv : " --- "); 
+        formDataObject.append("scarv", formData.scarv); 
         formDataObject.append("swelling", formData.swelling);
         formDataObject.append("palpOthers", formData.palpOthers);
         formDataObject.append("examination", formData.examination);
@@ -1288,10 +1268,9 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         { label: "PALPATION", value: '---' },
         { label: "1)Tenderness", value: formData_2.tend == 1 ? "Yes" : "No"},
         { label: "2)Crepitus", value: formData_2.crepitus == 1 ? "Yes" : "No"},
-        { label: "3)Scar", value: formData_2.scar == 1 ? "Yes" : "No"},
-        {label:  "4)Scar Type",value:formData_2.scar == 1 ? `${formData_2.scarv}` : "---"},
-        { label: "5)Swelling ", value: formData_2.swelling == 1 ? "Yes" : "No" },
-        { label: "6)other Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
+        {label:  "3)Scar",value:formData_2.scarv !== "" ? `${formData_2.scarv}` : "---"},
+        { label: "4)Swelling ", value: formData_2.swelling == 1 ? "Yes" : "No" },
+        { label: "5)other Palpation", value: formData_2.other_p_value_2 !== "" ? `${formData_2.other_p_value_2}` : " --- "},
         { title: " ", colSpan: 2 },
         { label: "EXAMINATION", value: formData_2.examination !== "" ? `${formData_2.examination}` : " --- "},
         { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData_2.investRadioFinding !== "" ? `${formData_2.investRadioFinding}` : " --- "},
@@ -1407,8 +1386,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("observation", formData_2.observation);
         formDataObject.append("tend", formData_2.tend);
         formDataObject.append("crepitus", formData_2.crepitus);
-        formDataObject.append("scar", formData_2.scar);
-        formDataObject.append("scarv", formData_2.scar==1 ? formData_2.scarv : " --- "); 
+        formDataObject.append("scarv", formData_2.scarv); 
         formDataObject.append("swelling", formData_2.swelling);
         formDataObject.append("palpOthers", formData_2.palpOthers);
         formDataObject.append("examination", formData_2.examination);
@@ -1503,10 +1481,9 @@ const fields = [
   { label: "PALPATION", value: '---' },
   { label: "1)Tenderness", value: formData_3.tend == 1 ? "Yes" : "No"},
   { label: "2)Crepitus", value: formData_3.crepitus == 1 ? "Yes" : "No"},
-  { label: "3)Scar", value: formData_3.scar == 1 ? "Yes" : "No"},
-  {label:  "4)Scar Type",value:formData_3.scar == 1 ? `${formData_3.scarv}` : "---"},
-  { label: "5)Swelling ", value: formData_3.swelling == 1 ? "Yes" : "No" },
-  { label: "6)other Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
+  {label:  "3)Scar",value:formData_3.scarv !== "" ? `${formData_3.scarv}` : "---"},
+  { label: "4)Swelling ", value: formData_3.swelling == 1 ? "Yes" : "No" },
+  { label: "5)other Palpation", value: formData_3.other_p_value_2 !== "" ? `${formData_3.other_p_value_2}` : " --- "},
   { title: " ", colSpan: 2 },
   { label: "EXAMINATION", value: formData_3.examination !== "" ? `${formData_3.examination}` : " --- "},
   { label: "INVESTIGATION/RADIOLOGICAL FINDINGS", value: formData_3.investRadioFinding !== "" ? `${formData_3.investRadioFinding}` : " --- "},
@@ -1620,8 +1597,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
         formDataObject.append("observation", formData_3.observation);
         formDataObject.append("tend", formData_3.tend);
         formDataObject.append("crepitus", formData_3.crepitus);
-        formDataObject.append("scar", formData_3.scar);
-        formDataObject.append("scarv", formData_3.scar==1 ? formData_3.scarv : " --- "); 
+        formDataObject.append("scarv",  formData_3.scarv ); 
         formDataObject.append("swelling", formData_3.swelling);
         formDataObject.append("palpOthers", formData_3.palpOthers);
         formDataObject.append("examination", formData_3.examination);
@@ -2725,21 +2701,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                 </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">scar</label>
-                                                <div className="flex flex-col gap-2 ">
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="1"  checked={
-                                                  formData.scar == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange}/>Yes</div>
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="0"  checked={
-                                                  formData.scar == 0
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange} />No</div>
-                                                </div>
-                                                {formData.scar == 1 && (<div className="flex flex-col gap-2 ">
+                                               <div className="flex flex-col gap-2 ">
                                                   <div className="inline-flex gap-1"><input type="radio" name="scarv" value="heal"  checked={
                                                   formData.scarv == 'heal'
                                                     ? true
@@ -2752,7 +2714,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                     : false
                                                 }
                                                 onChange={handleInputChange} />No heal</div>
-                                                </div>)}
+                                                 <div className="inline-flex gap-1"><input type="radio" name="scarv" value="no"  checked={
+                                                  formData.scarv == 'no'
+                                                    ? true
+                                                    : false
+                                                }
+                                                onChange={handleInputChange} />No</div>
+                                                </div>
                                               </div>
                                                 <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                   <input
@@ -3551,21 +3519,7 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">scar</label>
-                                                <div className="flex flex-col gap-2 ">
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="1"  checked={
-                                                  formData_3.scar == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3}/>Yes</div>
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="0"  checked={
-                                                  formData_3.scar == 0
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_3} />No</div>
-                                                </div>
-                                                {formData_3.scar == 1 && (<div className="flex flex-col gap-2 ">
+                                               <div className="flex flex-col gap-2 ">
                                                   <div className="inline-flex gap-1"><input type="radio" name="scarv" value="heal"  checked={
                                                   formData_3.scarv == 'heal'
                                                     ? true
@@ -3578,7 +3532,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                     : false
                                                 }
                                                 onChange={handleInputChange_3} />No heal</div>
-                                                </div>)}
+                                                  <div className="inline-flex gap-1"><input type="radio" name="scarv" value="no"  checked={
+                                                  formData_3.scarv == 'no'
+                                                    ? true
+                                                    : false
+                                                }
+                                                onChange={handleInputChange_3}/>No</div>
+                                                </div>
                                               </div>
                                                <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                  <input
@@ -5218,20 +5178,6 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                               <label className="text-red-600 uppercase font-serif" htmlFor="">scar</label>
                                                 <div className="flex flex-col gap-2 ">
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="1"  checked={
-                                                  formData_2.scar == 1
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2}/>Yes</div>
-                                                  <div className="inline-flex gap-1"><input type="radio" name="scar" value="0"  checked={
-                                                  formData_2.scar == 0
-                                                    ? true
-                                                    : false
-                                                }
-                                                onChange={handleInputChange_2} />No</div>
-                                                </div>
-                                                {formData_2.scar == 1 && (<div className="flex flex-col gap-2 ">
                                                   <div className="inline-flex gap-1"><input type="radio" name="scarv" value="heal"  checked={
                                                   formData_2.scarv == 'heal'
                                                     ? true
@@ -5244,7 +5190,13 @@ const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
                                                     : false
                                                 }
                                                 onChange={handleInputChange_2} />No heal</div>
-                                                </div>)}
+                                                <div className="inline-flex gap-1"><input type="radio" name="scarv" value="no"  checked={
+                                                  formData_2.scarv == 'no'
+                                                    ? true
+                                                    : false
+                                                }
+                                                onChange={handleInputChange_2} />No</div>
+                                                </div>
                                               </div>
                                               <div className="inline-flex gap-2 font-serif text-red-600 uppercase items-center w-full">
                                                 <input
